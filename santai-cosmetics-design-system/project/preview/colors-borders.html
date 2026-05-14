@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors — Borders</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px; background: var(--bg); font-family: var(--font-body); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .demo { background: var(--bg-soft); padding: 18px; }
+  .demo.dark { background: var(--fg); color: var(--bg); }
+  .line { height: 1px; margin: 12px 0; }
+  .lbl { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-soft); }
+  .demo.dark .lbl { color: var(--bg); opacity: .7; }
+  .hex  { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  .demo.dark .hex { color: var(--bg); opacity: .6; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="demo">
+      <div class="lbl">line-soft</div>
+      <div class="line" style="background:#C9BDA9"></div>
+      <div class="hex">#C9BDA9 · on cream</div>
+    </div>
+    <div class="demo dark">
+      <div class="lbl">line</div>
+      <div class="line" style="background:#2A2320"></div>
+      <div class="hex">#2A2320 · on ink</div>
+    </div>
+  </div>
+</body>
+</html>

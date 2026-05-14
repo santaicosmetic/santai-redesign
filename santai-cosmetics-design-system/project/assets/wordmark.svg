@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80" role="img" aria-label="santai">
+  
+  <text class="word" x="6" y="58">santa</text>
+  
+  <text class="word" x="216" y="58">i</text>
+  
+  <g transform="translate(229.5, 14) rotate(45)">
+    <rect x="-5" y="-5" width="10" height="10" fill="#8A4A3D"></rect>
+  </g>
+</svg>

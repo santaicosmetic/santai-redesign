@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Santai Cosmetics — Magnetic lashes, made for effortless beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Serif+Display:ital@0;1&family=Italiana&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css"/>
+</head>
+<body data-screen-label="00 Site shell">
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="ProductCard.jsx"></script>
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="Footer.jsx"></script>
+<script type="text/babel" src="CartDrawer.jsx"></script>
+<script type="text/babel" src="LashFinder.jsx"></script>
+<script type="text/babel" src="Homepage.jsx"></script>
+<script type="text/babel" src="PDP.jsx"></script>
+<script type="text/babel" src="HowToApply.jsx"></script>
+
+<script type="text/babel">
+const TYPE_PAIRINGS = {
+  "tenor-dm":     { display: '"Tenor Sans", Georgia, serif',           italic: '"Cormorant Garamond", Georgia, serif',   body: '"DM Sans", system-ui, sans-serif',           label: "Tenor Sans + DM Sans" },
+  "cormorant-dm": { display: '"Cormorant Garamond", Georgia, serif',   italic: '"Cormorant Garamond", Georgia, serif',   body: '"DM Sans", system-ui, sans-serif',           label: "Cormorant Garamond + DM Sans" },
+  "bodoni-public":{ display: '"Bodoni Moda", Georgia, serif',          italic: '"Bodoni Moda", Georgia, serif',          body: '"Public Sans", system-ui, sans-serif',       label: "Bodoni Moda + Public Sans" },
+  "dmserif-mulish":{ display: '"DM Serif Display", Georgia, serif',    italic: '"DM Serif Display", Georgia, serif',     body: '"Mulish", system-ui, sans-serif',            label: "DM Serif Display + Mulish" },
+  "italiana-jakarta":{ display: '"Italiana", Georgia, serif',          italic: '"Cormorant Garamond", Georgia, serif',   body: '"Plus Jakarta Sans", system-ui, sans-serif', label: "Italiana + Plus Jakarta Sans" },
+};
+function SantaiApp() {
+  const [tw, setTw] = useTweaks(/*EDITMODE-BEGIN*/{
+    "typePairing": "tenor-dm"
+  }/*EDITMODE-END*/);
+  React.useEffect(() => {
+    const p = TYPE_PAIRINGS[tw.typePairing] || TYPE_PAIRINGS["tenor-dm"];
+    document.documentElement.style.setProperty("--font-display", p.display);
+    document.documentElement.style.setProperty("--font-display-italic", p.italic);
+    document.documentElement.style.setProperty("--font-body", p.body);
+  }, [tw.typePairing]);
+  const [route, setRoute] = React.useState({ name: "home" });
+  const [cart, setCart] = React.useState([]);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [finderOpen, setFinderOpen] = React.useState(false);
+  const [toast, setToast] = React.useState("");
+
+  const goto = (name, payload) => {
+    setRoute({ name, payload });
+    window.scrollTo({ top: 0 });
+  };
+
+  const onNav = (id) => {
+    if (id === "home") goto("home");
+    else if (id === "lashes") goto("home"); // could be PLP
+    else if (id === "how") goto("howto");
+    else goto("home");
+  };
+
+  const addToCart = (p) => {
+    setCart(c => [...c, p]);
+    setToast("Added. One step closer to effortless.");
+    setTimeout(() => setCartOpen(true), 400);
+  };
+
+  return (
+    <>
+      <SantaiHeader
+        current={route.name === "howto" ? "how" : route.name === "home" ? "home" : null}
+        onNav={onNav}
+        onCart={() => setCartOpen(true)}
+        cartCount={cart.length}
+      />
+      {route.name === "home" && (
+        <SantaiHomepage
+          onFind={() => setFinderOpen(true)}
+          onWatch={() => goto("howto")}
+          onOpen={(p) => goto("pdp", p)}
+        />
+      )}
+      {route.name === "pdp" && (
+        <SantaiPDP product={route.payload} onAdd={addToCart} onFind={() => setFinderOpen(true)}/>
+      )}
+      {route.name === "howto" && (
+        <SantaiHowToApply/>
+      )}
+      <SantaiFooter/>
+      {finderOpen && (
+        <SantaiLashFinder
+          onClose={() => setFinderOpen(false)}
+          onAdd={addToCart}
+        />
+      )}
+      <SantaiCartDrawer
+        open={cartOpen}
+        items={cart}
+        onClose={() => setCartOpen(false)}
+        onRemove={(id) => setCart(c => c.filter(x => x.id !== id))}
+      />
+      <SantaiToast message={toast} onHide={() => setToast("")}/>
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Type pairing">
+          <TweakSelect
+            tweak="typePairing"
+            value={tw.typePairing}
+            onChange={(v) => setTw("typePairing", v)}
+            options={Object.entries(TYPE_PAIRINGS).map(([k, v]) => ({ value: k, label: v.label }))}
+          />
+          <div style={{marginTop: 12, fontFamily: "var(--font-display)", fontSize: 28, lineHeight: 1.1, letterSpacing: "0.01em"}}>Lashes in a snap.</div>
+          <div style={{marginTop: 4, fontFamily: "var(--font-body)", fontSize: 13, color: "#7A6E64"}}>Magnetic, the way it should be.</div>
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+function SantaiToastWrap(){return null;}
+ReactDOM.createRoot(document.getElementById("root")).render(<SantaiApp/>);
+</script>
+</body>
+</html>

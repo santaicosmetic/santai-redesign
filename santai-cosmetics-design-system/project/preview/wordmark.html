@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Wordmark</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 0; background: var(--bg); font-family: var(--font-body); display: grid; grid-template-columns: 1fr 1fr; min-height: 200px; }
+  .panel { display: grid; place-items: center; padding: 30px; }
+  .panel.dark { background: var(--fg); }
+  .panel img { width: 220px; height: auto; }
+  .lbl { position: absolute; font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); letter-spacing: .04em; }
+  .panel.dark .lbl { color: var(--bg); opacity: .55; }
+  .panel { position: relative; }
+  .lbl { bottom: 12px; left: 14px; }
+</style>
+</head>
+<body>
+  <div class="panel"><img src="../assets/wordmark.svg" alt="santai"/><span class="lbl">on cream · ink + rosewood</span></div>
+  <div class="panel dark"><img src="../assets/wordmark-cream.svg" alt="santai"/><span class="lbl">on ink · cream + blush</span></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors — Neutrals</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 20px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { aspect-ratio: 1.6/1; border: 1px solid var(--line); border-radius: 4px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--font-body); }
+  .sw .name { font-size: 12px; font-weight: 500; color: var(--fg); }
+  .sw .hex  { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); letter-spacing: 0.02em; }
+  .sw.dark .name, .sw.dark .hex { color: var(--bg); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw" style="background:#FAF6EF"><span class="name">bone</span><span class="hex">#FAF6EF</span></div>
+    <div class="sw" style="background:#F5EFE6"><span class="name">cream</span><span class="hex">#F5EFE6</span></div>
+    <div class="sw" style="background:#E8E0D3"><span class="name">stone</span><span class="hex">#E8E0D3</span></div>
+    <div class="sw" style="background:#D9CDB9"><span class="name">sand</span><span class="hex">#D9CDB9</span></div>
+  </div>
+</body>
+</html>

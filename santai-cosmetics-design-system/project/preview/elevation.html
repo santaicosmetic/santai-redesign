@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Elevation</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 32px; background: var(--bg); font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .box { width: 110px; height: 60px; background: var(--bg-soft); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); letter-spacing: .04em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell"><div class="box" style="box-shadow:var(--shadow-1)"></div><span class="lbl">shadow-1</span></div>
+    <div class="cell"><div class="box" style="box-shadow:var(--shadow-2)"></div><span class="lbl">shadow-2</span></div>
+    <div class="cell"><div class="box" style="box-shadow:var(--shadow-3)"></div><span class="lbl">shadow-3</span></div>
+    <div class="cell"><div class="box" style="box-shadow:var(--shadow-hover)"></div><span class="lbl">hover · rosewood</span></div>
+  </div>
+</body>
+</html>

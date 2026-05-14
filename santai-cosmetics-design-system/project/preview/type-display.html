@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Type — Display</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  :root {
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-display-italic: "Pinyon Script", "Cormorant Garamond", cursive;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+  body { margin: 0; padding: 32px 40px; background: var(--bg); }
+  .stack > * + * { margin-top: 6px; }
+  .meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; color: var(--fg-muted); text-transform: uppercase; }
+  .display-xl { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.01em; }
+  .display-l  { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
+  .display-italic { font-family: var(--font-display-italic); font-style: normal; font-weight: 400; letter-spacing: 0; }
+  .pairing-tag { display: inline-block; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); padding: 4px 10px; border: 1px solid var(--line); margin-bottom: 22px; }
+  .pair-body { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-soft); margin-top: 28px; }
+</style>
+</head>
+<body>
+  <div class="stack">
+    <div class="pairing-tag">Cormorant Garamond &nbsp;·&nbsp; Pinyon Script &nbsp;·&nbsp; Inter</div>
+    <div class="meta">display-xl · Cormorant Garamond 300 + Pinyon Script italic accent</div>
+    <div class="display-xl">Lashes in a <span class="display-italic">snap.</span></div>
+    <div class="meta" style="margin-top:18px">display-l · Cormorant Garamond 400</div>
+    <div class="display-l">The collection</div>
+    <div class="meta" style="margin-top:18px">italic accent · Pinyon Script</div>
+    <div class="display-italic" style="font-size:44px; line-height:1.1;">Eunice&rsquo;s Guide</div>
+    <div class="pair-body">Body — Inter, tracked uppercase</div>
+  </div>
+</body>
+</html>

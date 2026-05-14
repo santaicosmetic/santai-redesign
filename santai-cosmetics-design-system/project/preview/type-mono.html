@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Type — Mono &amp; Numerals</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px 32px; background: var(--bg); }
+  .row { display: flex; gap: 32px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; min-width: 110px; letter-spacing: .04em; }
+  .price { font-family: var(--font-body); font-size: 22px; font-weight: 500; color: var(--fg); font-feature-settings: "tnum" 1, "lnum" 1; }
+  .sku { font-family: var(--font-mono); font-size: 13px; color: var(--fg-soft); letter-spacing: .04em; }
+</style>
+</head>
+<body>
+  <div class="row"><span class="meta">price · body sans</span><span class="price">RM 89.00</span></div>
+  <div class="row"><span class="meta">sku · mono</span><span class="sku">SKU-S04-DOE-NAT</span></div>
+  <div class="row"><span class="meta">spec · mono</span><span class="sku">14mm · 6 magnets · 30× wear</span></div>
+</body>
+</html>

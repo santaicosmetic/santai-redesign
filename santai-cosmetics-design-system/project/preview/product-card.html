@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Product card</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 18px; background: var(--bg); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card { background: transparent; cursor: pointer; }
+  .card .img-wrap { position: relative; aspect-ratio: 4/5; background: var(--bg-card); overflow: hidden; }
+  .card .img { position: absolute; inset: 0; display: grid; place-items: center; transition: transform 600ms var(--ease-santai); }
+  .card:hover .img { transform: scale(1.02); }
+  .card .badge { position: absolute; top: 12px; left: 12px; font: 500 11px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--fg); }
+  .card .title { font: 400 18px/1.2 var(--font-display); margin-top: 14px; color: var(--fg); }
+  .card .variant { font: 400 13px/1.4 var(--font-body); color: var(--fg-muted); margin-top: 4px; }
+  .card .price { font: 500 15px/1 var(--font-body); margin-top: 8px; color: var(--fg); }
+  .shades { display: flex; gap: 6px; margin-top: 10px; }
+  .shade { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--line); }
+  /* placeholder lash hint */
+  .lash { width: 60%; height: 3px; background: var(--fg); border-radius: 999px; transform: translateY(-12px); position: relative; }
+  .lash::before { content:""; position:absolute; inset:-10px 0 0 0; background: radial-gradient(ellipse at top, var(--fg) 0%, transparent 60%); opacity: .35; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <div class="img-wrap">
+        <span class="badge">Bestseller</span>
+        <div class="img"><div class="lash"></div></div>
+      </div>
+      <div class="title">Style 04</div>
+      <div class="variant">Doe Eye · Natural</div>
+      <div class="price">RM 89.00</div>
+      <div class="shades"><span class="shade" style="background:#1F1A17"></span><span class="shade" style="background:#3D332D"></span><span class="shade" style="background:#6B362C"></span></div>
+    </div>
+    <div class="card">
+      <div class="img-wrap">
+        <span class="badge">New</span>
+        <div class="img"><div class="lash" style="width:70%;height:4px"></div></div>
+      </div>
+      <div class="title">Style 07</div>
+      <div class="variant">Wispy · Volumed</div>
+      <div class="price">RM 95.00</div>
+      <div class="shades"><span class="shade" style="background:#1F1A17"></span><span class="shade" style="background:#3D332D"></span></div>
+    </div>
+  </div>
+</body>
+</html>

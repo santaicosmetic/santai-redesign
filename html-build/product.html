@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pitch — your secret weapon in every meeting. Magnetic lashes for the work day.">
+<title>Pitch · Santai Cosmetics</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-screen="pdp">
+
+<!-- ==================== HEADER ==================== -->
+<header class="site-header">
+  <div class="utility-bar" data-utility-bar data-messages='["Free shipping over RM150","Free 5-min Lash Match — find yours","Try first, love forever — 14-day return"]'>
+    <span class="utility-bar__msg">Free shipping over RM150</span>
+  </div>
+  <div class="site-header__main">
+    <div class="site-header__left">
+      <button class="site-header__icon" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="site-header__icon site-header__mobile-toggle" aria-label="Open menu" data-mobile-nav-toggle>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <a class="site-header__logo" href="index.html" aria-label="Santai — home">
+      <span class="wordmark">SANTAI</span>
+    </a>
+    <div class="site-header__right">
+      <button class="site-header__icon" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+      </button>
+      <button class="site-header__icon" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.5-9-9.5C1.5 6 5 3 8 4.5c1.6.8 3 2.5 4 4 1-1.5 2.4-3.2 4-4 3-1.5 6.5 1.5 5 6-2 5-9 9.5-9 9.5z"/></svg>
+      </button>
+      <button class="site-header__icon" aria-label="Cart" data-cart-open>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span class="site-header__cart-count" data-cart-count style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <button class="site-nav__close" data-mobile-nav-close aria-label="Close menu">✕</button>
+    <ul>
+      <li class="site-nav__shop">
+        <a href="#" class="is-current">Shop <span class="site-nav__caret" aria-hidden="true">▾</span></a>
+        <div class="site-nav__dropdown">
+          <a href="collection.html">Shop by eye shape</a>
+          <a href="collection.html">Shop by makeup</a>
+          <a href="collection.html">Shop all products</a>
+        </div>
+      </li>
+      <li><a href="how-to-apply.html">How to Apply</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="pdp">
+
+  <!-- ==================== PDP HERO ==================== -->
+  <section class="pdp-hero container">
+    <div class="pdp-hero__gallery">
+      <div class="pdp-hero__main">
+        <img src="assets/images/products/lash-3-boardroom.jpg" alt="Pitch magnetic lashes — main view" loading="eager">
+      </div>
+      <div class="pdp-hero__thumbs">
+        <button class="pdp-hero__thumb is-active" data-pdp-thumb type="button">
+          <img src="assets/images/products/lash-3-boardroom.jpg" alt="Pitch — packshot" loading="lazy">
+        </button>
+        <button class="pdp-hero__thumb" data-pdp-thumb type="button">
+          <img src="assets/images/products/lash-2-pitch.jpg" alt="Pitch — worn close-up" loading="lazy">
+        </button>
+        <button class="pdp-hero__thumb" data-pdp-thumb type="button">
+          <img src="assets/images/lifestyle/lifestyle-5.jpg" alt="Pitch — flatlay" loading="lazy">
+        </button>
+        <button class="pdp-hero__thumb" data-pdp-thumb type="button">
+          <img src="assets/images/lifestyle/lifestyle-6.jpg" alt="Pitch — alt flatlay" loading="lazy">
+        </button>
+      </div>
+    </div>
+    <div class="pdp-hero__info">
+      <div class="eyebrow">Bestseller · Work hours</div>
+      <h1 class="display-l pdp-hero__h"><span class="display-italic">Pitch.</span></h1>
+      <div class="pdp-hero__sku mono">SKU-PIT-001</div>
+      <p class="pdp-hero__blurb">Your secret weapon in every meeting. Defined enough to be seen, restrained enough to stay yours.</p>
+      <div class="pdp-hero__chips">
+        <span class="chip-static">Work hours</span>
+        <span class="chip-static">Daily wear</span>
+        <span class="chip-static">Natural finish</span>
+      </div>
+      <div class="pdp-hero__price tnum">RM 89</div>
+      <div class="pdp-hero__ctas">
+        <button class="btn btn-accent" data-add-to-cart data-product-id="pitch" data-product-name="Pitch" data-product-variant="Work hours" data-product-price="RM 89" data-product-bg="#ECECEC" type="button">Add to bag</button>
+      </div>
+      <p class="small pdp-hero__note">Same-day Klang Valley dispatch · Free returns within 14 days</p>
+
+      <!-- Inline accordions — Description / Shipping / How to wear / What's included -->
+      <div class="pdp-info-accordions">
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>Description</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            <p>Pitch is the Santai daily wear &mdash; engineered for the woman who walks into the boardroom and never has to think twice about her lashes. The lightweight magnetic band sits seamlessly along your lash line: no glue, no lifting at the corners, no irritation. Six micro-magnets embedded in a flexible polymer band deliver a defined, natural-finish look that holds for up to 16 hours of office-to-dinner wear.</p>
+            <p>Crafted from premium synthetic mink-effect fibres, Pitch suits almond, hooded, and double-lid eye shapes beautifully. Reusable up to 30 times when cared for properly &mdash; store flat in the included compact, wipe gently with the care brush, never touch with mascara. Hypoallergenic, contact-lens friendly, water-resistant against rain, mist, and steam.</p>
+            <p>The honest daily lash that doesn't tug, pull, or pretend. Made for working women in Kuala Lumpur and beyond.</p>
+          </div>
+        </div>
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>Shipping info</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            <p><strong>Klang Valley:</strong> same-day dispatch on orders placed before 2pm.</p>
+            <p><strong>West Malaysia:</strong> 1&ndash;3 working days via J&amp;T or Pos Laju.</p>
+            <p><strong>East Malaysia:</strong> 3&ndash;5 working days.</p>
+            <p><strong>Free shipping</strong> on orders over RM 150.</p>
+            <p>International shipping available &mdash; see our shipping page for rates.</p>
+          </div>
+        </div>
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>How to wear</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            <p><strong>Step 1.</strong> Apply Santai magnetic liner along your lash line. Let dry fully (~30 seconds).</p>
+            <p><strong>Step 2.</strong> Hold the band a hair above your natural lashes. The magnets guide themselves home.</p>
+            <p><strong>Step 3.</strong> Press gently from the inner corner outward to seat the band.</p>
+            <p><strong>To remove:</strong> slide a fingertip along the band and lift cleanly. No tugging, no residue.</p>
+          </div>
+        </div>
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>What's included</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            <ul>
+              <li>1 pair of Pitch magnetic lashes</li>
+              <li>Storage compact with mirror</li>
+              <li>Magnetic liner (3.5ml, jet black)</li>
+              <li>Application tweezer</li>
+              <li>Care brush</li>
+              <li>Care guide card</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PDP TRUST STRIP ==================== -->
+  <section class="pdp-trust">
+    <div class="container pdp-trust__inner">
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">3-second application</div>
+          <div class="pdp-trust__s">Even on your first try</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">Lasts 3&ndash;12 months</div>
+          <div class="pdp-trust__s">Up to 30 wears per pair</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="M16.71 13.88l.7.71-2.82 2.82"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">RM 0.30 per wear</div>
+          <div class="pdp-trust__s">Less than your morning coffee</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">Hypoallergenic</div>
+          <div class="pdp-trust__s">No glue, no irritation</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PDP COMPARISON ==================== -->
+  <section class="comparison">
+    <div class="container">
+      <div class="comparison__head">
+        <div class="eyebrow">The honest comparison</div>
+        <h2 class="display-l">Beauty <span class="display-italic">shouldn't hurt.</span></h2>
+        <p class="comparison__sub">Gentle lashes, made easy.</p>
+      </div>
+      <div class="comparison__table">
+
+        <div class="comparison__cell comparison__cell--head">Feature</div>
+        <div class="comparison__cell comparison__cell--head comparison__cell--santai-head">Santai</div>
+        <div class="comparison__cell comparison__cell--head">Strip Lashes</div>
+        <div class="comparison__cell comparison__cell--head">Lash Extensions</div>
+
+        <div class="comparison__cell comparison__cell--feature">Apply &amp; remove</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">3 seconds</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+
+        <div class="comparison__cell comparison__cell--feature">Lasts up to</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">3&ndash;12 months</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+
+        <div class="comparison__cell comparison__cell--feature">Gentle on natural lashes</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">No glue, no pulling</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+
+        <div class="comparison__cell comparison__cell--feature">Technology</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">Soft magnet</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+
+        <div class="comparison__cell comparison__cell--feature">Water &amp; wind resistant</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">Water proof</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PDP SEE IT IN ACTION (single video) ==================== -->
+  <section class="pdp-action container">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">See it in action</div>
+        <h2 class="display-l">Watch how it <span class="display-italic">works.</span></h2>
+      </div>
+    </div>
+    <div class="pdp-action__video" role="button" tabindex="0" aria-label="Play product demo video">
+      <img src="assets/images/hero/hero-1-applying.jpg" alt="" loading="lazy">
+      <button class="pdp-action__play" type="button" aria-label="Play video">▶</button>
+    </div>
+    <p class="pdp-action__caption">60-second demo &middot; how Pitch goes on</p>
+  </section>
+
+  <!-- ==================== PDP HOW TO ==================== -->
+  <section class="section container pdp-howto">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">How to apply</div>
+        <h2 class="display-l">Three steps. <span class="display-italic">Thirty seconds.</span></h2>
+      </div>
+    </div>
+    <div class="pdp-howto__grid">
+      <article class="pdp-step">
+        <div class="pdp-step__image">
+          <img src="assets/images/hero/hero-1-applying.jpg" alt="" loading="lazy">
+        </div>
+        <div class="eyebrow pdp-step__label">Step 1</div>
+        <h3 class="pdp-step__t">Place at the lash line</h3>
+        <p class="pdp-step__d">Hold the band a hair above your natural lashes. The magnets do the work.</p>
+      </article>
+      <article class="pdp-step">
+        <div class="pdp-step__image">
+          <img src="assets/images/hero/hero-3-model.png" alt="" loading="lazy">
+        </div>
+        <div class="eyebrow pdp-step__label">Step 2</div>
+        <h3 class="pdp-step__t">Press from the inner corner</h3>
+        <p class="pdp-step__d">Pinch gently inward, then outward. The strip seats itself.</p>
+      </article>
+      <article class="pdp-step">
+        <div class="pdp-step__image">
+          <img src="assets/images/hero/hero-2-side-angle.jpg" alt="" loading="lazy">
+        </div>
+        <div class="eyebrow pdp-step__label">Step 3</div>
+        <h3 class="pdp-step__t">That's it</h3>
+        <p class="pdp-step__d">No glue. No drying. No commitment. Lift off at end of night.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==================== PDP SUIT GRID ==================== -->
+  <section class="section pdp-suit">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <div class="eyebrow">Will this suit me?</div>
+          <h2 class="display-l">Six eye shapes. <span class="display-italic">Honest verdicts.</span></h2>
+        </div>
+      </div>
+      <div class="pdp-suit__grid">
+        <article class="pdp-suit__cell">
+          <div class="pdp-suit__image" style="background:#ECECEC; opacity:.55"><img src="assets/eye-shapes/monolid.svg" alt="Monolid eye shape"></div>
+          <div class="pdp-suit__verdict">
+            <span class="eyebrow">Try Inbox</span>
+            <h3>Monolid</h3>
+          </div>
+        </article>
+        <article class="pdp-suit__cell">
+          <div class="pdp-suit__image" style="background:#ECECEC"><img src="assets/eye-shapes/almond.svg" alt="Double lid eye shape"></div>
+          <div class="pdp-suit__verdict">
+            <span class="eyebrow" style="color:var(--santai-jade)">Beautiful</span>
+            <h3>Double lid</h3>
+          </div>
+        </article>
+        <article class="pdp-suit__cell">
+          <div class="pdp-suit__image" style="background:#ECECEC"><img src="assets/eye-shapes/hooded.svg" alt="Inner double lid eye shape"></div>
+          <div class="pdp-suit__verdict">
+            <span class="eyebrow" style="color:var(--santai-jade)">Beautiful</span>
+            <h3>Inner double lid</h3>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PDP UGC SLIDER ==================== -->
+  <section class="pdp-ugc container" data-ugc-slider>
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">From the community</div>
+        <h2 class="display-l">Real people, <span class="display-italic">real first tries.</span></h2>
+      </div>
+    </div>
+    <div class="ugc-slider__track">
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:50%;height:2px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;Got these from a friend's recommendation. First try below 👇&rdquo;</p>
+          <span class="ugc-card__handle">@aisyah_kl</span>
+        </div>
+      </article>
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:54%;height:3px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;Office bag essentials. Pitch every day this week.&rdquo;</p>
+          <span class="ugc-card__handle">@priya.m</span>
+        </div>
+      </article>
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:48%;height:2px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;took me 3 tries today, getting better lol&rdquo;</p>
+          <span class="ugc-card__handle">@lin.t</span>
+        </div>
+      </article>
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:58%;height:3px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;12-hour shift report: still on.&rdquo;</p>
+          <span class="ugc-card__handle">@mei.handles</span>
+        </div>
+      </article>
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:52%;height:3px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;Wedding makeup test run. Pitch made the cut.&rdquo;</p>
+          <span class="ugc-card__handle">@nadira.j</span>
+        </div>
+      </article>
+
+      <article class="ugc-card">
+        <div class="ugc-card__media" aria-hidden="true"><span class="lash-glyph lash-glyph--cream" style="width:46%;height:2px"></span></div>
+        <button class="ugc-card__play" type="button" aria-label="Play video">▶</button>
+        <div class="ugc-card__overlay">
+          <p class="ugc-card__caption">&ldquo;Monolid honest review. They actually stay flat.&rdquo;</p>
+          <span class="ugc-card__handle">@eka.shafira</span>
+        </div>
+      </article>
+
+    </div>
+    <div class="ugc-slider__nav">
+      <button class="ugc-slider__btn" type="button" data-ugc-prev aria-label="Previous video">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="ugc-slider__btn" type="button" data-ugc-next aria-label="Next video">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== PDP REVIEWS ==================== -->
+  <section class="pdp-reviews">
+    <div class="container">
+      <div class="pdp-reviews__inner">
+
+        <div class="pdp-reviews__head">
+          <div class="pdp-reviews__summary">
+            <div class="pdp-reviews__score">4.8</div>
+            <div class="pdp-reviews__stars-row" aria-label="4.8 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="pdp-reviews__count">Based on 247 reviews</div>
+          </div>
+
+          <div class="pdp-reviews__histogram" aria-label="Rating distribution">
+            <div class="pdp-reviews__bar"><span>5</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:82%"></span></span><span>82%</span></div>
+            <div class="pdp-reviews__bar"><span>4</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:13%"></span></span><span>13%</span></div>
+            <div class="pdp-reviews__bar"><span>3</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:3%"></span></span><span>3%</span></div>
+            <div class="pdp-reviews__bar"><span>2</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:1%"></span></span><span>1%</span></div>
+            <div class="pdp-reviews__bar"><span>1</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:1%"></span></span><span>1%</span></div>
+          </div>
+        </div>
+
+        <div class="pdp-reviews__filters" role="group" aria-label="Filter reviews">
+          <span class="pdp-reviews__filter-label">Filter:</span>
+          <button class="pdp-reviews__filter is-active" type="button">All</button>
+          <button class="pdp-reviews__filter" type="button">Monolid</button>
+          <button class="pdp-reviews__filter" type="button">Double lid</button>
+          <button class="pdp-reviews__filter" type="button">Inner double lid</button>
+          <button class="pdp-reviews__filter" type="button">With photos</button>
+        </div>
+
+        <div class="pdp-review-list">
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <span class="pdp-review__date">3 days ago</span>
+            </div>
+            <h3 class="pdp-review__title">Honestly didn't believe it would work</h3>
+            <p class="pdp-review__body">First time trying magnetic lashes after years of mascara only. Was skeptical because every YouTube tutorial makes it look so easy and I'm bad at makeup. Took me about 4 tries to get them on properly on day 1 but by day 3 I was doing it in under a minute. They sit completely flat on my monolid which is what I was worried about. Wore them to a wedding last weekend and they stayed on for 14 hours. Will definitely repurchase.</p>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Aisyah R.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Monolid</span>
+            </div>
+          </article>
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <span class="pdp-review__date">1 week ago</span>
+            </div>
+            <h3 class="pdp-review__title">Lighter than expected</h3>
+            <p class="pdp-review__body">These are seriously light. I keep forgetting I have them on.</p>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Priya M.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Double lid</span>
+            </div>
+          </article>
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+              <span class="pdp-review__date">1 week ago</span>
+            </div>
+            <h3 class="pdp-review__title">Took some practice but worth it</h3>
+            <p class="pdp-review__body">Honest review: not as easy as the videos make it look. The magnets need to align properly or the band lifts at the corner. Once you figure out the angle though, it's genuinely a 30-second job. Knocked off one star because the instructions could be clearer for first-timers like me — would've been nice if there was a QR code in the box linking to the tutorial.</p>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Lin T.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Inner double lid</span>
+            </div>
+          </article>
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <span class="pdp-review__date">2 weeks ago</span>
+            </div>
+            <h3 class="pdp-review__title">Bought as a gift, kept them</h3>
+            <p class="pdp-review__body">Originally bought for my sister but tried them once and ordered another set for her. The compact case is gorgeous and makes the whole experience feel premium. I get compliments every time I wear them, and when I tell people they're magnetic they always do a double-take.</p>
+            <div class="pdp-review__photos">
+              <span class="pdp-review__photo"><img src="assets/images/products/lash-2-pitch.jpg" alt="Customer photo"></span>
+              <span class="pdp-review__photo"><img src="assets/images/lifestyle/lifestyle-5.jpg" alt="Customer photo"></span>
+            </div>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Sarah K.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Double lid</span>
+            </div>
+          </article>
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <span class="pdp-review__date">3 weeks ago</span>
+            </div>
+            <h3 class="pdp-review__title">Wore through a 12-hour shift</h3>
+            <p class="pdp-review__body">Nurse here. Wore Pitch for a 12-hour shift including 2 hand-washes and they didn't budge. Removed cleanly at the end of the day, no residue, no irritation. The fact that they're reusable is huge — strip lashes were costing me a small fortune. Already planning to get a second pair for backup.</p>
+            <div class="pdp-review__photos">
+              <span class="pdp-review__photo"><img src="assets/images/products/lash-6-nightshift.jpg" alt="Customer photo"></span>
+            </div>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Mei H.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Double lid</span>
+            </div>
+          </article>
+
+          <article class="pdp-review">
+            <div class="pdp-review__row">
+              <div class="pdp-review__stars" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+              <span class="pdp-review__date">1 month ago</span>
+            </div>
+            <h3 class="pdp-review__title">Good for daily wear</h3>
+            <p class="pdp-review__body">Bought Pitch for office days. They're definitely more subtle than they look in photos which is actually what I wanted — no one at work has noticed they're falsies. Took 4 stars only because the magnetic liner runs out quickly when you're applying daily; would be nice to have a refill option.</p>
+            <div class="pdp-review__meta">
+              <span class="pdp-review__name">Eka P.</span>
+              <span class="pdp-review__verified">Verified buyer</span>
+              <span class="pdp-review__tag">Inner double lid</span>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="pdp-reviews__cta">
+          <a class="btn btn-secondary" href="#">Read all 247 reviews &rarr;</a>
+          <a class="btn-ghost" href="#">Write a review</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PDP EDITORIAL ==================== -->
+  <section class="pdp-editorial">
+    <div class="pdp-editorial__image">
+      <img src="assets/images/lifestyle/lifestyle-3.jpg" alt="" loading="lazy">
+    </div>
+    <div class="pdp-editorial__quote container">
+      <div class="display-m display-italic">
+        &ldquo;I forgot I was wearing them. That's the whole point.&rdquo;
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RELATED PRODUCTS ==================== -->
+  <section class="section container pdp-related">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">You may also like</div>
+        <h2 class="display-l">Built around <span class="display-italic">Pitch</span>.</h2>
+      </div>
+    </div>
+    <div class="bestseller-grid">
+
+      <a class="product-card" href="product.html?style=inbox">
+        <div class="product-card__image">
+          <span class="product-card__badge">First-timer pick</span>
+          <img class="product-card__photo" src="assets/images/products/lash-1-inbox.jpg" alt="Inbox magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Inbox</div>
+        <div class="product-card__variant">Morning</div>
+        <div class="product-card__price tnum">RM 79</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=boardroom">
+        <div class="product-card__image">
+          <span class="product-card__badge">New</span>
+          <img class="product-card__photo" src="assets/images/products/lash-5-minutes.jpg" alt="Boardroom magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Boardroom</div>
+        <div class="product-card__variant">Work hours</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=afterhours">
+        <div class="product-card__image">
+          <span class="product-card__badge">Award winner</span>
+          <img class="product-card__photo" src="assets/images/products/lash-4-afterhours.jpg" alt="Afterhours magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Afterhours</div>
+        <div class="product-card__variant">Evening</div>
+        <div class="product-card__price tnum">RM 105</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=minutes">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/products/lash-6-nightshift.jpg" alt="Minutes magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Minutes</div>
+        <div class="product-card__variant">Work hours</div>
+        <div class="product-card__price tnum">RM 85</div>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="site-footer__newsletter">
+    <div class="site-footer__newsletter-inner">
+      <div>
+        <div class="eyebrow">Newsletter</div>
+        <div class="footer-quote">
+          Join the Santai studio &mdash; get a complimentary <span class="display-italic">lash-fit</span> guide.
+        </div>
+      </div>
+      <form class="footer-form" onsubmit="event.preventDefault()">
+        <input class="footer-input" placeholder="hello@santai.com" type="email" aria-label="Email address">
+        <button class="btn btn-accent" type="submit">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="site-footer__cols">
+    <div>
+      <div class="eyebrow">Help</div>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Care guide</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">Learn</div>
+      <ul>
+        <li><a href="#" data-finder-open>Lash Match quiz</a></li>
+        <li><a href="how-to-apply.html">How to apply</a></li>
+        <li><a href="#">By eye shape</a></li>
+        <li><a href="#">The journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">Connect</div>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Studio loyalty</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">About</div>
+      <ul>
+        <li><a href="#">Our story</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Stockists</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__rule"></div>
+  <div class="site-footer__bottom">
+    <span class="footer-mark wordmark">SANTAI</span>
+    <span class="footer-meta">© 2026 Santai Cosmetics Sdn Bhd · Kuala Lumpur</span>
+    <div class="footer-pay">
+      <span class="pay-tile">FPX</span>
+      <span class="pay-tile">GrabPay</span>
+      <span class="pay-tile">TnG</span>
+      <span class="pay-tile">Boost</span>
+      <span class="pay-tile">Atome</span>
+      <span class="pay-tile">Visa</span>
+      <span class="pay-tile">Mastercard</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== LASH FINDER MODAL ==================== -->
+<div class="finder" data-finder role="dialog" aria-modal="true" aria-label="Lash Match quiz">
+  <div class="finder__bar"><div class="finder__bar-fill" data-finder-bar></div></div>
+  <button class="finder__close" data-finder-close aria-label="Close quiz">✕</button>
+  <button class="btn btn-ghost finder__back" data-finder-back>← Back</button>
+
+  <div class="finder__stage">
+
+    <div class="finder-step is-active" data-finder-step>
+      <div class="eyebrow">Step 1 of 4</div>
+      <h2 class="display-l finder-step__h">Tell us about <span class="display-italic">your</span> eye.</h2>
+      <p class="finder-step__sub">We'll match you in 60 seconds. Pick the shape closest to yours — close enough is fine.</p>
+      <div class="finder-shapes">
+        <button class="finder-shape" data-finder-pick="eye" data-value="monolid"><img src="assets/eye-shapes/monolid.svg" alt=""><span>Monolid</span></button>
+        <button class="finder-shape" data-finder-pick="eye" data-value="double-lid"><img src="assets/eye-shapes/almond.svg" alt=""><span>Double lid</span></button>
+        <button class="finder-shape" data-finder-pick="eye" data-value="inner-double-lid"><img src="assets/eye-shapes/hooded.svg" alt=""><span>Inner double lid</span></button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 2 of 4</div>
+      <h2 class="display-l finder-step__h">What kind of <span class="display-italic">look</span>?</h2>
+      <p class="finder-step__sub">No wrong answer. We carry a style for every mood.</p>
+      <div class="finder-looks">
+        <button class="finder-look" data-finder-pick="look" data-value="natural">
+          <div class="finder-look__image"><span class="lash-glyph" style="width:50%;height:2px"></span></div>
+          <div class="finder-look__copy"><h3 class="finder-look__h">Natural</h3><p class="finder-look__d">Like yours, only better.</p></div>
+        </button>
+        <button class="finder-look" data-finder-pick="look" data-value="office">
+          <div class="finder-look__image"><span class="lash-glyph" style="width:60%;height:3px"></span></div>
+          <div class="finder-look__copy"><h3 class="finder-look__h">Office Polished</h3><p class="finder-look__d">Defined, never demanding.</p></div>
+        </button>
+        <button class="finder-look" data-finder-pick="look" data-value="soft">
+          <div class="finder-look__image"><span class="lash-glyph" style="width:68%;height:3px"></span></div>
+          <div class="finder-look__copy"><h3 class="finder-look__h">Soft Glam</h3><p class="finder-look__d">Dinner-out lashes.</p></div>
+        </button>
+        <button class="finder-look" data-finder-pick="look" data-value="drama">
+          <div class="finder-look__image"><span class="lash-glyph" style="width:78%;height:5px"></span></div>
+          <div class="finder-look__copy"><h3 class="finder-look__h">Full Drama</h3><p class="finder-look__d">When the brief says drama.</p></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 3 of 4</div>
+      <h2 class="display-l finder-step__h">How often will you <span class="display-italic">wear</span>?</h2>
+      <div class="finder-freq">
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="daily"><span class="finder-freq__l">Daily</span><span class="finder-freq__d">Every-day comfort matters most.</span></button>
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="weekly"><span class="finder-freq__l">A few times a week</span><span class="finder-freq__d">Office days and weekends.</span></button>
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="events"><span class="finder-freq__l">Just events</span><span class="finder-freq__d">Weddings, dates, festivals.</span></button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 4 of 4</div>
+      <h2 class="display-l finder-step__h">Anything to <span class="display-italic">flag</span>?</h2>
+      <p class="finder-step__sub">Tap any that apply. We'll factor them in.</p>
+      <div class="finder-flags">
+        <button class="finder-flag" data-finder-flag data-value="sensitive"><span class="finder-flag__check">✓</span>Sensitive eyes</button>
+        <button class="finder-flag" data-finder-flag data-value="contacts"><span class="finder-flag__check">✓</span>Wear contact lenses</button>
+        <button class="finder-flag" data-finder-flag data-value="firsttime"><span class="finder-flag__check">✓</span>First time with lashes</button>
+        <button class="finder-flag" data-finder-flag data-value="lashext"><span class="finder-flag__check">✓</span>Coming off lash extensions</button>
+      </div>
+      <button class="btn btn-accent finder-flag__cta" data-finder-done>See my match</button>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="finder-result">
+        <div class="finder-result__hero" style="background:#F7F7F7">
+          <span class="finder-result__hero-tag eyebrow">Your match</span>
+          <span class="lash-glyph" style="width:56%;height:2px"></span>
+        </div>
+        <div class="finder-result__copy">
+          <div class="eyebrow">Recommended for you</div>
+          <h2 class="display-l"><span class="display-italic">Inbox.</span></h2>
+          <div class="finder-result__price tnum">RM 79</div>
+          <ul class="finder-result__reasons">
+            <li><em>Natural enough for no-makeup days</em>, sharp enough to get noticed.</li>
+            <li>Daily-comfort band &mdash; <em>thirty-second application</em>.</li>
+            <li>30× reusable, hypoallergenic, no glue.</li>
+          </ul>
+          <div class="finder-result__ctas">
+            <button class="btn btn-accent" data-add-to-cart data-product-id="inbox" data-product-name="Inbox" data-product-variant="Morning" data-product-price="RM 79" data-product-bg="#F7F7F7">Add to bag</button>
+            <a class="btn btn-secondary" href="product.html?style=inbox">See full details</a>
+          </div>
+          <a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 8</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== CART DRAWER ==================== -->
+<div class="cart-overlay" data-cart-overlay data-cart-close></div>
+<aside class="cart-drawer" data-cart-drawer aria-label="Cart">
+  <div class="cart-drawer__head">
+    <div>
+      <div class="eyebrow">Your bag</div>
+      <h2 class="display-m" style="margin-top:8px">Bag.</h2>
+    </div>
+    <button class="cart-drawer__close" data-cart-close aria-label="Close">✕</button>
+  </div>
+  <div class="cart-empty" data-cart-empty>
+    <p style="font-family:var(--font-display);font-size:24px;color:var(--fg);max-width:none">Your bag is empty.</p>
+    <p class="small" style="margin-top:8px">Start with our bestseller, <a href="product.html?style=pitch" style="color:var(--accent)">Pitch</a>.</p>
+  </div>
+  <div class="cart-nudge" data-cart-nudge style="display:none">
+    <div class="small" data-cart-nudge-msg>RM150 away from free shipping.</div>
+    <div class="cart-nudge__bar"><div class="cart-nudge__fill" data-cart-nudge-fill></div></div>
+  </div>
+  <div class="cart-items" data-cart-items></div>
+  <div class="cart-drawer__foot" data-cart-foot style="display:none">
+    <div class="cart-total">
+      <span class="eyebrow">Subtotal</span>
+      <span class="cart-total__amount tnum" data-cart-total>RM 0</span>
+    </div>
+    <a class="btn btn-accent cart-drawer__checkout" href="cart.html">Checkout</a>
+  </div>
+</aside>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>

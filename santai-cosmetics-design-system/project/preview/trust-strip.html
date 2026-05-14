@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Trust strip</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 0; background: var(--bg); font-family: var(--font-body); }
+  .strip { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .item { display: flex; gap: 12px; align-items: center; }
+  .glyph { width: 28px; height: 28px; flex: 0 0 28px; color: var(--fg); }
+  .copy .t { font-size: 13px; color: var(--fg); font-weight: 500; }
+  .copy .s { font-size: 12px; color: var(--fg-muted); }
+</style>
+</head>
+<body>
+  <div class="strip">
+    <div class="item">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div class="copy"><div class="t">Apply in 30 seconds</div><div class="s">Even on your first try</div></div>
+    </div>
+    <div class="item">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12c2 5 7 8 9 8s7-3 9-8"/><path d="M3 12c2-5 7-8 9-8s7 3 9 8"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/></svg>
+      <div class="copy"><div class="t">Reusable up to 30×</div><div class="s">Care for them, they last</div></div>
+    </div>
+    <div class="item">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12l4 4 12-12"/></svg>
+      <div class="copy"><div class="t">Hypoallergenic</div><div class="s">No glue, no irritation</div></div>
+    </div>
+    <div class="item">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7h18M6 7v12h12V7"/><path d="M9 11l6 6M15 11l-6 6"/></svg>
+      <div class="copy"><div class="t">Free 14-day returns</div><div class="s">Try first, love forever</div></div>
+    </div>
+  </div>
+</body>
+</html>

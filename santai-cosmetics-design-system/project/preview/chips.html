@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Filter chips</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px 32px; background: var(--bg); }
+  .group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .group + .group { margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="group">
+    <button class="chip" aria-pressed="true">Almond</button>
+    <button class="chip">Hooded</button>
+    <button class="chip">Monolid</button>
+    <button class="chip">Round</button>
+    <button class="chip">Upturned</button>
+    <button class="chip">Downturned</button>
+  </div>
+  <div class="group">
+    <button class="chip">Natural</button>
+    <button class="chip" aria-pressed="true">Office</button>
+    <button class="chip">Soft glam</button>
+    <button class="chip">Full drama</button>
+  </div>
+</body>
+</html>

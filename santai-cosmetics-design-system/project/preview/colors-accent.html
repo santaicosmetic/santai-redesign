@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors — Accent &amp; Functional</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 20px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .sw { aspect-ratio: 1/1; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--font-body); }
+  .sw .name { font-size: 11px; font-weight: 500; }
+  .sw .hex  { font-family: var(--font-mono); font-size: 10px; opacity: .85; }
+  .dark { color: var(--bg); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw dark" style="background:#8A4A3D"><span class="name">rosewood</span><span class="hex">#8A4A3D</span></div>
+    <div class="sw dark" style="background:#6B362C"><span class="name">rosewood-deep</span><span class="hex">#6B362C</span></div>
+    <div class="sw dark" style="background:#4F6B5A"><span class="name">jade</span><span class="hex">#4F6B5A</span></div>
+    <div class="sw dark" style="background:#B8862F"><span class="name">amber</span><span class="hex">#B8862F</span></div>
+    <div class="sw" style="background:#E5C8BC;color:#1F1A17"><span class="name">blush</span><span class="hex">#E5C8BC</span></div>
+  </div>
+</body>
+</html>

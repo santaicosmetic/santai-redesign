@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Form inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px 32px; background: var(--bg); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 600px; }
+  .field { display: flex; flex-direction: column; }
+  .field + .field { margin-top: 0; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="field">
+      <label class="label">Email</label>
+      <input class="input" type="email" placeholder="hello@santai.com"/>
+    </div>
+    <div class="field">
+      <label class="label">Postcode</label>
+      <input class="input" placeholder="50450"/>
+    </div>
+  </div>
+</body>
+</html>

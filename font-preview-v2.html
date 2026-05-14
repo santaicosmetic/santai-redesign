@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Santai — typography + color preview v2 (white background)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter+Tight:ital,wght@0,300..700;1,300..700&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300..700;1,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Manrope:wght@300..700&family=Crimson+Pro:ital,wght@0,300..700;1,300..700&family=Outfit:wght@300..700&family=Italianno&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== Shared layout primitives ===== */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: "Inter Tight", system-ui, sans-serif;
+    background: #FFFFFF;
+    color: #111;
+  }
+
+  .page-head {
+    padding: 56px 48px 32px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #ECECEC;
+  }
+  .page-head h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 40px; font-weight: 400; margin: 0 0 8px;
+  }
+  .page-head p { color: #666; max-width: 680px; margin: 0 0 24px; line-height: 1.6; }
+  .toc { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; }
+  .toc a { color: inherit; text-decoration: none; padding: 8px 14px; border: 1px solid #ECECEC; border-radius: 999px; }
+  .toc a:hover { background: #F7F7F7; }
+
+  /* ===== Variant container ===== */
+  .variant {
+    padding: 96px 48px;
+    border-bottom: 1px solid currentColor;
+  }
+  .variant-head {
+    display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap;
+    padding-bottom: 32px; margin-bottom: 64px;
+    border-bottom: 1px solid currentColor;
+    opacity: 1;
+  }
+  .variant-head > * { opacity: 1; }
+  .variant-tag {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .variant-name {
+    font-family: var(--font-display);
+    font-size: 28px; font-weight: 400; margin: 0;
+    color: var(--ink);
+  }
+  .variant-stack {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--muted);
+  }
+  .variant-ref {
+    font-family: var(--font-body);
+    font-size: 12px; color: var(--muted);
+    font-style: italic;
+  }
+
+  .specimen { display: flex; flex-direction: column; gap: 56px; max-width: 1280px; margin: 0 auto; }
+
+  /* ===== Nav ===== */
+  .specimen-nav {
+    display: flex; gap: 36px; padding: 16px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .specimen-nav span {
+    font-family: var(--font-body);
+    font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink);
+  }
+  .wordmark {
+    margin-left: auto;
+    font-family: var(--font-display);
+    font-weight: 400; font-size: 24px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--ink); padding-left: 0.32em;
+  }
+
+  /* ===== Hero ===== */
+  .specimen-hero { display: grid; gap: 22px; padding: 48px 0; }
+  .specimen-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .specimen-headline {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight, 400);
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    margin: 0;
+    max-width: 14ch;
+    color: var(--ink);
+  }
+  .specimen-headline em {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .specimen-sub {
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.55; color: var(--muted);
+    max-width: 36ch; margin: 0;
+  }
+
+  .specimen-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .btn {
+    font-family: var(--font-body);
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 48px; padding: 14px 28px;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border-radius: 4px; cursor: pointer; text-decoration: none;
+  }
+  .btn-accent {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: var(--bg);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+
+  /* ===== Section heading + product grid ===== */
+  .specimen-section { display: grid; gap: 32px; }
+  .specimen-section-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap;
+  }
+  .specimen-section-title {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight, 400);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.05; margin: 0;
+    color: var(--ink);
+  }
+  .specimen-section-title em { font-family: var(--font-italic); font-style: italic; }
+  .ghost-link {
+    font-family: var(--font-body);
+    font-size: 14px; color: var(--ink);
+    text-decoration: underline; text-underline-offset: 4px;
+  }
+
+  .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 880px) { .product-grid { grid-template-columns: 1fr; } }
+
+  .product-card { display: block; color: inherit; text-decoration: none; }
+  .product-card__image {
+    aspect-ratio: 4/5;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    display: grid; place-items: center; position: relative;
+  }
+  .product-card__lash {
+    width: 60%; height: 3px;
+    background: var(--ink);
+    border-radius: 999px;
+    box-shadow: 0 -8px 14px -6px var(--lash-shadow), 0 -3px 8px -4px var(--lash-shadow);
+  }
+  .product-card__badge {
+    position: absolute; top: 14px; left: 14px;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink);
+  }
+  .product-card__title {
+    font-family: var(--font-display);
+    font-weight: 400; font-size: 22px; line-height: 1.2;
+    margin-top: 18px;
+    color: var(--ink);
+  }
+  .product-card__variant {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--muted); margin-top: 4px;
+  }
+  .product-card__price {
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 500; margin-top: 10px;
+    color: var(--ink);
+  }
+
+  /* ===== Review ===== */
+  .specimen-review {
+    display: grid; gap: 22px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 56px 0; text-align: center;
+  }
+  .specimen-stars { color: var(--accent); letter-spacing: 4px; font-size: 16px; }
+  .specimen-quote {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.3;
+    max-width: 28ch;
+    margin: 0 auto;
+    color: var(--ink);
+  }
+  .specimen-meta {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== Spec row ===== */
+  .specimen-specs {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    padding: 24px 0;
+  }
+  @media (max-width: 880px) { .specimen-specs { grid-template-columns: repeat(2, 1fr); } }
+  .spec-item { font-family: var(--font-body); }
+  .spec-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .spec-value { font-size: 15px; margin-top: 6px; color: var(--ink); }
+
+  /* ===== Color swatches ===== */
+  .swatches {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding: 16px 0;
+  }
+  .swatch {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-body);
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .swatch__chip {
+    width: 18px; height: 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    display: inline-block;
+  }
+
+  /* ============================================================
+     DIRECTION A: "Clinical luxury" — pure white + near-black + warm terracotta
+     Fonts: Fraunces + Inter Tight
+     Reference: Aesop / The Ordinary
+     ============================================================ */
+  .v-A {
+    --bg: #FFFFFF;
+    --card-bg: #FAFAFA;
+    --ink: #1A1A1A;
+    --muted: #6B6B6B;
+    --line: #E5E5E5;
+    --accent: #B25540;
+    --lash-shadow: rgba(26,26,26,0.35);
+    --font-display: "Fraunces", Georgia, serif;
+    --font-italic: "Fraunces", Georgia, serif;
+    --font-body: "Inter Tight", system-ui, sans-serif;
+    --display-weight: 400;
+    background: var(--bg); color: var(--ink);
+  }
+  .v-A .specimen-headline em { font-weight: 400; }
+
+  /* ============================================================
+     DIRECTION B: "Soft modern beauty" — white + warm dark + dusty rose
+     Fonts: DM Serif Display + Plus Jakarta Sans
+     Reference: Saie / Glossier modern era
+     ============================================================ */
+  .v-B {
+    --bg: #FFFFFF;
+    --card-bg: #FAFAFA;
+    --ink: #2A2622;
+    --muted: #7A746E;
+    --line: #EBE8E3;
+    --accent: #C97D7D;
+    --lash-shadow: rgba(42,38,34,0.35);
+    --font-display: "DM Serif Display", Georgia, serif;
+    --font-italic: "DM Serif Display", Georgia, serif;
+    --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+    --display-weight: 400;
+    background: var(--bg); color: var(--ink);
+  }
+  .v-B .specimen-headline em { font-style: italic; }
+
+  /* ============================================================
+     DIRECTION C: "Editorial monochrome" — pure white + black + muted gold
+     Fonts: Newsreader + Manrope
+     Reference: Augustinus Bader / Vogue editorial
+     ============================================================ */
+  .v-C {
+    --bg: #FFFFFF;
+    --card-bg: #F7F7F7;
+    --ink: #0A0A0A;
+    --muted: #5C5C5C;
+    --line: #E0E0E0;
+    --accent: #A6884A;
+    --lash-shadow: rgba(10,10,10,0.4);
+    --font-display: "Newsreader", Georgia, serif;
+    --font-italic: "Newsreader", Georgia, serif;
+    --font-body: "Manrope", system-ui, sans-serif;
+    --display-weight: 300;
+    background: var(--bg); color: var(--ink);
+  }
+  .v-C .specimen-headline em { font-style: italic; font-weight: 400; }
+
+  /* ============================================================
+     DIRECTION D: "Warm white with personality" — barely off-white + warm ink + rosewood (kept)
+     Fonts: Crimson Pro + Outfit + Italianno
+     Reference: Tatcha-flavored warm luxury
+     ============================================================ */
+  .v-D {
+    --bg: #FBFAF7;
+    --card-bg: #FFFFFF;
+    --ink: #1F1A17;
+    --muted: #7A6E64;
+    --line: #E8E4DD;
+    --accent: #8A4A3D;
+    --lash-shadow: rgba(31,26,23,0.4);
+    --font-display: "Crimson Pro", Georgia, serif;
+    --font-italic: "Italianno", "Crimson Pro", cursive;
+    --font-body: "Outfit", system-ui, sans-serif;
+    --display-weight: 400;
+    background: var(--bg); color: var(--ink);
+  }
+  .v-D .specimen-quote { font-size: clamp(36px, 4.5vw, 56px); }
+
+  /* page footer */
+  .doc-foot {
+    padding: 48px;
+    text-align: center;
+    color: #6B6B6B;
+    font-family: "Inter Tight", system-ui, sans-serif;
+    font-size: 13px;
+    background: #FAFAFA;
+  }
+</style>
+</head>
+<body>
+
+  <header class="page-head">
+    <h1>Santai — typography + color v2</h1>
+    <p>White-background palettes, fresh font pairings. None of these reuse the v1 directions (Caslon / Cormorant / Bodoni / Pinyon Script). Each variant pairs a complete color system with a complete type system — pick a letter and we lock both.</p>
+    <div class="toc">
+      <a href="#A">A · Clinical luxury — Fraunces + Inter Tight</a>
+      <a href="#B">B · Soft modern beauty — DM Serif + Plus Jakarta</a>
+      <a href="#C">C · Editorial monochrome — Newsreader + Manrope</a>
+      <a href="#D">D · Warm white — Crimson Pro + Outfit + Italianno</a>
+    </div>
+  </header>
+
+  <!-- ============ DIRECTION A ============ -->
+  <section class="variant v-A" id="A">
+    <header class="variant-head">
+      <span class="variant-tag">Direction A · Clinical luxury</span>
+      <h2 class="variant-name">Fraunces + Inter Tight</h2>
+      <span class="variant-stack">Pure white · near-black ink · warm terracotta accent</span>
+      <span class="variant-ref">Reference: Aesop, The Ordinary, modern apothecary</span>
+    </header>
+
+    <div class="specimen">
+
+      <div class="swatches">
+        <span class="swatch"><span class="swatch__chip" style="background:#FFFFFF"></span>#FFFFFF bg</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#FAFAFA"></span>#FAFAFA card</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#1A1A1A"></span>#1A1A1A ink</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#B25540"></span>#B25540 accent</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#E5E5E5"></span>#E5E5E5 lines</span>
+      </div>
+
+      <nav class="specimen-nav">
+        <span>Shop</span><span>How to apply</span><span>FAQ</span><span>Contact</span>
+        <span class="wordmark">SANTAI</span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">Bestseller</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 04</div><div class="product-card__variant">Doe Eye &middot; Natural</div><div class="product-card__price">RM 89</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">First-timer pick</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 02</div><div class="product-card__variant">Whisper &middot; Natural</div><div class="product-card__price">RM 79</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">New</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 06</div><div class="product-card__variant">Editorial &middot; Volumed</div><div class="product-card__price">RM 95</div></a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION B ============ -->
+  <section class="variant v-B" id="B">
+    <header class="variant-head">
+      <span class="variant-tag">Direction B · Soft modern beauty</span>
+      <h2 class="variant-name">DM Serif Display + Plus Jakarta Sans</h2>
+      <span class="variant-stack">White · warm dark ink · dusty rose accent</span>
+      <span class="variant-ref">Reference: Saie, Glossier modern era</span>
+    </header>
+
+    <div class="specimen">
+
+      <div class="swatches">
+        <span class="swatch"><span class="swatch__chip" style="background:#FFFFFF"></span>#FFFFFF bg</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#FAFAFA"></span>#FAFAFA card</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#2A2622"></span>#2A2622 ink</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#C97D7D"></span>#C97D7D accent</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#EBE8E3"></span>#EBE8E3 lines</span>
+      </div>
+
+      <nav class="specimen-nav">
+        <span>Shop</span><span>How to apply</span><span>FAQ</span><span>Contact</span>
+        <span class="wordmark">SANTAI</span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">Bestseller</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 04</div><div class="product-card__variant">Doe Eye &middot; Natural</div><div class="product-card__price">RM 89</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">First-timer pick</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 02</div><div class="product-card__variant">Whisper &middot; Natural</div><div class="product-card__price">RM 79</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">New</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 06</div><div class="product-card__variant">Editorial &middot; Volumed</div><div class="product-card__price">RM 95</div></a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION C ============ -->
+  <section class="variant v-C" id="C">
+    <header class="variant-head">
+      <span class="variant-tag">Direction C · Editorial monochrome</span>
+      <h2 class="variant-name">Newsreader + Manrope</h2>
+      <span class="variant-stack">Pure white · near-black ink · muted gold accent</span>
+      <span class="variant-ref">Reference: Augustinus Bader, Vogue editorial</span>
+    </header>
+
+    <div class="specimen">
+
+      <div class="swatches">
+        <span class="swatch"><span class="swatch__chip" style="background:#FFFFFF"></span>#FFFFFF bg</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#F7F7F7"></span>#F7F7F7 card</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#0A0A0A"></span>#0A0A0A ink</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#A6884A"></span>#A6884A accent</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#E0E0E0"></span>#E0E0E0 lines</span>
+      </div>
+
+      <nav class="specimen-nav">
+        <span>Shop</span><span>How to apply</span><span>FAQ</span><span>Contact</span>
+        <span class="wordmark">SANTAI</span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">Bestseller</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 04</div><div class="product-card__variant">Doe Eye &middot; Natural</div><div class="product-card__price">RM 89</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">First-timer pick</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 02</div><div class="product-card__variant">Whisper &middot; Natural</div><div class="product-card__price">RM 79</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">New</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 06</div><div class="product-card__variant">Editorial &middot; Volumed</div><div class="product-card__price">RM 95</div></a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIRECTION D ============ -->
+  <section class="variant v-D" id="D">
+    <header class="variant-head">
+      <span class="variant-tag">Direction D · Warm white</span>
+      <h2 class="variant-name">Crimson Pro + Outfit + Italianno</h2>
+      <span class="variant-stack">Barely off-white · warm dark ink · rosewood accent (kept from v1)</span>
+      <span class="variant-ref">Reference: Tatcha, warm luxury · keeps brand warmth</span>
+    </header>
+
+    <div class="specimen">
+
+      <div class="swatches">
+        <span class="swatch"><span class="swatch__chip" style="background:#FBFAF7"></span>#FBFAF7 bg</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#FFFFFF"></span>#FFFFFF card</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#1F1A17"></span>#1F1A17 ink</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#8A4A3D"></span>#8A4A3D accent</span>
+        <span class="swatch"><span class="swatch__chip" style="background:#E8E4DD"></span>#E8E4DD lines</span>
+      </div>
+
+      <nav class="specimen-nav">
+        <span>Shop</span><span>How to apply</span><span>FAQ</span><span>Contact</span>
+        <span class="wordmark">SANTAI</span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">Bestseller</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 04</div><div class="product-card__variant">Doe Eye &middot; Natural</div><div class="product-card__price">RM 89</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">First-timer pick</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 02</div><div class="product-card__variant">Whisper &middot; Natural</div><div class="product-card__price">RM 79</div></a>
+          <a class="product-card"><div class="product-card__image"><span class="product-card__badge">New</span><span class="product-card__lash"></span></div><div class="product-card__title">Style 06</div><div class="product-card__variant">Editorial &middot; Volumed</div><div class="product-card__price">RM 95</div></a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="doc-foot">
+    Same wireframe + same components &mdash; only the type system + color palette change. Pick <strong>A / B / C / D</strong> and I'll port both into <code>styles.css</code>.
+  </footer>
+
+</body>
+</html>

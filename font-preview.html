@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Santai — font pairing preview</title>
+
+<!-- All candidate fonts in one request -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Italiana&family=Pinyon+Script&family=Inter:wght@300;400;500;600;700&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream:        #F5EFE6;
+    --bone:         #FAF6EF;
+    --stone:        #E8E0D3;
+    --sand:         #D9CDB9;
+    --ink:          #1F1A17;
+    --ink-soft:     #3D332D;
+    --ink-muted:    #7A6E64;
+    --rosewood:     #8A4A3D;
+    --rosewood-deep:#6B362C;
+    --line-soft:    #C9BDA9;
+    --tracking-eyebrow: 0.18em;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  /* Default body font swapped per variant */
+  body { font-family: "Inter", system-ui, sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .page-head {
+    padding: 56px 48px 24px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--bone);
+  }
+  .page-head h1 {
+    font-family: "Libre Caslon Display", Georgia, serif;
+    font-size: 40px; font-weight: 400; margin: 0 0 8px;
+  }
+  .page-head p { color: var(--ink-muted); margin: 0; max-width: 640px; }
+
+  .toc { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; }
+  .toc a { color: var(--rosewood); text-decoration: none; border-bottom: 1px solid var(--rosewood); padding-bottom: 2px; }
+
+  /* ===== Per-variant scoping via data attributes ===== */
+  .variant {
+    padding: 80px 48px 96px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .variant + .variant { border-top: 0; }
+  .variant--alt { background: var(--bone); }
+  .variant--dark { background: var(--ink); color: var(--cream); }
+  .variant--dark .specimen-eyebrow,
+  .variant--dark .specimen-meta,
+  .variant--dark .specimen-sub,
+  .variant--dark .specimen-body,
+  .variant--dark .product-card__variant,
+  .variant--dark .product-card__price { color: var(--cream); opacity: 0.85; }
+  .variant--dark .specimen-sub { opacity: 0.85; }
+  .variant--dark .product-card { color: var(--cream); }
+  .variant--dark .review-card { border-color: rgba(245,239,230,0.2); }
+  .variant--dark .accent { color: #E5C8BC; }
+
+  .variant-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 24px;
+    margin-bottom: 56px; padding-bottom: 24px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .variant--dark .variant-head { border-bottom-color: rgba(245,239,230,0.2); }
+  .variant-tag {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase; color: var(--rosewood);
+  }
+  .variant--dark .variant-tag { color: #E5C8BC; }
+  .variant-name {
+    font-family: "Libre Caslon Display", Georgia, serif;
+    font-size: 28px; font-weight: 400; margin: 0;
+  }
+  .variant--dark .variant-name { font-family: inherit; }
+  .variant-stack {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 13px; color: var(--ink-muted);
+  }
+  .variant--dark .variant-stack { color: rgba(245,239,230,0.6); }
+
+  /* ============================================================
+     Specimen blocks — same Santai content, font swapped per variant
+     ============================================================ */
+
+  .specimen { display: grid; grid-template-columns: 1fr; gap: 64px; max-width: 1280px; margin: 0 auto; }
+
+  /* HERO BLOCK */
+  .specimen-hero { display: grid; gap: 24px; }
+  .specimen-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .specimen-headline {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.02;
+    letter-spacing: -0.005em;
+    margin: 0;
+    max-width: 14ch;
+  }
+  .specimen-headline em {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .specimen-sub {
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.55; color: var(--ink-soft);
+    max-width: 36ch; margin: 0;
+  }
+
+  /* BUTTONS / NAV BAR */
+  .specimen-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .btn {
+    font-family: var(--font-body);
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 48px; padding: 14px 28px;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid var(--ink);
+    background: var(--ink); color: var(--cream);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-accent { background: var(--rosewood); border-color: var(--rosewood); color: var(--cream); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .variant--dark .btn-secondary { color: var(--cream); border-color: var(--cream); }
+
+  .specimen-nav {
+    display: flex; gap: 40px; padding: 16px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    font-family: var(--font-body);
+  }
+  .variant--dark .specimen-nav { border-color: rgba(245,239,230,0.2); }
+  .specimen-nav span {
+    font-size: 12px; letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 400; font-size: 26px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: inherit; padding-left: 0.32em;
+  }
+  .wordmark .dot { color: var(--rosewood); }
+
+  /* SECTION HEADING + PRODUCT CARDS */
+  .specimen-section { display: grid; gap: 40px; }
+  .specimen-section-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap;
+  }
+  .specimen-section-title {
+    font-family: var(--font-display);
+    font-weight: 400; font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.05; margin: 0;
+    max-width: 18ch;
+  }
+  .specimen-section-title em { font-family: var(--font-italic); font-style: italic; }
+  .ghost-link {
+    font-family: var(--font-body);
+    font-size: 14px; color: inherit;
+    text-decoration: underline; text-underline-offset: 4px;
+  }
+
+  .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 880px) { .product-grid { grid-template-columns: 1fr; } }
+  .product-card { display: block; color: inherit; text-decoration: none; }
+  .product-card__image {
+    aspect-ratio: 4/5; background: var(--stone);
+    display: grid; place-items: center; position: relative;
+  }
+  .variant--dark .product-card__image { background: #2a2320; }
+  .product-card__lash {
+    width: 60%; height: 3px; background: var(--ink);
+    border-radius: 999px;
+    box-shadow: 0 -8px 14px -6px rgba(31,26,23,0.4), 0 -3px 8px -4px rgba(31,26,23,0.6);
+  }
+  .variant--dark .product-card__lash { background: var(--cream); box-shadow: 0 -8px 14px -6px rgba(245,239,230,0.4); }
+  .product-card__badge {
+    position: absolute; top: 14px; left: 14px;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .product-card__title {
+    font-family: var(--font-display);
+    font-weight: 400; font-size: 22px; line-height: 1.2;
+    margin-top: 18px;
+  }
+  .product-card__variant {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--ink-muted); margin-top: 4px;
+  }
+  .product-card__price {
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 500; margin-top: 10px;
+  }
+
+  /* REVIEW / EDITORIAL */
+  .specimen-review {
+    display: grid; gap: 24px;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 56px 0;
+    text-align: center;
+  }
+  .variant--dark .specimen-review { border-color: rgba(245,239,230,0.2); }
+  .specimen-stars { color: var(--rosewood); letter-spacing: 4px; font-size: 16px; }
+  .variant--dark .specimen-stars { color: #E5C8BC; }
+  .specimen-quote {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.3;
+    max-width: 24ch;
+    margin: 0 auto;
+  }
+  .specimen-meta {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* SPEC ROW (mono-ish details) */
+  .specimen-specs {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .variant--dark .specimen-specs { border-color: rgba(245,239,230,0.2); }
+  @media (max-width: 880px) { .specimen-specs { grid-template-columns: repeat(2, 1fr); } }
+  .spec-item { font-family: var(--font-body); }
+  .spec-label {
+    font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase; color: var(--ink-muted);
+  }
+  .variant--dark .spec-label { color: rgba(245,239,230,0.6); }
+  .spec-value {
+    font-size: 15px; margin-top: 6px;
+  }
+
+  /* The "italic word in a serif headline" focus card */
+  .focus-card {
+    padding: 64px;
+    background: var(--bone);
+    border: 1px solid var(--line-soft);
+    text-align: center;
+    max-width: 720px; margin: 0 auto;
+  }
+  .variant--alt .focus-card { background: var(--cream); }
+  .variant--dark .focus-card { background: #2a2320; border-color: rgba(245,239,230,0.2); }
+  .focus-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase; color: var(--ink-muted);
+  }
+  .focus-line {
+    font-family: var(--font-display);
+    font-weight: 400; font-size: clamp(40px, 5.5vw, 72px);
+    line-height: 1.05; margin: 16px 0 0;
+  }
+  .focus-line em {
+    font-family: var(--font-italic);
+    font-style: italic;
+  }
+
+  /* ============================================================
+     VARIANT-SPECIFIC font assignments
+     ============================================================ */
+
+  .v-A {
+    --font-display: "Libre Caslon Display", Georgia, serif;
+    --font-italic:  "Pinyon Script", "Libre Caslon Text", cursive;
+    --font-body:    "Inter", system-ui, sans-serif;
+  }
+  .v-A .specimen-headline { font-weight: 400; }
+
+  .v-B {
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-italic:  "Cormorant Garamond", Georgia, serif;
+    --font-body:    "Inter", system-ui, sans-serif;
+  }
+  .v-B .specimen-headline { font-weight: 300; }
+
+  .v-C {
+    --font-display: "Bodoni Moda", Georgia, serif;
+    --font-italic:  "Italiana", Georgia, serif;
+    --font-body:    "Public Sans", system-ui, sans-serif;
+  }
+  .v-C .specimen-headline { font-weight: 400; }
+
+  .v-D {
+    --font-display: "Libre Caslon Text", Georgia, serif;
+    --font-italic:  "Pinyon Script", cursive;
+    --font-body:    "Inter", system-ui, sans-serif;
+  }
+  .v-D .specimen-headline { font-weight: 700; }
+
+  /* ----- Variant E: Westman-faithful (ALL CAPS) ----- */
+  .v-E {
+    --font-display: "Libre Caslon Display", Georgia, serif;
+    --font-italic:  "Libre Caslon Text", Georgia, serif;
+    --font-body:    "Inter", system-ui, sans-serif;
+  }
+  /* All-caps display headlines, tight tracking, no italic-inside-headline */
+  .v-E .specimen-headline,
+  .v-E .specimen-section-title,
+  .v-E .product-card__title,
+  .v-E .focus-line,
+  .v-E .variant-name {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+  }
+  .v-E .specimen-headline { font-size: clamp(40px, 6vw, 80px); line-height: 1.05; max-width: 18ch; }
+  .v-E .specimen-section-title { font-size: clamp(28px, 3.4vw, 48px); }
+  .v-E .product-card__title { font-size: 16px; letter-spacing: 0.06em; }
+  .v-E .focus-line { font-size: clamp(32px, 4.4vw, 56px); }
+  /* The italic flourish — used as a SMALL eyebrow ABOVE the headline (Westman convention) */
+  .italic-eyebrow {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .variant--dark .italic-eyebrow { color: rgba(245,239,230,0.85); }
+  /* Quote keeps its italic Caslon (with serifs, no script) */
+  .v-E .specimen-quote { font-size: clamp(24px, 3vw, 36px); }
+
+  /* ----- Variant F: Cormorant + Inter, CAPS on display headers only ----- */
+  .v-F {
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-italic:  "Cormorant Garamond", Georgia, serif;
+    --font-body:    "Inter", system-ui, sans-serif;
+  }
+  /* CAPS only on big display headers, tighter tracking. Sizes unchanged. */
+  .v-F .specimen-headline,
+  .v-F .specimen-section-title,
+  .v-F .focus-line {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .v-F .specimen-headline { font-weight: 300; }
+  /* Product card titles, body, eyebrows, quotes — all stay the same as base. */
+
+  /* footer */
+  .doc-foot {
+    padding: 48px;
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 13px;
+    background: var(--bone);
+  }
+</style>
+</head>
+<body>
+
+  <header class="page-head">
+    <h1>Santai — font pairing preview</h1>
+    <p>Same content, four different display+italic+body pairings. Pick the one that feels closest to the Westman Atelier reference. Open in Chrome / Safari at full width to see hero scale properly.</p>
+    <div class="toc">
+      <a href="#A">A · Libre Caslon Display + Pinyon Script + Inter</a>
+      <a href="#B">B · Cormorant Garamond + Inter</a>
+      <a href="#C">C · Bodoni Moda + Italiana + Public Sans</a>
+      <a href="#D">D · Libre Caslon Text + Pinyon Script + Inter (alt weight)</a>
+      <a href="#E">E · Westman-faithful — ALL CAPS + italic Caslon eyebrow</a>
+      <a href="#F">F · Cormorant + Inter, CAPS on display headers only</a>
+    </div>
+  </header>
+
+  <!-- ============ TEMPLATE (rendered 4x with different fonts) ============ -->
+  <!-- We inline the same markup four times for honest side-by-side. -->
+
+  <!-- VARIANT A -->
+  <section class="variant v-A" id="A">
+    <header class="variant-head">
+      <span class="variant-tag">Option A · Recommended</span>
+      <h2 class="variant-name">Libre Caslon Display + Pinyon Script + Inter</h2>
+      <span class="variant-stack">Closest free match to Inferi (Westman) + Söhne</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04</div>
+            <div class="product-card__variant">Doe Eye &middot; Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02</div>
+            <div class="product-card__variant">Whisper &middot; Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06</div>
+            <div class="product-card__variant">Editorial &middot; Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <div class="focus-eyebrow">The italic flourish</div>
+        <div class="focus-line">Effortless eyes, <em>every</em> day.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VARIANT B -->
+  <section class="variant variant--alt v-B" id="B">
+    <header class="variant-head">
+      <span class="variant-tag">Option B · Warmer</span>
+      <h2 class="variant-name">Cormorant Garamond + Inter</h2>
+      <span class="variant-stack">Garamond, slightly warmer than Caslon — the design system's current default</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04</div>
+            <div class="product-card__variant">Doe Eye &middot; Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02</div>
+            <div class="product-card__variant">Whisper &middot; Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06</div>
+            <div class="product-card__variant">Editorial &middot; Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <div class="focus-eyebrow">The italic flourish</div>
+        <div class="focus-line">Effortless eyes, <em>every</em> day.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VARIANT C -->
+  <section class="variant variant--dark v-C" id="C">
+    <header class="variant-head">
+      <span class="variant-tag accent">Option C · Bolder editorial</span>
+      <h2 class="variant-name">Bodoni Moda + Italiana + Public Sans</h2>
+      <span class="variant-stack">High-contrast Didone — Vogue / fashion editorial vibe (further from Westman)</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge" style="color:var(--cream)">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04</div>
+            <div class="product-card__variant">Doe Eye &middot; Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge" style="color:var(--cream)">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02</div>
+            <div class="product-card__variant">Whisper &middot; Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge" style="color:var(--cream)">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06</div>
+            <div class="product-card__variant">Editorial &middot; Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <div class="focus-eyebrow">The italic flourish</div>
+        <div class="focus-line">Effortless eyes, <em>every</em> day.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VARIANT D -->
+  <section class="variant v-D" id="D">
+    <header class="variant-head">
+      <span class="variant-tag">Option D · Heavier Caslon body</span>
+      <h2 class="variant-name">Libre Caslon Text (bold) + Pinyon Script + Inter</h2>
+      <span class="variant-stack">Same Caslon DNA as Option A but with the text-grade cut for headlines &mdash; thicker, less fragile at small sizes</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <h2 class="specimen-headline">Lashes in a <em>snap.</em></h2>
+        <p class="specimen-sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <h3 class="specimen-section-title">Quietly <em>bestselling.</em></h3>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04</div>
+            <div class="product-card__variant">Doe Eye &middot; Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02</div>
+            <div class="product-card__variant">Whisper &middot; Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06</div>
+            <div class="product-card__variant">Editorial &middot; Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <div class="focus-eyebrow">The italic flourish</div>
+        <div class="focus-line">Effortless eyes, <em>every</em> day.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VARIANT E -->
+  <section class="variant variant--alt v-E" id="E">
+    <header class="variant-head">
+      <span class="variant-tag">Option E · Westman-faithful</span>
+      <h2 class="variant-name">Libre Caslon Display (ALL CAPS) + Libre Caslon Italic + Inter</h2>
+      <span class="variant-stack">Same fonts as Option A, but uppercase headlines + tighter tracking + italic-as-eyebrow (Westman's actual layout convention)</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <p class="italic-eyebrow">Magnetic, the way it should be.</p>
+        <h2 class="specimen-headline">Lashes in a snap.</h2>
+        <p class="specimen-sub">No glue. No artistry. Thirty seconds, every morning.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <div>
+            <p class="italic-eyebrow">The collection.</p>
+            <h3 class="specimen-section-title">Quietly bestselling.</h3>
+          </div>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04 &mdash; Doe Eye</div>
+            <div class="product-card__variant">Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02 &mdash; Whisper</div>
+            <div class="product-card__variant">Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06 &mdash; Editorial</div>
+            <div class="product-card__variant">Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <p class="italic-eyebrow">Every day.</p>
+        <div class="focus-line">Effortless eyes.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VARIANT F -->
+  <section class="variant v-F" id="F">
+    <header class="variant-head">
+      <span class="variant-tag">Option F · Cormorant + CAPS headers</span>
+      <h2 class="variant-name">Cormorant Garamond + Inter &mdash; CAPS on display headers only</h2>
+      <span class="variant-stack">Variant B fonts. CAPS + tight tracking applied to display headers only. Product cards, body, eyebrows, quotes &mdash; all unchanged.</span>
+    </header>
+
+    <div class="specimen">
+
+      <nav class="specimen-nav">
+        <span>Shop</span>
+        <span>How to apply</span>
+        <span>FAQ</span>
+        <span>Contact</span>
+        <span style="margin-left:auto" class="wordmark">SANTA<span class="dot">i</span></span>
+      </nav>
+
+      <div class="specimen-hero">
+        <div class="specimen-eyebrow">Effortless eyes</div>
+        <p class="italic-eyebrow">Magnetic, the way it should be.</p>
+        <h2 class="specimen-headline">Lashes in a snap.</h2>
+        <p class="specimen-sub">No glue. No artistry. Thirty seconds, every morning.</p>
+        <div class="specimen-ctas">
+          <a class="btn btn-accent" href="#">Find my lash</a>
+          <a class="btn btn-secondary" href="#">See how easy</a>
+        </div>
+      </div>
+
+      <div class="specimen-section">
+        <div class="specimen-section-head">
+          <div>
+            <p class="italic-eyebrow">The collection.</p>
+            <h3 class="specimen-section-title">Quietly bestselling.</h3>
+          </div>
+          <a class="ghost-link" href="#">View all 12 styles &rarr;</a>
+        </div>
+        <div class="product-grid">
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">Bestseller</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 04</div>
+            <div class="product-card__variant">Doe Eye &middot; Natural</div>
+            <div class="product-card__price">RM 89</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">First-timer pick</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 02</div>
+            <div class="product-card__variant">Whisper &middot; Natural</div>
+            <div class="product-card__price">RM 79</div>
+          </a>
+          <a class="product-card" href="#">
+            <div class="product-card__image">
+              <span class="product-card__badge">New</span>
+              <span class="product-card__lash"></span>
+            </div>
+            <div class="product-card__title">Style 06</div>
+            <div class="product-card__variant">Editorial &middot; Volumed</div>
+            <div class="product-card__price">RM 95</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="specimen-review">
+        <div class="specimen-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="specimen-quote">&ldquo;I forgot I was wearing them. That's the whole point.&rdquo;</p>
+        <div class="specimen-meta">Aisyah R. &middot; Monolid &middot; Office</div>
+      </div>
+
+      <div class="specimen-specs">
+        <div class="spec-item"><div class="spec-label">Materials</div><div class="spec-value">Synthetic mink-effect fibre</div></div>
+        <div class="spec-item"><div class="spec-label">Magnets</div><div class="spec-value">6 micro per strip</div></div>
+        <div class="spec-item"><div class="spec-label">Reuse</div><div class="spec-value">Up to 30&times;</div></div>
+        <div class="spec-item"><div class="spec-label">Ships from</div><div class="spec-value">Kuala Lumpur</div></div>
+      </div>
+
+      <div class="focus-card">
+        <p class="italic-eyebrow">Every day.</p>
+        <div class="focus-line">Effortless eyes.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="doc-foot">
+    Same content, same colours, same layout &mdash; only the type changes. Pick the variant that feels closest to your Westman reference, and tell me <strong>A / B / C / D / E / F</strong>.
+  </footer>
+
+</body>
+</html>

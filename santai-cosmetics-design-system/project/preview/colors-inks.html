@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors — Inks</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 20px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sw { aspect-ratio: 1.6/1; border-radius: 4px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--font-body); }
+  .sw .name { font-size: 12px; font-weight: 500; }
+  .sw .hex  { font-family: var(--font-mono); font-size: 11px; opacity: .8; letter-spacing: 0.02em; }
+  .sw.dark { color: var(--bg); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw dark" style="background:#1F1A17"><span class="name">ink</span><span class="hex">#1F1A17</span></div>
+    <div class="sw dark" style="background:#3D332D"><span class="name">ink-soft</span><span class="hex">#3D332D</span></div>
+    <div class="sw dark" style="background:#7A6E64"><span class="name">ink-muted</span><span class="hex">#7A6E64</span></div>
+  </div>
+</body>
+</html>
