@@ -98,7 +98,7 @@
       <div class="pdp-hero__ctas">
         <button class="btn btn-accent" data-add-to-cart data-product-id="pitch" data-product-name="Pitch" data-product-variant="Work hours" data-product-price="RM 89" data-product-bg="#ECECEC" type="button">Add to bag</button>
       </div>
-      <button class="compare-trigger" data-compare-trigger data-style-id="pitch">
+      <button type="button" class="compare-trigger" data-compare-trigger data-style-id="pitch">
         Compare styles
       </button>
       <p class="small pdp-hero__note">Same-day Klang Valley dispatch · Free returns within 14 days</p>
@@ -707,7 +707,7 @@
 </footer>
 
 <!-- Compare Styles Modal -->
-<div class="compare-modal" id="compareModal" role="dialog" aria-modal="true" aria-label="Compare styles">
+<div class="compare-modal" id="compareModal" role="dialog" aria-modal="true" aria-label="Compare styles" tabindex="-1">
   <header class="compare-modal__header">
     <button class="compare-modal__back" aria-label="Back" data-compare-close>
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -760,7 +760,10 @@
   <div class="compare-picker__sheet">
     <div class="compare-picker__handle" aria-hidden="true"></div>
     <header class="compare-picker__header">
-      <p class="compare-picker__title">Choose a style</p>
+      <p class="compare-picker__title">
+        <span class="compare-picker__title-mobile">Choose a style</span>
+        <span class="compare-picker__title-desktop">Choose a style to compare</span>
+      </p>
       <button class="compare-picker__close" aria-label="Close style picker" data-picker-close>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>

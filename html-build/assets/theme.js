@@ -484,12 +484,12 @@
       html += '<p class="compare-col__price">' + s.price + '</p>';
       html += '<button class="compare-col__atb" data-add-style="' + styleId + '">Add to bag</button>';
 
-      // Append to container (keep selector, replace rest)
-      var selector = container.querySelector('.compare-col__selector');
-      container.innerHTML = '';
-      if (selector) container.appendChild(selector);
+      // Preserve the selector element and replace everything else
+      var selectorEl = container.querySelector('.compare-col__selector');
+      var selectorHTML = selectorEl ? selectorEl.outerHTML : '';
       var content = document.createElement('div');
-      content.innerHTML = html;
+      content.innerHTML = selectorHTML + html;
+      container.innerHTML = '';
       while (content.firstChild) {
         container.appendChild(content.firstChild);
       }
@@ -583,6 +583,7 @@
         var sid = atbBtn.getAttribute('data-add-style');
         var s = LASH_STYLES[sid];
         if (s) {
+          closeModal();
           addToCart({ id: sid, name: s.name, price: s.price, image: s.image });
         }
       }
