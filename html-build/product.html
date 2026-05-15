@@ -98,6 +98,9 @@
       <div class="pdp-hero__ctas">
         <button class="btn btn-accent" data-add-to-cart data-product-id="pitch" data-product-name="Pitch" data-product-variant="Work hours" data-product-price="RM 89" data-product-bg="#ECECEC" type="button">Add to bag</button>
       </div>
+      <button class="compare-trigger" data-compare-trigger data-style-id="pitch">
+        Compare styles
+      </button>
       <p class="small pdp-hero__note">Same-day Klang Valley dispatch · Free returns within 14 days</p>
 
       <!-- Inline accordions — Description / Shipping / How to wear / What's included -->
@@ -702,6 +705,73 @@
     </div>
   </div>
 </footer>
+
+<!-- Compare Styles Modal -->
+<div class="compare-modal" id="compareModal" role="dialog" aria-modal="true" aria-label="Compare styles">
+  <header class="compare-modal__header">
+    <button class="compare-modal__back" aria-label="Back" data-compare-close>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <p class="compare-modal__title">Compare styles</p>
+    <button class="compare-modal__close" aria-label="Close" data-compare-close>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="compare-modal__body">
+    <!-- Left column: locked to current product -->
+    <div class="compare-col" id="compareColLeft">
+      <div class="compare-col__selector">
+        <svg class="compare-col__selector-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="6" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        <span>Current style</span>
+      </div>
+      <!-- JS renders product content here -->
+    </div>
+
+    <!-- Right column: user selects -->
+    <div class="compare-col" id="compareColRight">
+      <button class="compare-col__selector compare-col__selector--active" data-open-picker aria-expanded="false" aria-haspopup="listbox">
+        <svg class="compare-col__selector-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M7 4.5V7M7 9.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span>Compare with</span>
+        <span class="compare-col__selector-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="compare-col__empty" id="compareEmpty">
+        <span class="compare-col__empty-arrow" aria-hidden="true">←</span>
+        <p class="compare-col__empty-text">Choose a style<br>to compare</p>
+      </div>
+      <!-- JS renders selected product here -->
+    </div>
+  </div>
+</div>
+
+<!-- Style Picker -->
+<div class="compare-picker" id="comparePicker" role="dialog" aria-modal="true" aria-label="Choose a style to compare">
+  <div class="compare-picker__overlay" data-picker-close></div>
+  <div class="compare-picker__sheet">
+    <div class="compare-picker__handle" aria-hidden="true"></div>
+    <header class="compare-picker__header">
+      <p class="compare-picker__title">Choose a style</p>
+      <button class="compare-picker__close" aria-label="Close style picker" data-picker-close>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </header>
+    <div class="compare-picker__content" id="comparePickerContent">
+      <!-- JS renders style groups and cards here -->
+    </div>
+  </div>
+</div>
 
 <!-- ==================== LASH FINDER MODAL ==================== -->
 <div class="finder" data-finder role="dialog" aria-modal="true" aria-label="Lash Match quiz">
