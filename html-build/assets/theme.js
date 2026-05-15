@@ -394,6 +394,212 @@
     if (next) next.addEventListener('click', function () { step(1); });
   }
 
+  /* ==================== COMPARE STYLES ==================== */
+
+  function initCompare() {
+    var modal = document.getElementById('compareModal');
+    var picker = document.getElementById('comparePicker');
+    var pickerContent = document.getElementById('comparePickerContent');
+    var colLeft = document.getElementById('compareColLeft');
+    var colRight = document.getElementById('compareColRight');
+    var emptyState = document.getElementById('compareEmpty');
+
+    if (!modal) return; // Not on product page
+
+    var currentStyleId = null;
+    var compareStyleId = null;
+
+    var GROUPS = [
+      { key: 'Natural',      styles: ['inbox', 'minutes', 'kickoff'] },
+      { key: 'Light Makeup', styles: ['boardroom', 'pitch', 'memo'] },
+      { key: 'Full Glam',    styles: ['afterhours', 'twilight', 'nightshift', 'vip'] }
+    ];
+
+    var GROUP_SLUG = {
+      'Natural':      'natural',
+      'Light Makeup': 'light-makeup',
+      'Full Glam':    'full-glam'
+    };
+
+    /* --- Open / close modal --- */
+    function openModal(styleId) {
+      currentStyleId = styleId;
+      renderLeft(styleId);
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      modal.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    /* --- Open / close picker --- */
+    function openPicker() {
+      renderPicker();
+      picker.classList.add('is-open');
+      var btn = colRight.querySelector('[data-open-picker]');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closePicker() {
+      picker.classList.remove('is-open');
+      var btn = colRight.querySelector('[data-open-picker]');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    /* --- Drama dots helper --- */
+    function dramaDots(level) {
+      var html = '<span class="compare-drama">';
+      for (var i = 1; i <= 5; i++) {
+        if (i <= level) {
+          html += '<span class="compare-drama__dot compare-drama__dot--filled" aria-hidden="true">&#9679;</span>';
+        } else {
+          html += '<span class="compare-drama__dot" aria-hidden="true">&#9675;</span>';
+        }
+      }
+      html += '</span>';
+      return html;
+    }
+
+    /* --- Render a product column --- */
+    function renderCol(container, styleId) {
+      var s = LASH_STYLES[styleId];
+      if (!s) return;
+
+      var badgeClass = 'style-badge--' + GROUP_SLUG[s.group];
+
+      var html = '<img class="compare-col__photo" src="' + s.image + '" alt="' + s.name + ' lash style on eye" loading="lazy">';
+      html += '<p class="compare-col__name">' + s.name + '</p>';
+      html += '<p class="compare-col__tagline">' + s.tagline + '</p>';
+      html += '<span class="style-badge ' + badgeClass + '">' + s.group + '</span>';
+      html += '<div class="compare-col__attrs">';
+      html += '<div class="compare-attr"><span class="compare-attr__label">Drama</span><span class="compare-attr__value">' + dramaDots(s.drama) + '</span></div>';
+      html += '<div class="compare-attr"><span class="compare-attr__label">Eye type</span><span class="compare-attr__value">' + s.eyeType + '</span></div>';
+      html += '<div class="compare-attr"><span class="compare-attr__label">Length</span><span class="compare-attr__value">' + s.length + '</span></div>';
+      html += '<div class="compare-attr"><span class="compare-attr__label">Curl</span><span class="compare-attr__value">' + s.curl + '</span></div>';
+      html += '<div class="compare-attr"><span class="compare-attr__label">Design</span><span class="compare-attr__value">' + s.design + '</span></div>';
+      html += '</div>';
+      html += '<p class="compare-col__price">' + s.price + '</p>';
+      html += '<button class="compare-col__atb" data-add-style="' + styleId + '">Add to bag</button>';
+
+      // Append to container (keep selector, replace rest)
+      var selector = container.querySelector('.compare-col__selector');
+      container.innerHTML = '';
+      if (selector) container.appendChild(selector);
+      var content = document.createElement('div');
+      content.innerHTML = html;
+      while (content.firstChild) {
+        container.appendChild(content.firstChild);
+      }
+    }
+
+    /* --- Render left column --- */
+    function renderLeft(styleId) {
+      renderCol(colLeft, styleId);
+    }
+
+    /* --- Render right column --- */
+    function renderRight(styleId) {
+      if (emptyState) emptyState.style.display = 'none';
+      renderCol(colRight, styleId);
+    }
+
+    /* --- Render style picker content --- */
+    function renderPicker() {
+      var html = '';
+      for (var g = 0; g < GROUPS.length; g++) {
+        var group = GROUPS[g];
+        html += '<p class="compare-picker__group-label">' + group.key + '</p>';
+        html += '<div class="compare-picker__grid">';
+        for (var i = 0; i < group.styles.length; i++) {
+          var sid = group.styles[i];
+          var s = LASH_STYLES[sid];
+          var isCurrent = (sid === currentStyleId);
+          var isSelected = (sid === compareStyleId);
+          var cardClass = 'compare-picker__card';
+          if (isCurrent) cardClass += ' is-current';
+          if (isSelected) cardClass += ' is-selected';
+
+          html += '<button class="' + cardClass + '" data-pick-style="' + sid + '"' + (isCurrent ? ' disabled aria-disabled="true"' : '') + '>';
+          html += '<img class="compare-picker__thumb" src="' + s.card + '" alt="' + s.name + '" loading="lazy">';
+          html += '<span class="compare-picker__card-name">' + s.name + '</span>';
+          if (isCurrent) {
+            html += '<span class="compare-picker__current-badge">Current</span>';
+          }
+          html += '<span class="compare-picker__tick" aria-hidden="true">&#10003;</span>';
+          html += '</button>';
+        }
+        html += '</div>';
+      }
+      pickerContent.innerHTML = html;
+    }
+
+    /* --- Event: open modal from trigger button --- */
+    document.addEventListener('click', function(e) {
+      var trigger = e.target.closest('[data-compare-trigger]');
+      if (trigger) {
+        var styleId = trigger.getAttribute('data-style-id') || 'pitch';
+        openModal(styleId);
+      }
+    });
+
+    /* --- Event: close modal --- */
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('[data-compare-close]')) {
+        closeModal();
+      }
+    });
+
+    /* --- Event: open picker --- */
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('[data-open-picker]')) {
+        openPicker();
+      }
+    });
+
+    /* --- Event: close picker --- */
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('[data-picker-close]')) {
+        closePicker();
+      }
+    });
+
+    /* --- Event: pick a style --- */
+    document.addEventListener('click', function(e) {
+      var card = e.target.closest('[data-pick-style]');
+      if (card && pickerContent.contains(card)) {
+        compareStyleId = card.getAttribute('data-pick-style');
+        renderRight(compareStyleId);
+        closePicker();
+      }
+    });
+
+    /* --- Event: add to bag from compare column --- */
+    document.addEventListener('click', function(e) {
+      var atbBtn = e.target.closest('[data-add-style]');
+      if (atbBtn && modal.contains(atbBtn)) {
+        var sid = atbBtn.getAttribute('data-add-style');
+        var s = LASH_STYLES[sid];
+        if (s) {
+          addToCart({ id: sid, name: s.name, price: s.price, image: s.image });
+        }
+      }
+    });
+
+    /* --- Keyboard: Escape closes modals --- */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        if (picker.classList.contains('is-open')) {
+          closePicker();
+        } else if (modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      }
+    });
+  }
+
   /* -------------------- Init on DOM ready ------------------------------ */
   function init() {
     initUtilityBar();
@@ -405,6 +611,7 @@
     initCollectionTabs();
     initHeroSlider();
     initUgcSlider();
+    initCompare();
   }
 
   if (document.readyState === 'loading') {
