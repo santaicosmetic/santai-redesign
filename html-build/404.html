@@ -92,6 +92,85 @@
   </div>
 </footer>
 
+<!-- ==================== CART DRAWER ==================== -->
+<div class="cart-overlay" data-cart-overlay data-cart-close></div>
+<aside class="cart-drawer" data-cart-drawer aria-label="Cart">
+  <div class="cart-drawer__head">
+    <h2 class="cart-drawer__title">Your bag <span class="cart-drawer__title-count">(<span data-cart-count-inline>0</span>)</span></h2>
+    <button type="button" class="cart-drawer__close" data-cart-close>Close</button>
+  </div>
+
+  <div class="cart-progress" data-cart-progress style="display:none">
+    <div class="cart-progress__msg" data-progress-msg>Add <strong>2 lashes</strong> to unlock a free Foam Cleanser.</div>
+    <div class="cart-progress__track">
+      <div class="cart-progress__fill" data-progress-fill></div>
+      <div class="cart-milestone" data-milestone="2">
+        <span class="cart-milestone__dot"></span>
+        <span class="cart-milestone__icon">◇</span>
+        <span class="cart-milestone__label">Free Cleanser</span>
+      </div>
+      <div class="cart-milestone" data-milestone="3">
+        <span class="cart-milestone__dot"></span>
+        <span class="cart-milestone__icon">◈</span>
+        <span class="cart-milestone__label">Free Curler</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-shipping-promise">
+    <span class="cart-shipping-promise__icon">✓</span>
+    Free shipping across Malaysia (West + East)
+  </div>
+
+  <div class="cart-empty" data-cart-empty>
+    <p>Your bag is empty.</p>
+    <p class="small" style="margin-top:8px;color:var(--fg-muted)">Start with our bestseller, <a href="product.html?style=pitch" style="color:var(--accent)">Pitch</a>.</p>
+  </div>
+
+  <div class="cart-items" data-cart-items></div>
+
+  <div class="cart-upsells" data-cart-upsells style="display:none">
+    <p class="cart-upsells__eyebrow">— You might also like</p>
+    <div class="cart-upsells__row" data-upsells-row></div>
+  </div>
+
+  <div class="cart-drawer__foot" data-cart-foot style="display:none">
+    <div class="cart-discount">
+      <input type="text" class="cart-discount__input" placeholder="Discount code" data-discount-input aria-label="Discount code">
+      <button type="button" class="cart-discount__apply" data-discount-apply>Apply</button>
+    </div>
+    <div class="cart-savings" data-cart-savings style="display:none">
+      <span>You saved</span>
+      <span class="cart-savings__amount" data-cart-savings-amount>RM 0</span>
+    </div>
+    <div class="cart-total">
+      <span class="cart-total__label">Subtotal</span>
+      <span class="cart-total__amount tnum" data-cart-total>RM 0</span>
+    </div>
+    <div class="cart-total__note">Shipping included. Taxes calculated at checkout.</div>
+    <a class="btn btn-accent cart-drawer__checkout" href="cart.html">Checkout</a>
+  </div>
+</aside>
+
+<!-- ==================== NEWSLETTER POPUP ==================== -->
+<div class="newsletter-popup" data-newsletter-popup role="dialog" aria-modal="true" aria-labelledby="newsletter-popup-title" aria-hidden="true">
+  <div class="newsletter-popup__backdrop" data-newsletter-close></div>
+  <div class="newsletter-popup__card">
+    <button type="button" class="newsletter-popup__close" data-newsletter-close aria-label="Close">✕</button>
+    <div class="newsletter-popup__eyebrow">— Join the studio</div>
+    <h2 class="newsletter-popup__title" id="newsletter-popup-title">First in <em>line</em>.</h2>
+    <p class="newsletter-popup__sub">New drops, restock alerts, and styling notes from our KL studio. Quiet inbox. No noise.</p>
+    <form class="newsletter-popup__form" data-newsletter-form>
+      <input type="text" name="name" class="newsletter-popup__input" placeholder="First name" required aria-label="First name">
+      <input type="email" name="email" class="newsletter-popup__input" placeholder="Email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-accent newsletter-popup__submit">Join the list</button>
+    </form>
+    <p class="newsletter-popup__fineprint">Unsubscribe any time. We won't share your email.</p>
+  </div>
+</div>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
 <script src="assets/theme.js"></script>
 </body>
 </html>

@@ -71,8 +71,20 @@
     nightshift: { id:'nightshift', name:'Nightshift', group:'Full Glam',    tagline:'Mysterious. Fatal. Irresistible.',                    image:'assets/images/products/lash-nightshift.jpg', card:'assets/images/products/lash-nightshift-card.jpg', drama:5, eyeType:'Monolid / Downturned',      length:'10–12mm + 13mm outer', curl:'50° C', design:'Fox-eye upswept',            price:'RM 95'  },
     vip:        { id:'vip',        name:'VIP Access', group:'Full Glam',    tagline:'You were born for the front row.',                    image:'assets/images/products/lash-vip.jpg',        card:'assets/images/products/lash-vip-card.jpg',        drama:5, eyeType:'All eye types',              length:'11–12mm',             curl:'50° C',  design:'Statement volume',           price:'RM 105' }
   };
+  /* Accessories — real SKUs, also surface as gifts when lash-tier unlocked */
+  var ACCESSORIES = {
+    cleanser: { id:'cleanser', name:'Foam Cleanser',  tagline:'Daily lash + lid wash.',  price:'RM 29', image:'assets/images/products/lash-inbox-card.jpg' },
+    curler:   { id:'curler',   name:'Thermo Curler',  tagline:'Pre-application set.',    price:'RM 39', image:'assets/images/products/lash-pitch-card.jpg' }
+  };
+
+  /* Gift tiers — buy N lashes, get matching accessory free */
+  var GIFT_TIERS = [
+    { count: 2, giftId: 'cleanser', label: 'Free Foam Cleanser' },
+    { count: 3, giftId: 'curler',   label: 'Free Thermo Curler' }
+  ];
+  var GIFT_TARGET = 3;
+
   var cart = [];
-  var FREE_SHIPPING_THRESHOLD = 150;
 
   function priceToNumber(p) {
     var m = String(p).match(/[\d.]+/);
@@ -80,64 +92,183 @@
   }
   function formatRM(n) { return 'RM ' + n.toFixed(0); }
 
+  function lashCount() {
+    return cart.reduce(function (s, it) {
+      return it.category === 'lash' ? s + (it.qty || 1) : s;
+    }, 0);
+  }
+
+  /* Sync auto-gift line items to the current lash count */
+  function reconcileGifts() {
+    cart = cart.filter(function (it) { return it.category !== 'gift'; });
+    var lc = lashCount();
+    GIFT_TIERS.forEach(function (tier) {
+      if (lc >= tier.count) {
+        var acc = ACCESSORIES[tier.giftId];
+        cart.push({
+          id: 'gift-' + acc.id,
+          name: acc.name,
+          variant: 'Gift with purchase',
+          price: 'RM 0',
+          originalPrice: acc.price,
+          image: acc.image,
+          category: 'gift',
+          qty: 1
+        });
+      }
+    });
+  }
+
+  function totalSavings() {
+    return cart.reduce(function (s, it) {
+      return it.category === 'gift' ? s + priceToNumber(it.originalPrice) : s;
+    }, 0);
+  }
+
+  function renderCartItem(it, idx) {
+    var img = it.image
+      ? '<div class="cart-item__image"><img src="' + it.image + '" alt=""></div>'
+      : '<div class="cart-item__image cart-item__image--placeholder"></div>';
+
+    var priceBlock, qtyBlock, removeBtn;
+    if (it.category === 'gift') {
+      priceBlock = '<div class="cart-item__price"><s class="cart-item__price-was">' + it.originalPrice + '</s> <span class="cart-item__price-free">FREE</span></div>';
+      qtyBlock = '<div class="cart-item__gift-pill">Gift</div>';
+      removeBtn = '';
+    } else {
+      var lineTotal = priceToNumber(it.price) * (it.qty || 1);
+      priceBlock = '<div class="cart-item__price">' + formatRM(lineTotal) + '</div>';
+      qtyBlock = ''
+        + '<div class="qty-stepper" role="group" aria-label="Quantity">'
+        + '  <button type="button" class="qty-stepper__btn" data-cart-qty="' + idx + '" data-delta="-1" aria-label="Decrease">−</button>'
+        + '  <span class="qty-stepper__count tnum">' + (it.qty || 1) + '</span>'
+        + '  <button type="button" class="qty-stepper__btn" data-cart-qty="' + idx + '" data-delta="1" aria-label="Increase">+</button>'
+        + '</div>';
+      removeBtn = '<button type="button" class="cart-item__remove" data-cart-remove="' + idx + '">Remove</button>';
+    }
+
+    return ''
+      + '<div class="cart-item' + (it.category === 'gift' ? ' cart-item--gift' : '') + '">'
+      +   img
+      + '  <div class="cart-item__info">'
+      + '    <h3 class="cart-item__name">' + it.name + '</h3>'
+      +      (it.variant ? '<div class="cart-item__variant">' + it.variant + '</div>' : '')
+      +      removeBtn
+      + '  </div>'
+      + '  <div class="cart-item__right">'
+      +      qtyBlock
+      +      priceBlock
+      + '  </div>'
+      + '</div>';
+  }
+
+  function renderUpsells(rowEl) {
+    if (!rowEl) return;
+    var inCart = {};
+    cart.forEach(function (it) { if (it.category === 'lash') inCart[it.id] = true; });
+    var picks = [];
+    for (var key in LASH_STYLES) {
+      if (picks.length >= 4) break;
+      if (!inCart[key]) picks.push(LASH_STYLES[key]);
+    }
+    rowEl.innerHTML = picks.map(function (s) {
+      return ''
+        + '<div class="upsell-card">'
+        + '  <div class="upsell-card__image"><img src="' + (s.card || s.image) + '" alt=""></div>'
+        + '  <div class="upsell-card__name">' + s.name + '</div>'
+        + '  <div class="upsell-card__price">' + s.price + '</div>'
+        + '  <button type="button" class="upsell-card__add"'
+        + '    data-add-to-cart'
+        + '    data-product-id="' + s.id + '"'
+        + '    data-product-name="' + s.name + '"'
+        + '    data-product-price="' + s.price + '"'
+        + '    aria-label="Add ' + s.name + ' to bag">+ Add</button>'
+        + '</div>';
+    }).join('');
+  }
+
+  function renderProgress(drawer) {
+    var msgEl = drawer.querySelector('[data-progress-msg]');
+    var fillEl = drawer.querySelector('[data-progress-fill]');
+    var milestones = drawer.querySelectorAll('[data-milestone]');
+    var lc = lashCount();
+    var pct = Math.min(100, (lc / GIFT_TARGET) * 100);
+    if (fillEl) fillEl.style.width = pct + '%';
+    milestones.forEach(function (m) {
+      var th = parseInt(m.getAttribute('data-milestone'), 10);
+      m.classList.toggle('is-reached', lc >= th);
+    });
+    if (msgEl) {
+      if (lc >= 3) {
+        msgEl.innerHTML = '<span class="cart-progress__check">✓</span> All gifts unlocked — you saved ' + formatRM(totalSavings()) + '.';
+      } else if (lc === 2) {
+        msgEl.innerHTML = '<span class="cart-progress__check">✓</span> Cleanser unlocked. Add <strong>1 more lash</strong> for a free Thermo Curler.';
+      } else if (lc === 1) {
+        msgEl.innerHTML = 'Add <strong>1 more lash</strong> for a free Foam Cleanser.';
+      } else {
+        msgEl.innerHTML = 'Add <strong>2 lashes</strong> to unlock a free Foam Cleanser.';
+      }
+    }
+  }
+
   function renderCart() {
     var drawer = document.querySelector('[data-cart-drawer]');
+    var countEl = document.querySelector('[data-cart-count]');
+    var totalQty = cart.reduce(function (s, it) {
+      return it.category === 'gift' ? s : s + (it.qty || 1);
+    }, 0);
+    if (countEl) {
+      countEl.textContent = totalQty;
+      countEl.style.display = totalQty > 0 ? '' : 'none';
+    }
     if (!drawer) return;
+
     var itemsEl = drawer.querySelector('[data-cart-items]');
     var emptyEl = drawer.querySelector('[data-cart-empty]');
     var totalEl = drawer.querySelector('[data-cart-total]');
     var footEl  = drawer.querySelector('[data-cart-foot]');
-    var nudgeEl = drawer.querySelector('[data-cart-nudge]');
-    var nudgeMsg = drawer.querySelector('[data-cart-nudge-msg]');
-    var nudgeFill = drawer.querySelector('[data-cart-nudge-fill]');
-    var countEl = document.querySelector('[data-cart-count]');
+    var progressEl = drawer.querySelector('[data-cart-progress]');
+    var savingsEl = drawer.querySelector('[data-cart-savings]');
+    var savingsAmountEl = drawer.querySelector('[data-cart-savings-amount]');
+    var countInlineEl = drawer.querySelector('[data-cart-count-inline]');
+    var upsellsEl = drawer.querySelector('[data-cart-upsells]');
+    var upsellsRowEl = drawer.querySelector('[data-upsells-row]');
 
-    var subtotal = cart.reduce(function (s, it) { return s + priceToNumber(it.price); }, 0);
+    if (countInlineEl) countInlineEl.textContent = totalQty;
 
-    if (countEl) {
-      countEl.textContent = cart.length;
-      countEl.style.display = cart.length > 0 ? '' : 'none';
-    }
+    var subtotal = cart.reduce(function (s, it) {
+      return it.category === 'gift' ? s : s + (priceToNumber(it.price) * (it.qty || 1));
+    }, 0);
 
-    if (cart.length === 0) {
+    if (totalQty === 0) {
       if (emptyEl) emptyEl.style.display = '';
       if (itemsEl) itemsEl.innerHTML = '';
-      if (nudgeEl) nudgeEl.style.display = 'none';
-      if (footEl)  footEl.style.display = 'none';
+      if (footEl) footEl.style.display = 'none';
+      if (progressEl) progressEl.style.display = 'none';
+      if (upsellsEl) upsellsEl.style.display = 'none';
+      if (savingsEl) savingsEl.style.display = 'none';
       return;
     }
 
     if (emptyEl) emptyEl.style.display = 'none';
     if (footEl)  footEl.style.display = '';
+    if (progressEl) progressEl.style.display = '';
+    if (upsellsEl) upsellsEl.style.display = '';
     if (totalEl) totalEl.textContent = formatRM(subtotal);
-    if (nudgeEl) {
-      nudgeEl.style.display = '';
-      var pct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
-      if (nudgeFill) nudgeFill.style.width = pct + '%';
-      if (nudgeMsg) {
-        if (subtotal >= FREE_SHIPPING_THRESHOLD) {
-          nudgeMsg.textContent = "You've unlocked free shipping.";
-        } else {
-          nudgeMsg.textContent = formatRM(FREE_SHIPPING_THRESHOLD - subtotal) + ' away from free shipping.';
-        }
+
+    var savings = totalSavings();
+    if (savingsEl) {
+      if (savings > 0) {
+        savingsEl.style.display = '';
+        if (savingsAmountEl) savingsAmountEl.textContent = formatRM(savings);
+      } else {
+        savingsEl.style.display = 'none';
       }
     }
-    if (itemsEl) {
-      itemsEl.innerHTML = cart.map(function (it, idx) {
-        return ''
-          + '<div class="cart-item">'
-          + '  <div class="cart-item__image" style="background:' + (it.bg || 'var(--bg-card)') + '">'
-          + '    <span class="lash-glyph" style="width:60%;height:3px"></span>'
-          + '  </div>'
-          + '  <div class="cart-item__info">'
-          + '    <h3>' + it.name + '</h3>'
-          + '    <div class="cart-item__variant">' + (it.variant || '') + '</div>'
-          + '    <div class="cart-item__price">' + it.price + '</div>'
-          + '    <button class="cart-item__remove" data-cart-remove="' + idx + '">Remove</button>'
-          + '  </div>'
-          + '</div>';
-      }).join('');
-    }
+
+    if (itemsEl) itemsEl.innerHTML = cart.map(renderCartItem).join('');
+    renderProgress(drawer);
+    renderUpsells(upsellsRowEl);
   }
 
   function openCart() {
@@ -162,16 +293,51 @@
     clearTimeout(t._tm);
     t._tm = setTimeout(function () { t.classList.remove('is-on'); }, 2400);
   }
+
   function addToCart(product) {
-    cart.push(product);
+    if (!product.category) {
+      if (LASH_STYLES[product.id]) product.category = 'lash';
+      else if (ACCESSORIES[product.id]) product.category = 'accessory';
+      else product.category = 'other';
+    }
+    var key = product.id + '|' + (product.variant || '');
+    var existing = cart.filter(function (it) {
+      return it.category !== 'gift' && (it.id + '|' + (it.variant || '')) === key;
+    })[0];
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      product.qty = 1;
+      cart.push(product);
+    }
+    reconcileGifts();
     renderCart();
     showToast('Added. One step closer to effortless.');
     setTimeout(openCart, 400);
   }
 
+  function changeQty(idx, delta) {
+    var item = cart[idx];
+    if (!item || item.category === 'gift') return;
+    item.qty = (item.qty || 1) + delta;
+    if (item.qty <= 0) cart.splice(idx, 1);
+    reconcileGifts();
+    renderCart();
+  }
+
+  function removeItem(idx) {
+    var item = cart[idx];
+    if (!item || item.category === 'gift') return;
+    cart.splice(idx, 1);
+    reconcileGifts();
+    renderCart();
+  }
+
   function initCart() {
     var openers = document.querySelectorAll('[data-cart-open]');
-    openers.forEach(function (b) { b.addEventListener('click', openCart); });
+    openers.forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); openCart(); });
+    });
     var closers = document.querySelectorAll('[data-cart-close]');
     closers.forEach(function (b) { b.addEventListener('click', closeCart); });
 
@@ -179,24 +345,87 @@
       var add = e.target.closest('[data-add-to-cart]');
       if (add) {
         e.preventDefault();
+        var pid = add.getAttribute('data-product-id');
         var product = {
-          id: add.getAttribute('data-product-id'),
+          id: pid,
           name: add.getAttribute('data-product-name'),
-          variant: add.getAttribute('data-product-variant'),
+          variant: add.getAttribute('data-product-variant') || '',
           price: add.getAttribute('data-product-price'),
-          bg: add.getAttribute('data-product-bg'),
+          image: add.getAttribute('data-product-image') || ''
         };
+        if (LASH_STYLES[pid]) {
+          product.category = 'lash';
+          if (!product.image) product.image = LASH_STYLES[pid].card || LASH_STYLES[pid].image;
+        } else if (ACCESSORIES[pid]) {
+          product.category = 'accessory';
+          if (!product.image) product.image = ACCESSORIES[pid].image;
+        }
         addToCart(product);
+        return;
       }
       var remove = e.target.closest('[data-cart-remove]');
       if (remove) {
-        var idx = parseInt(remove.getAttribute('data-cart-remove'), 10);
-        cart.splice(idx, 1);
-        renderCart();
+        removeItem(parseInt(remove.getAttribute('data-cart-remove'), 10));
+        return;
+      }
+      var qty = e.target.closest('[data-cart-qty]');
+      if (qty) {
+        changeQty(
+          parseInt(qty.getAttribute('data-cart-qty'), 10),
+          parseInt(qty.getAttribute('data-delta'), 10)
+        );
+        return;
+      }
+      var apply = e.target.closest('[data-discount-apply]');
+      if (apply) {
+        e.preventDefault();
+        var input = document.querySelector('[data-discount-input]');
+        var code = input ? input.value.trim() : '';
+        if (!code) return;
+        showToast('No discount code matches "' + code + '".');
       }
     });
 
     renderCart();
+  }
+
+  /* -------------------- Newsletter popup ------------------------------- */
+  function initNewsletterPopup() {
+    var popup = document.querySelector('[data-newsletter-popup]');
+    if (!popup) return;
+    try {
+      if (localStorage.getItem('santai-newsletter-dismissed') === '1') return;
+    } catch (e) { /* localStorage blocked — show anyway */ }
+
+    var openTimer = setTimeout(function () {
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      var firstInput = popup.querySelector('input');
+      if (firstInput) try { firstInput.focus(); } catch (e) {}
+    }, 5000);
+
+    function dismiss() {
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      try { localStorage.setItem('santai-newsletter-dismissed', '1'); } catch (e) {}
+      clearTimeout(openTimer);
+    }
+
+    popup.querySelectorAll('[data-newsletter-close]').forEach(function (el) {
+      el.addEventListener('click', dismiss);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && popup.classList.contains('is-open')) dismiss();
+    });
+
+    var form = popup.querySelector('[data-newsletter-form]');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        dismiss();
+        showToast('Welcome to the list. Watch your inbox.');
+      });
+    }
   }
 
   /* -------------------- Lash Finder modal ------------------------------ */
@@ -607,6 +836,7 @@
     initStickyHeader();
     initMobileNav();
     initCart();
+    initNewsletterPopup();
     initLashFinder();
     initPDP();
     initCollectionTabs();
