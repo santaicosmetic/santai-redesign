@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Get in touch with Santai Cosmetics — Kuala Lumpur studio. Customer care, press, and stockist enquiries.">
+<title>Contact · Santai Cosmetics</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-screen="contact">
+
+<header class="site-header">
+  <div class="utility-bar" data-utility-bar data-messages='["Free shipping across Malaysia","Free 5-min Lash Match — find yours","Try first, love forever — 14-day return"]'>
+    <span class="utility-bar__msg">Free shipping across Malaysia</span>
+  </div>
+  <div class="site-header__main">
+    <div class="site-header__left">
+      <a class="site-header__icon" href="search.html" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
+      <button class="site-header__icon site-header__mobile-toggle" aria-label="Open menu" data-mobile-nav-toggle><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+    <a class="site-header__logo" href="index.html" aria-label="Santai — home"><span class="wordmark">SANTAI</span></a>
+    <div class="site-header__right">
+      <button class="site-header__icon" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></button>
+      <button class="site-header__icon" aria-label="Wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.5-9-9.5C1.5 6 5 3 8 4.5c1.6.8 3 2.5 4 4 1-1.5 2.4-3.2 4-4 3-1.5 6.5 1.5 5 6-2 5-9 9.5-9 9.5z"/></svg></button>
+      <a class="site-header__icon" href="cart.html" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="site-header__cart-count" data-cart-count style="display:none">0</span></a>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <button class="site-nav__close" data-mobile-nav-close aria-label="Close menu">✕</button>
+    <ul>
+      <li class="site-nav__shop"><a href="collection.html">Shop <span class="site-nav__caret" aria-hidden="true">▾</span></a><div class="site-nav__dropdown"><a href="collection-eye-shape.html">Shop by eye shape</a><a href="collection-makeup.html">Shop by makeup</a><a href="collection-accessories.html">Accessories</a><a href="collection.html">Shop all products</a></div></li>
+      <li><a href="how-to-apply.html">How to Apply</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html" class="is-current">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container page-contact">
+  <div class="page-contact__head">
+    <div class="eyebrow">Contact</div>
+    <h1 class="display-l">We'd love to <span class="display-italic">hear from you</span>.</h1>
+    <p class="page-contact__sub">Order questions, press, stockist enquiries, or just a hello. We reply within one working day from our KL studio.</p>
+  </div>
+
+  <div class="page-contact__grid">
+    <form class="contact-form" onsubmit="event.preventDefault(); var t=document.querySelector('[data-toast]'); if(t){t.textContent='Thanks — we\\'ll be in touch shortly.';t.classList.add('is-on');setTimeout(function(){t.classList.remove('is-on')},2400);} this.reset();">
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-name">Your name</label>
+        <input class="contact-form__input" type="text" id="contact-name" name="name" required>
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-email">Email address</label>
+        <input class="contact-form__input" type="email" id="contact-email" name="email" required>
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-order">Order number <span style="text-transform:none;letter-spacing:0;color:var(--fg-muted);font-weight:400">(optional)</span></label>
+        <input class="contact-form__input" type="text" id="contact-order" name="order" placeholder="e.g. SAN-2026-1042">
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-message">Message</label>
+        <textarea class="contact-form__textarea" id="contact-message" name="message" required placeholder="Tell us how we can help."></textarea>
+      </div>
+      <button class="btn btn-accent contact-form__submit" type="submit">Send message</button>
+      <p class="small" style="color:var(--fg-muted);text-align:center;margin-top:4px">We typically reply within one working day.</p>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Studio</div>
+        <h2 class="contact-card__title">Santai Studio</h2>
+        <div class="contact-card__body">
+          Level 3, Eaton Mall<br>
+          Jalan Damai, Bukit Bintang<br>
+          50200 Kuala Lumpur, Malaysia
+        </div>
+        <a class="contact-card__cta" href="https://maps.google.com" target="_blank" rel="noopener">Open in Google Maps →</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Live chat</div>
+        <h2 class="contact-card__title">WhatsApp</h2>
+        <div class="contact-card__body">
+          Fastest for order status and sizing questions.<br>
+          <strong>+60 12-345 6789</strong>
+        </div>
+        <a class="contact-card__cta" href="https://wa.me/60123456789" target="_blank" rel="noopener">Open WhatsApp →</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Email</div>
+        <h2 class="contact-card__title">Direct lines</h2>
+        <div class="contact-card__body">
+          Customer care · <a href="mailto:hello@santai-cosmetics.com">hello@santai-cosmetics.com</a><br>
+          Press · <a href="mailto:press@santai-cosmetics.com">press@santai-cosmetics.com</a><br>
+          Wholesale · <a href="mailto:wholesale@santai-cosmetics.com">wholesale@santai-cosmetics.com</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Hours</div>
+        <h2 class="contact-card__title">When we reply</h2>
+        <div class="contact-card__body">
+          Monday – Friday, 9am – 6pm MYT.<br>
+          Weekends and public holidays: next working day.
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__newsletter">
+    <div class="site-footer__newsletter-inner">
+      <div>
+        <div class="eyebrow">Newsletter</div>
+        <div class="footer-quote">Join the Santai studio &mdash; get a complimentary <span class="display-italic">lash-fit</span> guide.</div>
+      </div>
+      <form class="footer-form" onsubmit="event.preventDefault()">
+        <input class="footer-input" placeholder="hello@santai.com" type="email" aria-label="Email address">
+        <button class="btn btn-accent" type="submit">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="site-footer__cols">
+    <div><div class="eyebrow">Help</div><ul><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Returns</a></li><li><a href="care-guide.html">Care guide</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="eyebrow">Learn</div><ul><li><a href="#" data-finder-open>Lash Match quiz</a></li><li><a href="how-to-apply.html">How to apply</a></li><li><a href="collection-eye-shape.html">By eye shape</a></li><li><a href="#">The journal</a></li></ul></div>
+    <div><div class="eyebrow">Connect</div><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">Studio loyalty</a></li></ul></div>
+    <div><div class="eyebrow">About</div><ul><li><a href="#">Our story</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Press</a></li><li><a href="#">Stockists</a></li></ul></div>
+  </div>
+  <div class="site-footer__rule"></div>
+  <div class="site-footer__bottom">
+    <span class="footer-mark wordmark">SANTAI</span>
+    <span class="footer-meta">© 2026 Santai Cosmetics Sdn Bhd · Kuala Lumpur</span>
+    <div class="footer-pay"><span class="pay-tile">FPX</span><span class="pay-tile">GrabPay</span><span class="pay-tile">TnG</span><span class="pay-tile">Boost</span><span class="pay-tile">Atome</span><span class="pay-tile">Visa</span><span class="pay-tile">Mastercard</span></div>
+  </div>
+</footer>
+
+<!-- ==================== CART DRAWER ==================== -->
+<div class="cart-overlay" data-cart-overlay data-cart-close></div>
+<aside class="cart-drawer" data-cart-drawer aria-label="Cart">
+  <div class="cart-drawer__head">
+    <h2 class="cart-drawer__title">Your bag <span class="cart-drawer__title-count">(<span data-cart-count-inline>0</span>)</span></h2>
+    <button type="button" class="cart-drawer__close" data-cart-close>Close</button>
+  </div>
+  <div class="cart-progress" data-cart-progress style="display:none">
+    <div class="cart-progress__msg" data-progress-msg>Add <strong>2 lashes</strong> to unlock a free Foam Cleanser.</div>
+    <div class="cart-progress__track">
+      <div class="cart-progress__fill" data-progress-fill></div>
+      <div class="cart-milestone" data-milestone="2"><span class="cart-milestone__dot"></span><span class="cart-milestone__icon">◇</span><span class="cart-milestone__label">Free Cleanser</span></div>
+      <div class="cart-milestone" data-milestone="3"><span class="cart-milestone__dot"></span><span class="cart-milestone__icon">◈</span><span class="cart-milestone__label">Free Curler</span></div>
+    </div>
+  </div>
+  <div class="cart-shipping-promise"><span class="cart-shipping-promise__icon">✓</span>Free shipping across Malaysia (West + East)</div>
+  <div class="cart-empty" data-cart-empty>
+    <p>Your bag is empty.</p>
+    <p class="small" style="margin-top:8px;color:var(--fg-muted)">Start with our bestseller, <a href="product.html?style=pitch" style="color:var(--accent)">Pitch</a>.</p>
+  </div>
+  <div class="cart-items" data-cart-items></div>
+  <div class="cart-upsells" data-cart-upsells style="display:none">
+    <p class="cart-upsells__eyebrow">— You might also like</p>
+    <div class="cart-upsells__row" data-upsells-row></div>
+  </div>
+  <div class="cart-drawer__foot" data-cart-foot style="display:none">
+    <div class="cart-discount">
+      <input type="text" class="cart-discount__input" placeholder="Discount code" data-discount-input aria-label="Discount code">
+      <button type="button" class="cart-discount__apply" data-discount-apply>Apply</button>
+    </div>
+    <div class="cart-savings" data-cart-savings style="display:none">
+      <span>You saved</span><span class="cart-savings__amount" data-cart-savings-amount>RM 0</span>
+    </div>
+    <div class="cart-total"><span class="cart-total__label">Subtotal</span><span class="cart-total__amount tnum" data-cart-total>RM 0</span></div>
+    <div class="cart-total__note">Shipping included. Taxes calculated at checkout.</div>
+    <a class="btn btn-accent cart-drawer__checkout" href="cart.html">Checkout</a>
+  </div>
+</aside>
+
+<!-- ==================== NEWSLETTER POPUP ==================== -->
+<div class="newsletter-popup" data-newsletter-popup role="dialog" aria-modal="true" aria-labelledby="newsletter-popup-title" aria-hidden="true">
+  <div class="newsletter-popup__backdrop" data-newsletter-close></div>
+  <div class="newsletter-popup__card">
+    <button type="button" class="newsletter-popup__close" data-newsletter-close aria-label="Close">✕</button>
+    <div class="newsletter-popup__eyebrow">— Join the studio</div>
+    <h2 class="newsletter-popup__title" id="newsletter-popup-title">First in <em>line</em>.</h2>
+    <p class="newsletter-popup__sub">New drops, restock alerts, and styling notes from our KL studio. Quiet inbox. No noise.</p>
+    <form class="newsletter-popup__form" data-newsletter-form>
+      <input type="text" name="name" class="newsletter-popup__input" placeholder="First name" required aria-label="First name">
+      <input type="email" name="email" class="newsletter-popup__input" placeholder="Email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-accent newsletter-popup__submit">Join the list</button>
+    </form>
+    <p class="newsletter-popup__fineprint">Unsubscribe any time. We won't share your email.</p>
+  </div>
+</div>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>

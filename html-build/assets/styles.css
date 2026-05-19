@@ -418,6 +418,63 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .shape-tile__label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); }
 
 /* ==========================================================================
+   Policy / info pages (Shipping, Returns, Care guide, Privacy, Terms, Refund)
+   Long-form readable typography in a centred column.
+   ========================================================================== */
+.page-policy { padding-block: var(--space-7) var(--space-9); }
+.page-policy__inner { max-width: 680px; margin: 0 auto; }
+.page-policy__head { margin-bottom: var(--space-7); text-align: center; }
+.page-policy__head .eyebrow { color: var(--accent); margin-bottom: 14px; }
+.page-policy__head h1 { margin: 0 0 14px; }
+.page-policy__head .page-policy__sub { font-size: 16px; line-height: 1.6; color: var(--fg-muted); margin: 0 auto; max-width: 56ch; }
+.page-policy__body { font-size: 16px; line-height: 1.7; color: var(--fg); }
+.page-policy__body h2 { font: 400 24px/1.25 var(--font-display); margin: var(--space-7) 0 14px; color: var(--fg); }
+.page-policy__body h2:first-child { margin-top: 0; }
+.page-policy__body h3 { font: 500 14px/1.4 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg); margin: var(--space-5) 0 8px; }
+.page-policy__body p { margin: 0 0 14px; }
+.page-policy__body ul, .page-policy__body ol { margin: 0 0 14px; padding-left: 22px; }
+.page-policy__body li { margin-bottom: 6px; }
+.page-policy__body strong { font-weight: 600; }
+.page-policy__body a { color: var(--accent); text-underline-offset: 3px; }
+.page-policy__body table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; }
+.page-policy__body th, .page-policy__body td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+.page-policy__body th { font-weight: 600; background: var(--bg-soft); }
+.page-policy__divider { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
+.page-policy__callout { background: var(--bg-soft); padding: 20px 22px; margin: 18px 0; border-left: 2px solid var(--accent); }
+.page-policy__callout p:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Contact page — form + studio details side-by-side on desktop
+   ========================================================================== */
+.page-contact { padding-block: var(--space-7) var(--space-9); }
+.page-contact__head { text-align: center; margin-bottom: var(--space-7); }
+.page-contact__head .eyebrow { color: var(--accent); margin-bottom: 14px; }
+.page-contact__head h1 { margin: 0 0 14px; }
+.page-contact__head .page-contact__sub { font-size: 16px; line-height: 1.6; color: var(--fg-muted); margin: 0 auto; max-width: 50ch; }
+.page-contact__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-7); max-width: 960px; margin: 0 auto; }
+@media (min-width: 900px) { .page-contact__grid { grid-template-columns: 1.2fr 1fr; gap: var(--space-8); } }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.contact-form__field { display: flex; flex-direction: column; gap: 6px; }
+.contact-form__label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); }
+.contact-form__input, .contact-form__textarea {
+  border: 1px solid var(--line); padding: 0 14px; min-height: 48px;
+  font: 400 14px/1.4 var(--font-body); color: var(--fg); background: transparent;
+  outline: none; transition: border-color var(--dur-fast) var(--ease-santai);
+}
+.contact-form__textarea { padding: 12px 14px; min-height: 140px; resize: vertical; }
+.contact-form__input:focus, .contact-form__textarea:focus { border-color: var(--fg); }
+.contact-form__submit { width: 100%; margin-top: 8px; }
+
+.contact-aside { display: flex; flex-direction: column; gap: var(--space-5); }
+.contact-card { padding: 22px; background: var(--bg-soft); }
+.contact-card__eyebrow { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 10px; }
+.contact-card__title { font: 400 20px/1.3 var(--font-display); margin: 0 0 8px; }
+.contact-card__body { font-size: 14px; line-height: 1.6; color: var(--fg); }
+.contact-card__body a { color: var(--accent); }
+.contact-card__cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; letter-spacing: 0.04em; color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+.contact-card__cta:hover { color: var(--accent); }
+
+/* ==========================================================================
    Collection group — one grouped section on collection-makeup / collection-eye-shape
    Mobile-first.
    ========================================================================== */
