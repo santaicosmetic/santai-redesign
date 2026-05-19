@@ -1,6 +1,8 @@
 # Santai Cosmetics 网站改版项目
 
 > 这份文件会被 Claude Code 在每次开启 session 时自动读取。先读完这份再开始动手。
+>
+> ⚙️ **当前进度 / Current progress**：详见根目录的 [`PROGRESS.md`](./PROGRESS.md)。里面有最新已完成的功能、待办事项清单，以及在 Claude iOS 手机 app 上继续工作的说明。每完成一个 batch 后请同步更新它。
 
 ## 项目概览
 
