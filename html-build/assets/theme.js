@@ -596,6 +596,118 @@
     render(search(initialQuery), initialQuery);
   }
 
+  /* -------------------- Wishlist (localStorage-backed) ---------------- */
+  var WISHLIST_KEY = 'santai-wishlist';
+
+  function getWishlist() {
+    try {
+      var raw = localStorage.getItem(WISHLIST_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+
+  function setWishlist(list) {
+    try { localStorage.setItem(WISHLIST_KEY, JSON.stringify(list)); } catch (e) {}
+    syncWishlistUI();
+  }
+
+  function toggleWishlistItem(id) {
+    var list = getWishlist();
+    var idx = list.indexOf(id);
+    if (idx === -1) {
+      list.push(id);
+      showToast('Saved to wishlist.');
+    } else {
+      list.splice(idx, 1);
+      showToast('Removed from wishlist.');
+    }
+    setWishlist(list);
+  }
+
+  function syncWishlistUI() {
+    var list = getWishlist();
+    document.querySelectorAll('[data-wishlist-toggle]').forEach(function (btn) {
+      var id = btn.getAttribute('data-wishlist-id');
+      btn.classList.toggle('is-saved', list.indexOf(id) !== -1);
+    });
+    var countEl = document.querySelector('[data-wishlist-count]');
+    if (countEl) {
+      countEl.textContent = list.length;
+      countEl.style.display = list.length > 0 ? '' : 'none';
+    }
+  }
+
+  function renderWishlistPage() {
+    var grid = document.querySelector('[data-wishlist-grid]');
+    if (!grid) return;
+    var emptyEl = document.querySelector('[data-wishlist-empty]');
+    var countEl = document.querySelector('[data-wishlist-page-count]');
+
+    var list = getWishlist();
+    if (countEl) {
+      countEl.textContent = list.length + ' item' + (list.length === 1 ? '' : 's') + ' saved';
+    }
+
+    if (list.length === 0) {
+      grid.innerHTML = '';
+      if (emptyEl) emptyEl.style.display = '';
+      return;
+    }
+    if (emptyEl) emptyEl.style.display = 'none';
+
+    grid.innerHTML = list.map(function (id) {
+      var isLash = !!LASH_STYLES[id];
+      var item = isLash ? LASH_STYLES[id] : ACCESSORIES[id];
+      if (!item) return '';
+      var url = isLash ? ('product.html?style=' + id) : ('product-' + id + '.html');
+      var img = item.card || item.image;
+      var variant = isLash ? item.group : 'Accessory';
+      return ''
+        + '<div class="wishlist-item">'
+        + '  <a class="wishlist-item__image" href="' + url + '">'
+        + '    <img src="' + img + '" alt="' + item.name + '">'
+        + '  </a>'
+        + '  <div class="wishlist-item__info">'
+        + '    <a class="wishlist-item__link" href="' + url + '">'
+        + '      <h3 class="wishlist-item__name">' + item.name + '</h3>'
+        + '    </a>'
+        + '    <div class="wishlist-item__variant">' + variant + '</div>'
+        + '    <div class="wishlist-item__price tnum">' + item.price + '</div>'
+        + '    <div class="wishlist-item__actions">'
+        + '      <button type="button" class="btn btn-accent" data-add-to-cart data-product-id="' + id + '" data-product-name="' + item.name + '" data-product-price="' + item.price + '">Add to bag</button>'
+        + '      <button type="button" class="wishlist-item__remove" data-wishlist-remove="' + id + '">Remove</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function initWishlist() {
+    document.addEventListener('click', function (e) {
+      var toggle = e.target.closest('[data-wishlist-toggle]');
+      if (toggle) {
+        e.preventDefault();
+        toggleWishlistItem(toggle.getAttribute('data-wishlist-id'));
+        return;
+      }
+      var remove = e.target.closest('[data-wishlist-remove]');
+      if (remove) {
+        e.preventDefault();
+        var id = remove.getAttribute('data-wishlist-remove');
+        var list = getWishlist();
+        var idx = list.indexOf(id);
+        if (idx !== -1) {
+          list.splice(idx, 1);
+          setWishlist(list);
+          renderWishlistPage();
+        }
+      }
+    });
+
+    syncWishlistUI();
+    renderWishlistPage();
+  }
+
   /* -------------------- Collection filter chips ------------------------ */
   function initCollectionFilter() {
     var grid = document.querySelector('[data-filter-grid]');
@@ -991,6 +1103,7 @@
     initLashFinder();
     initSearch();
     initCollectionFilter();
+    initWishlist();
     initPDP();
     initCollectionTabs();
     initHeroSlider();

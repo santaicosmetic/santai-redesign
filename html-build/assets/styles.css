@@ -418,6 +418,70 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .shape-tile__label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); }
 
 /* ==========================================================================
+   Wishlist page — localStorage-backed list of saved styles
+   ========================================================================== */
+.page-wishlist { padding-block: var(--space-7) var(--space-9); }
+.page-wishlist__head { text-align: center; margin-bottom: var(--space-7); }
+.page-wishlist__head .eyebrow { color: var(--accent); margin-bottom: 14px; }
+.page-wishlist__head h1 { margin: 0 0 14px; }
+.page-wishlist__count { font-size: 13px; letter-spacing: 0.04em; color: var(--fg-muted); }
+.wishlist-grid { display: flex; flex-direction: column; gap: 0; max-width: 800px; margin: 0 auto; }
+.wishlist-item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+  align-items: start;
+}
+@media (min-width: 720px) { .wishlist-item { grid-template-columns: 160px 1fr; gap: 24px; padding: 28px 0; } }
+.wishlist-item__image { aspect-ratio: 4/5; background: var(--bg-card); overflow: hidden; display: block; }
+.wishlist-item__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wishlist-item__info { display: flex; flex-direction: column; min-width: 0; }
+.wishlist-item__link { color: inherit; text-decoration: none; }
+.wishlist-item__name { font: 400 22px/1.2 var(--font-display); margin: 0 0 4px; color: var(--fg); }
+.wishlist-item__link:hover .wishlist-item__name { color: var(--accent); }
+.wishlist-item__variant { font-size: 13px; color: var(--fg-muted); margin-bottom: 8px; }
+.wishlist-item__price { font-size: 16px; font-weight: 500; margin-bottom: 14px; color: var(--fg); }
+.wishlist-item__actions { display: flex; gap: 16px; align-items: center; margin-top: auto; flex-wrap: wrap; }
+.wishlist-item__actions .btn { min-height: 44px; padding: 0 22px; }
+.wishlist-item__remove {
+  background: transparent; border: 0; padding: 0;
+  font-family: var(--font-body); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--fg-muted); cursor: pointer;
+  text-decoration: underline; text-underline-offset: 4px;
+  min-height: 44px;
+}
+.wishlist-item__remove:hover { color: var(--fg); }
+
+.wishlist-empty { text-align: center; padding: var(--space-7) 0; max-width: 480px; margin: 0 auto; }
+.wishlist-empty__title { font: 300 28px/1.2 var(--font-display); color: var(--fg); margin: 0 0 12px; }
+.wishlist-empty__sub { font-size: 15px; line-height: 1.6; color: var(--fg-muted); margin: 0 0 22px; }
+
+/* "Save to wishlist" button used on PDPs alongside Add to bag */
+.btn-save {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0 18px;
+  min-height: 48px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--dur-fast) var(--ease-santai);
+}
+.btn-save:hover { background: var(--bg-soft); }
+.btn-save__icon { font-size: 16px; line-height: 1; }
+.btn-save.is-saved { background: var(--bg-soft); color: var(--accent); border-color: var(--accent); }
+.btn-save.is-saved .btn-save__icon::before { content: '♥'; }
+.btn-save:not(.is-saved) .btn-save__icon::before { content: '♡'; }
+
+/* ==========================================================================
    Policy / info pages (Shipping, Returns, Care guide, Privacy, Terms, Refund)
    Long-form readable typography in a centred column.
    ========================================================================== */
