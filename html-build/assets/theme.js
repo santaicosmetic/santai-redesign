@@ -60,16 +60,16 @@
 
   /* -------------------- Cart drawer + add-to-cart ---------------------- */
   var LASH_STYLES = {
-    inbox:      { id:'inbox',      name:'Inbox',      group:'Natural',      tagline:'The one that looks like nothing — and everything.',  image:'assets/images/products/lash-inbox.png',      card:'assets/images/products/lash-inbox-card.jpg',      drama:1, eyeType:'All types, esp. fine lashes',  length:'10.5mm',              curl:'45° B+', design:'V-weave airy fibre',          price:'RM 79'  },
-    minutes:    { id:'minutes',    name:'Minutes',    group:'Natural',      tagline:'Your lashes, but better.',                           image:'assets/images/products/lash-minutes.png',    card:'assets/images/products/lash-minutes-card.jpg',    drama:1, eyeType:'Monolid / Hooded',           length:'10.5mm',              curl:'50° C',  design:'True-to-lash simulation',    price:'RM 85'  },
+    inbox:      { id:'inbox',      name:'Inbox',      group:'Natural',      tagline:'The one that looks like nothing — and everything.',  image:'assets/images/products/lash-inbox.png',      card:'assets/images/products/lash-inbox-card.jpg',      drama:1, eyeType:'All eye types',              length:'10.5mm',              curl:'45° B+', design:'V-weave airy fibre',          price:'RM 79'  },
+    minutes:    { id:'minutes',    name:'Minutes',    group:'Natural',      tagline:'Your lashes, but better.',                           image:'assets/images/products/lash-minutes.png',    card:'assets/images/products/lash-minutes-card.jpg',    drama:1, eyeType:'Monolid / Inner double lid', length:'10.5mm',              curl:'50° C',  design:'True-to-lash simulation',    price:'RM 85'  },
     kickoff:    { id:'kickoff',    name:'Kickoff',    group:'Natural',      tagline:'Fresh air energy. Younger-looking.',                  image:'assets/images/products/lash-kickoff.png',    card:'assets/images/products/lash-kickoff-card.jpg',    drama:2, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Korean strand-by-strand',    price:'RM 79'  },
-    boardroom:  { id:'boardroom',  name:'Boardroom',  group:'Light Makeup', tagline:'The one that never gets it wrong.',                   image:'assets/images/products/lash-boardroom.png',  card:'assets/images/products/lash-boardroom-card.jpg',  drama:3, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Classic soft volume',        price:'RM 95'  },
-    pitch:      { id:'pitch',      name:'Pitch',      group:'Light Makeup', tagline:'Refuse to droop. Stay sharp.',                        image:'assets/images/products/lash-pitch.png',      card:'assets/images/products/lash-pitch-card.jpg',      drama:3, eyeType:'Hooded / Monolid fave',     length:'10–11mm',             curl:'70° L',  design:'High-lift 70° L arc',        price:'RM 89'  },
-    memo:       { id:'memo',       name:'Memo',       group:'Light Makeup', tagline:'Sweet, wide-eyed, unforgettable.',                    image:'assets/images/products/lash-memo.png',       card:'assets/images/products/lash-memo-card.jpg',       drama:3, eyeType:'Round eyes, all types',     length:'12mm',                curl:'50° C',  design:'7-cluster fairy burst',      price:'RM 95'  },
-    afterhours: { id:'afterhours', name:'Afterhours', group:'Full Glam',    tagline:'The night queen, no apologies.',                      image:'assets/images/products/lash-afterhours.png', card:'assets/images/products/lash-afterhours-card.jpg', drama:5, eyeType:'Double lid / Long eyes',   length:'10–11mm',             curl:'50° C',  design:'Sunflower triangle cluster', price:'RM 105' },
-    twilight:   { id:'twilight',   name:'Twilight',   group:'Full Glam',    tagline:'The hour between work and magic.',                    image:'assets/images/products/lash-twilight.jpg',   card:'assets/images/products/lash-twilight-card.jpg',   drama:5, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Volumised natural',          price:'RM 89'  },
-    nightshift: { id:'nightshift', name:'Nightshift', group:'Full Glam',    tagline:'Mysterious. Fatal. Irresistible.',                    image:'assets/images/products/lash-nightshift.jpg', card:'assets/images/products/lash-nightshift-card.jpg', drama:5, eyeType:'Monolid / Downturned',      length:'10–12mm + 13mm outer', curl:'50° C', design:'Fox-eye upswept',            price:'RM 95'  },
-    vip:        { id:'vip',        name:'VIP Access', group:'Full Glam',    tagline:'You were born for the front row.',                    image:'assets/images/products/lash-vip.jpg',        card:'assets/images/products/lash-vip-card.jpg',        drama:5, eyeType:'All eye types',              length:'11–12mm',             curl:'50° C',  design:'Statement volume',           price:'RM 105' }
+    boardroom:  { id:'boardroom',  name:'Boardroom',  group:'Light makeup', tagline:'The one that never gets it wrong.',                   image:'assets/images/products/lash-boardroom.png',  card:'assets/images/products/lash-boardroom-card.jpg',  drama:3, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Classic soft volume',        price:'RM 95'  },
+    pitch:      { id:'pitch',      name:'Pitch',      group:'Light makeup', tagline:'Refuse to droop. Stay sharp.',                        image:'assets/images/products/lash-pitch.png',      card:'assets/images/products/lash-pitch-card.jpg',      drama:3, eyeType:'Monolid / Inner double lid', length:'10–11mm',             curl:'70° L',  design:'High-lift 70° L arc',        price:'RM 89'  },
+    memo:       { id:'memo',       name:'Memo',       group:'Light makeup', tagline:'Sweet, wide-eyed, unforgettable.',                    image:'assets/images/products/lash-memo.png',       card:'assets/images/products/lash-memo-card.jpg',       drama:3, eyeType:'All eye types',              length:'12mm',                curl:'50° C',  design:'7-cluster fairy burst',      price:'RM 95'  },
+    afterhours: { id:'afterhours', name:'Afterhours', group:'Heavy makeup', tagline:'The night queen, no apologies.',                      image:'assets/images/products/lash-afterhours.png', card:'assets/images/products/lash-afterhours-card.jpg', drama:5, eyeType:'Double lid',                 length:'10–11mm',             curl:'50° C',  design:'Sunflower triangle cluster', price:'RM 105' },
+    twilight:   { id:'twilight',   name:'Twilight',   group:'Heavy makeup', tagline:'The hour between work and magic.',                    image:'assets/images/products/lash-twilight.jpg',   card:'assets/images/products/lash-twilight-card.jpg',   drama:5, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Volumised natural',          price:'RM 89'  },
+    nightshift: { id:'nightshift', name:'Nightshift', group:'Heavy makeup', tagline:'Mysterious. Fatal. Irresistible.',                    image:'assets/images/products/lash-nightshift.jpg', card:'assets/images/products/lash-nightshift-card.jpg', drama:5, eyeType:'Monolid / Double lid',       length:'10–12mm + 13mm outer', curl:'50° C', design:'Fox-eye upswept',            price:'RM 95'  },
+    vip:        { id:'vip',        name:'VIP Access', group:'Heavy makeup', tagline:'You were born for the front row.',                    image:'assets/images/products/lash-vip.jpg',        card:'assets/images/products/lash-vip-card.jpg',        drama:5, eyeType:'All eye types',              length:'11–12mm',             curl:'50° C',  design:'Statement volume',           price:'RM 105' }
   };
   /* Accessories — real SKUs, also surface as gifts when lash-tier unlocked */
   var ACCESSORIES = {
@@ -498,6 +498,104 @@
     if (doneBtn) doneBtn.addEventListener('click', function () { show(4); });
   }
 
+  /* -------------------- Search results page ---------------------------- */
+  function initSearch() {
+    var resultsEl = document.querySelector('[data-search-results]');
+    if (!resultsEl) return;
+
+    var countEl = document.querySelector('[data-search-count]');
+    var emptyEl = document.querySelector('[data-search-empty]');
+    var queryEl = document.querySelector('[data-search-query]');
+    var input   = document.querySelector('[data-search-input]');
+
+    /* Build searchable corpus from existing data */
+    var corpus = [];
+    for (var sid in LASH_STYLES) {
+      var s = LASH_STYLES[sid];
+      corpus.push({
+        type: 'lash',
+        name: s.name,
+        price: s.price,
+        image: s.card || s.image || 'assets/images/products/lash-1-inbox.jpg',
+        variant: s.group,
+        url: 'product.html?style=' + sid,
+        text: [s.name, s.group, s.eyeType, s.tagline, s.design, sid].join(' ').toLowerCase()
+      });
+    }
+    for (var aid in ACCESSORIES) {
+      var a = ACCESSORIES[aid];
+      corpus.push({
+        type: 'accessory',
+        name: a.name,
+        price: a.price,
+        image: a.image,
+        variant: 'Accessory',
+        url: 'product-' + aid + '.html',
+        text: [a.name, 'accessory', a.tagline].join(' ').toLowerCase()
+      });
+    }
+
+    function search(query) {
+      query = String(query || '').trim().toLowerCase();
+      if (!query) return [];
+      var words = query.split(/\s+/);
+      return corpus.filter(function (item) {
+        return words.every(function (w) { return item.text.indexOf(w) !== -1; });
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+      });
+    }
+
+    function render(results, query) {
+      var safeQuery = escapeHtml(query);
+      if (queryEl) queryEl.textContent = query;
+
+      if (!query) {
+        resultsEl.innerHTML = '';
+        if (countEl) countEl.style.display = 'none';
+        if (emptyEl) emptyEl.style.display = 'none';
+        return;
+      }
+
+      if (results.length === 0) {
+        resultsEl.innerHTML = '';
+        if (countEl) countEl.style.display = 'none';
+        if (emptyEl) emptyEl.style.display = '';
+        return;
+      }
+
+      if (countEl) {
+        countEl.style.display = '';
+        countEl.innerHTML = results.length + ' result' + (results.length === 1 ? '' : 's')
+          + ' for <strong>"' + safeQuery + '"</strong>';
+      }
+      if (emptyEl) emptyEl.style.display = 'none';
+
+      resultsEl.innerHTML = results.map(function (r) {
+        return ''
+          + '<a class="product-card" href="' + r.url + '">'
+          + '  <div class="product-card__image">'
+          + '    <img class="product-card__photo" src="' + r.image + '" alt="' + escapeHtml(r.name) + '" loading="lazy">'
+          + '    <span class="product-card__hover-cue" aria-hidden="true">→</span>'
+          + '  </div>'
+          + '  <div class="product-card__title">' + escapeHtml(r.name) + '</div>'
+          + '  <div class="product-card__variant">' + escapeHtml(r.variant || '') + '</div>'
+          + '  <div class="product-card__price tnum">' + escapeHtml(r.price) + '</div>'
+          + '</a>';
+      }).join('');
+    }
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var initialQuery = urlParams.get('q') || '';
+    if (input && initialQuery) input.value = initialQuery;
+
+    render(search(initialQuery), initialQuery);
+  }
+
   /* -------------------- PDP — variant selector + accordion ------------- */
   function initPDP() {
     var variants = document.querySelectorAll('[data-pdp-variant]');
@@ -640,14 +738,14 @@
 
     var GROUPS = [
       { key: 'Natural',      styles: ['inbox', 'minutes', 'kickoff'] },
-      { key: 'Light Makeup', styles: ['boardroom', 'pitch', 'memo'] },
-      { key: 'Full Glam',    styles: ['afterhours', 'twilight', 'nightshift', 'vip'] }
+      { key: 'Light makeup', styles: ['boardroom', 'pitch', 'memo'] },
+      { key: 'Heavy makeup', styles: ['afterhours', 'twilight', 'nightshift', 'vip'] }
     ];
 
     var GROUP_SLUG = {
       'Natural':      'natural',
-      'Light Makeup': 'light-makeup',
-      'Full Glam':    'full-glam'
+      'Light makeup': 'light-makeup',
+      'Heavy makeup': 'heavy-makeup'
     };
 
     /* --- Open / close modal --- */
@@ -838,6 +936,7 @@
     initCart();
     initNewsletterPopup();
     initLashFinder();
+    initSearch();
     initPDP();
     initCollectionTabs();
     initHeroSlider();
