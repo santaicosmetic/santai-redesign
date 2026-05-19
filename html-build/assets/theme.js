@@ -890,12 +890,16 @@
   /* -------------------- Collection filter chips ------------------------ */
   function initCollectionFilter() {
     var grid = document.querySelector('[data-filter-grid]');
+    if (!grid) return;
     var chips = document.querySelectorAll('[data-filter-chip]');
-    if (!grid || !chips.length) return;
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.product-card'));
+    if (!cards.length) return;
     var countEl = document.querySelector('[data-result-count]');
     var totalCards = cards.length;
+
+    /* Capture original DOM order so "Featured" can restore it */
+    cards.forEach(function (c, i) { c.setAttribute('data-original-index', String(i)); });
 
     function applyFilter(key, value) {
       var visible = 0;
@@ -925,11 +929,67 @@
       }
     }
 
+    function priceOf(card) {
+      var el = card.querySelector('.product-card__price');
+      var text = el ? (el.textContent || '') : '';
+      var m = text.replace(/,/g, '').match(/\d+(\.\d+)?/);
+      return m ? parseFloat(m[0]) : 0;
+    }
+
+    function badgeOf(card) {
+      var b = card.querySelector('.product-card__badge');
+      return b ? (b.textContent || '').trim().toLowerCase() : '';
+    }
+
+    function originalOrder(a, b) {
+      return parseInt(a.getAttribute('data-original-index'), 10) - parseInt(b.getAttribute('data-original-index'), 10);
+    }
+
+    function applySort(mode) {
+      var sorted = cards.slice();
+      if (mode === 'price-asc') {
+        sorted.sort(function (a, b) {
+          var d = priceOf(a) - priceOf(b);
+          return d !== 0 ? d : originalOrder(a, b);
+        });
+      } else if (mode === 'price-desc') {
+        sorted.sort(function (a, b) {
+          var d = priceOf(b) - priceOf(a);
+          return d !== 0 ? d : originalOrder(a, b);
+        });
+      } else if (mode === 'newest') {
+        sorted.sort(function (a, b) {
+          var aNew = badgeOf(a) === 'new' ? 0 : 1;
+          var bNew = badgeOf(b) === 'new' ? 0 : 1;
+          return aNew !== bNew ? aNew - bNew : originalOrder(a, b);
+        });
+      } else if (mode === 'bestselling') {
+        var rank = { 'bestseller': 0, 'award winner': 1, 'first-timer pick': 2 };
+        sorted.sort(function (a, b) {
+          var ar = rank[badgeOf(a)]; if (ar === undefined) ar = 99;
+          var br = rank[badgeOf(b)]; if (br === undefined) br = 99;
+          return ar !== br ? ar - br : originalOrder(a, b);
+        });
+      } else {
+        sorted.sort(originalOrder);
+      }
+      var frag = document.createDocumentFragment();
+      sorted.forEach(function (c) { frag.appendChild(c); });
+      grid.appendChild(frag);
+    }
+
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
         applyFilter(chip.getAttribute('data-filter-key'), chip.getAttribute('data-filter-value') || '');
       });
     });
+
+    var sortSelect = document.querySelector('[data-sort-select]');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function () {
+        applySort(sortSelect.value);
+      });
+    }
 
     /* Initial state from URL: ?makeup=natural or ?eye=monolid */
     var urlParams = new URLSearchParams(window.location.search);

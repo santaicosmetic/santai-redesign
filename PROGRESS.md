@@ -59,7 +59,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 - [ ] **About / Our Story page** — explicitly skipped per user direction; build later
 - [ ] **Journal index + article template + 3 posts** — explicitly skipped per user direction; homepage has 3 journal cards with copy + images already wired
-- [ ] **Sort dropdown on `collection.html`** — decorative; filter chips work but Sort doesn't
+- [x] ~~**Sort dropdown on `collection.html`**~~ **Done 2026-05-19.** Wired the existing `<select>` to actually re-order the grid. Modes: Featured (original DOM order) / Bestselling (Bestseller → Award winner → First-timer pick → rest) / Newest (New badge first) / Price low→high / Price high→low. Sort layer is independent of filter chips — both compose cleanly. Ties broken by original order.
 - [ ] **Real product photography for Cleanser + Thermo Curler** — currently using lifestyle photo stand-ins
 - [ ] **Lash Finder recommendation logic** — quiz always returns "Inbox"; needs a `(eye × look × freq × flags) → product handle` map
 - [ ] **Real reviews** — homepage shows 3 hardcoded reviews; will be replaced by Judge.me / Loox / Yotpo Liquid block at Shopify port
