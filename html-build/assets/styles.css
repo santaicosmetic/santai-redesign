@@ -508,7 +508,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .page-policy__callout p:last-child { margin-bottom: 0; }
 
 /* ==========================================================================
-   Contact page — form + studio details side-by-side on desktop
+   Contact page — form + contact details side-by-side on desktop
    ========================================================================== */
 .page-contact { padding-block: var(--space-7) var(--space-9); }
 .page-contact__head { text-align: center; margin-bottom: var(--space-7); }
@@ -1651,7 +1651,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .essential-card:hover .essential-card__cta { color: var(--accent); }
 
 /* ==========================================================================
-   Journal — article preview section (replaces Studio)
+   Journal — article preview section
    ========================================================================== */
 .journal { padding-block: var(--space-7); }
 @media (min-width: 1024px) { .journal { padding-block: var(--space-9); } }
