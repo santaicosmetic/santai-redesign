@@ -596,6 +596,185 @@
     render(search(initialQuery), initialQuery);
   }
 
+  /* -------------------- Search overlay (header dropdown / mobile sheet) */
+  function initSearchOverlay() {
+    /* Skip on the dedicated search page — its in-page input handles things */
+    if (document.body.getAttribute('data-screen') === 'search') return;
+
+    var triggers = document.querySelectorAll('[data-search-trigger]');
+    if (!triggers.length) return;
+
+    /* Build searchable corpus (same shape as initSearch's) */
+    var corpus = [];
+    for (var sid in LASH_STYLES) {
+      var s = LASH_STYLES[sid];
+      corpus.push({
+        name: s.name,
+        price: s.price,
+        image: s.card || s.image || 'assets/images/products/lash-1-inbox.jpg',
+        variant: s.group,
+        url: 'product.html?style=' + sid,
+        text: [s.name, s.group, s.eyeType, s.tagline, s.design, sid].join(' ').toLowerCase()
+      });
+    }
+    for (var aid in ACCESSORIES) {
+      var a = ACCESSORIES[aid];
+      corpus.push({
+        name: a.name,
+        price: a.price,
+        image: a.image,
+        variant: 'Accessory',
+        url: 'product-' + aid + '.html',
+        text: [a.name, 'accessory', a.tagline].join(' ').toLowerCase()
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+      });
+    }
+
+    function search(query) {
+      query = String(query || '').trim().toLowerCase();
+      if (!query) return [];
+      var words = query.split(/\s+/);
+      return corpus.filter(function (item) {
+        return words.every(function (w) { return item.text.indexOf(w) !== -1; });
+      });
+    }
+
+    /* Inject overlay DOM once */
+    var overlay = document.createElement('div');
+    overlay.className = 'search-overlay';
+    overlay.setAttribute('data-search-overlay', '');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = ''
+      + '<div class="search-overlay__backdrop" data-search-overlay-close></div>'
+      + '<div class="search-overlay__panel" role="dialog" aria-modal="true" aria-label="Search">'
+      +   '<form class="search-overlay__form" action="search.html" method="get" role="search">'
+      +     '<svg class="search-overlay__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
+      +     '<input class="search-overlay__input" type="search" name="q" placeholder="Search lashes, cleanser, monolid&hellip;" autocomplete="off" aria-label="Search query">'
+      +     '<button type="button" class="search-overlay__close" data-search-overlay-close aria-label="Close search">✕</button>'
+      +   '</form>'
+      +   '<div class="search-overlay__body">'
+      +     '<div class="search-overlay__intro" data-search-overlay-intro>'
+      +       '<div class="eyebrow">Popular searches</div>'
+      +       '<div class="search-overlay__chips">'
+      +         '<a class="search-overlay__chip" href="search.html?q=monolid">Monolid</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=natural">Natural</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=heavy+makeup">Heavy makeup</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=daily">Daily</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=evening">Evening</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=curler">Curler</a>'
+      +         '<a class="search-overlay__chip" href="search.html?q=cleanser">Cleanser</a>'
+      +       '</div>'
+      +     '</div>'
+      +     '<div class="search-overlay__results" data-search-overlay-results></div>'
+      +     '<div class="search-overlay__empty" data-search-overlay-empty style="display:none">'
+      +       '<p>No matches for &ldquo;<span data-search-overlay-query></span>&rdquo;.</p>'
+      +       '<p class="search-overlay__empty-sub">Try a different word, or <a href="collection.html">browse the full collection</a>.</p>'
+      +     '</div>'
+      +     '<a class="search-overlay__see-all" data-search-overlay-see-all href="search.html" style="display:none">See all <span data-search-overlay-count>0</span> results &rarr;</a>'
+      +   '</div>'
+      + '</div>';
+    document.body.appendChild(overlay);
+
+    var input    = overlay.querySelector('.search-overlay__input');
+    var introEl  = overlay.querySelector('[data-search-overlay-intro]');
+    var resultsEl= overlay.querySelector('[data-search-overlay-results]');
+    var emptyEl  = overlay.querySelector('[data-search-overlay-empty]');
+    var queryEl  = overlay.querySelector('[data-search-overlay-query]');
+    var seeAllEl = overlay.querySelector('[data-search-overlay-see-all]');
+    var countEl  = overlay.querySelector('[data-search-overlay-count]');
+
+    var MAX_RESULTS = 6;
+
+    function render(query) {
+      if (!query) {
+        introEl.style.display = '';
+        resultsEl.innerHTML = '';
+        resultsEl.style.display = 'none';
+        emptyEl.style.display = 'none';
+        seeAllEl.style.display = 'none';
+        return;
+      }
+      introEl.style.display = 'none';
+      var results = search(query);
+
+      if (results.length === 0) {
+        queryEl.textContent = query;
+        resultsEl.innerHTML = '';
+        resultsEl.style.display = 'none';
+        emptyEl.style.display = '';
+        seeAllEl.style.display = 'none';
+        return;
+      }
+
+      emptyEl.style.display = 'none';
+      resultsEl.style.display = '';
+      var visible = results.slice(0, MAX_RESULTS);
+      resultsEl.innerHTML = visible.map(function (r) {
+        return ''
+          + '<a class="search-result" href="' + r.url + '">'
+          +   '<span class="search-result__image"><img src="' + r.image + '" alt="" loading="lazy"></span>'
+          +   '<span class="search-result__body">'
+          +     '<span class="search-result__name">' + escapeHtml(r.name) + '</span>'
+          +     '<span class="search-result__meta">' + escapeHtml(r.variant || '') + '</span>'
+          +   '</span>'
+          +   '<span class="search-result__price tnum">' + escapeHtml(r.price) + '</span>'
+          + '</a>';
+      }).join('');
+
+      if (results.length > MAX_RESULTS) {
+        seeAllEl.style.display = '';
+        countEl.textContent = results.length;
+        seeAllEl.setAttribute('href', 'search.html?q=' + encodeURIComponent(query));
+      } else {
+        seeAllEl.style.display = 'none';
+      }
+    }
+
+    function open() {
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('is-search-overlay-open');
+      setTimeout(function () { input.focus(); }, 60);
+    }
+
+    function close() {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('is-search-overlay-open');
+      /* Reset so it reopens clean */
+      setTimeout(function () { input.value = ''; render(''); }, 280);
+    }
+
+    triggers.forEach(function (t) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        open();
+      });
+    });
+
+    overlay.querySelectorAll('[data-search-overlay-close]').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+
+    var typingTimer;
+    input.addEventListener('input', function () {
+      clearTimeout(typingTimer);
+      var q = input.value;
+      typingTimer = setTimeout(function () { render(q); }, 80);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (overlay.classList.contains('is-open') && (e.key === 'Escape' || e.keyCode === 27)) {
+        close();
+      }
+    });
+  }
+
   /* -------------------- Wishlist (localStorage-backed) ---------------- */
   var WISHLIST_KEY = 'santai-wishlist';
 
@@ -1102,6 +1281,7 @@
     initNewsletterPopup();
     initLashFinder();
     initSearch();
+    initSearchOverlay();
     initCollectionFilter();
     initWishlist();
     initPDP();
