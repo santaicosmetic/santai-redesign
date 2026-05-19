@@ -12,6 +12,13 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ## Where we are — as of 2026-05-19
 
+> 🆕 **Pickup for next session — start here.** Today's work shipped 5 commits to `main`: Studio purge, link audit, header search overlay, Pages auto-deploy workflow, and the Sort dropdown wire-up on `collection.html`. Everything below reflects the current state. The next-up TODO list is in the **"Up next"** section at the bottom — Lash Finder recommendation map is the recommended next batch.
+
+> 📱 **Live mobile preview** (auto-deploys on every push to `main`): **https://santaicosmetic.github.io/santai-redesign/**
+> - Append `index.html`, `product.html`, `cart.html`, etc. for specific pages
+> - GitHub Pages workflow lives in `.github/workflows/pages.yml`
+> - If the repo flips back to private, the github.io URL still serves (Pages-from-Actions is decoupled from repo visibility)
+
 **21 pages built**:
 
 | Group | Pages |
@@ -26,11 +33,13 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 **Working interactions** (all client-side, ready for Shopify port):
 - Cart drawer with **gift tiers** (2 lashes → free Foam Cleanser; 3 → +Thermo Curler) + free-shipping promise band
 - **Newsletter popup** — 5s delay, dismissal persists via localStorage
-- **Search** — queries `LASH_STYLES` + `ACCESSORIES` by name/group/eyeType/tagline/design (currently on `search.html` only — see TODO 1 below)
+- **Header search overlay** — tap the magnifier on any of the 21 page headers; live-as-you-type results from `LASH_STYLES` + `ACCESSORIES`, capped at 6 with "See all N →" → `search.html?q=…`. Mobile full-screen sheet / desktop dropdown (≥720px). Submits to `search.html` as no-JS fallback.
+- **Dedicated search page** (`search.html`) — same corpus, full-results view
 - **Collection filter chips** — `?makeup=` / `?eye=` deep-linkable on `collection.html`
+- **Collection sort dropdown** — Featured / Bestselling / Newest / Price ↑ / Price ↓; composes with filter chips
 - **Compare Styles modal** on lash PDP
 - **Wishlist** — localStorage-backed, Save buttons on all 3 PDPs
-- **Lash Finder** — 4-step quiz modal (recommendation is hardcoded to "Inbox" for now)
+- **Lash Finder** — 4-step quiz modal (⚠️ recommendation still hardcoded to "Inbox" — see "Up next")
 - **Contact form** — toast on submit, no backend
 
 **Visual system + taxonomy** standardised everywhere:
@@ -76,27 +85,69 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ---
 
-## Recent commit history (this session)
+## Recent commit history (most recent on top)
 
 ```
+1694351 feat: wire Sort dropdown on collection.html
+deb34e4 ci: re-trigger Pages deploy after env rule fix
+68fecee ci: auto-deploy html-build/ to GitHub Pages on push to main
+43e8981 feat: add header search overlay (mobile sheet + desktop dropdown)
+a38c05b chore: link audit pass — standardise footer + wire dead anchors
+188b39c chore: purge "Santai Studio" / KL studio references site-wide
+c94f4be docs: add PROGRESS.md as running state doc + 3 new TODOs from latest review
 5615239 chore: footer sweep + header wishlist link across all 21 pages
 e8b6d43 feat: add wishlist (localStorage) + Save buttons on all PDPs
 6bf9484 feat: add Privacy, Terms of service, and Refund policy pages
 c8167d6 feat: add Contact, Shipping, Returns, and Care guide pages
-f8dc5f4 feat: build accessory PDPs + accessories collection page
-297bb39 feat: wire collection filter chips and add Memo + VIP Access cards
-0e41ae9 feat: wire search to actually search products
-67db3a7 feat: add Shop by makeup + Shop by eye shape collection pages
-9fa624a feat: redesign cart drawer with gift tiers + add newsletter popup
-7c876eb fix: address code review issues in Compare Styles feature
-17bee35 feat: update PDP hero images to Pitch style
 ```
 
 Full history: `git log --oneline`.
 
 ---
 
-## How to continue remotely (Claude iOS app)
+## Up next — recommended order
+
+1. **Lash Finder recommendation map** (1-2h, biggest product-quality lift)
+   - Current: 4-step quiz in `initLashFinder()` (in `theme.js`) always returns "Inbox" regardless of answers.
+   - Goal: build a lookup table `(eye × look × frequency × flags) → product handle` so each answer combo maps to one of the 10 lashes.
+   - Why now: it's literally one of the two brand promises ("the right lash for YOUR eye") and currently faked. Highest-impact remaining item.
+   - Suggested approach: open by asking the user to confirm the rules table draft before wiring it (so the recommendations actually match brand intent).
+
+2. **About / Our Story page** (~1h layout after copy lands)
+   - Needs brand-story copy from the user before layout begins.
+   - Closes a noticeable nav gap; some menus point at `#` for it.
+
+3. **Journal index + article template + 3 posts** (~2-3h after copy lands)
+   - Closes ~25 dead `href="#"` placeholders across homepage + footer in one go.
+   - Needs 3 short articles' copy: Tutorial / Lash Care / The truth about.
+
+4. **Social URLs swap** (trivial when handles arrive)
+   - Replace 42 `href="#"` on Instagram + TikTok footer links across all 21 pages.
+
+5. **Polish, later**
+   - Real product photography for Cleanser + Thermo Curler
+   - Real reviews integration (deferred to Judge.me at Shopify port)
+   - Account pages (deferred to Shopify port)
+
+---
+
+## How to continue on the home machine
+
+```powershell
+cd <repo-path>
+git checkout main      # or `git switch main` on newer git
+git pull               # picks up everything from the mobile session
+```
+
+After that, `main` is at commit `1694351` and includes today's 5 batches. Open Claude Code in the repo, paste a fresh prompt like:
+
+> Continuing Santai. Read `PROGRESS.md` (especially the "Up next" section), then start on item 1 (Lash Finder recommendation map). Before writing any code, draft the rules table — show me which `(eye × look × frequency)` combo recommends which of the 10 lashes — and wait for my approval.
+
+The Claude Code session will auto-load `CLAUDE.md` (project brief, in Mandarin) and pick up the visual-system rules (Direction C, mobile-first ≥44px touch, etc.).
+
+---
+
+## How to continue remotely (Claude on a phone)
 
 The Claude iOS chat app can plan and write code but can't run terminal/file tools or push commits. To pick up effectively from your phone:
 
