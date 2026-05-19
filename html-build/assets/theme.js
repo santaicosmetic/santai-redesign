@@ -73,8 +73,8 @@
   };
   /* Accessories — real SKUs, also surface as gifts when lash-tier unlocked */
   var ACCESSORIES = {
-    cleanser: { id:'cleanser', name:'Foam Cleanser',  tagline:'Daily lash + lid wash.',  price:'RM 29', image:'assets/images/products/lash-inbox-card.jpg' },
-    curler:   { id:'curler',   name:'Thermo Curler',  tagline:'Pre-application set.',    price:'RM 39', image:'assets/images/products/lash-pitch-card.jpg' }
+    cleanser: { id:'cleanser', name:'Foam Cleanser',  tagline:'Daily lash + lid wash.',  price:'RM 29', image:'assets/images/lifestyle/lifestyle-6.jpg' },
+    curler:   { id:'curler',   name:'Thermo Curler',  tagline:'Pre-application set.',    price:'RM 39', image:'assets/images/lifestyle/lifestyle-4-hf.jpg' }
   };
 
   /* Gift tiers — buy N lashes, get matching accessory free */
