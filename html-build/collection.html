@@ -75,14 +75,14 @@
   <!-- ==================== TOOLBAR (filter + sort) ==================== -->
   <section class="container">
     <div class="collection-toolbar">
-      <div class="collection-filters" role="group" aria-label="Filter products">
-        <button class="collection-filter is-active" type="button">All <span class="collection-filter__count">8</span></button>
-        <button class="collection-filter" type="button">Monolid <span class="collection-filter__count">3</span></button>
-        <button class="collection-filter" type="button">Double lid <span class="collection-filter__count">5</span></button>
-        <button class="collection-filter" type="button">Inner double lid <span class="collection-filter__count">2</span></button>
-        <button class="collection-filter" type="button">Natural <span class="collection-filter__count">3</span></button>
-        <button class="collection-filter" type="button">Light makeup <span class="collection-filter__count">3</span></button>
-        <button class="collection-filter" type="button">Heavy makeup <span class="collection-filter__count">2</span></button>
+      <div class="collection-filters" role="group" aria-label="Filter products" data-filter-group>
+        <button class="collection-filter is-active" type="button" data-filter-chip data-filter-key="all">All <span class="collection-filter__count">10</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="monolid">Monolid <span class="collection-filter__count">9</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="double-lid">Double lid <span class="collection-filter__count">8</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="inner-double-lid">Inner double lid <span class="collection-filter__count">8</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="natural">Natural <span class="collection-filter__count">3</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="light-makeup">Light makeup <span class="collection-filter__count">3</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="heavy-makeup">Heavy makeup <span class="collection-filter__count">4</span></button>
       </div>
       <div class="collection-sort">
         <label for="collection-sort-select" class="collection-sort__label">Sort</label>
@@ -96,12 +96,12 @@
       </div>
     </div>
 
-    <div class="collection-result-count">Showing 8 of 8 styles</div>
+    <div class="collection-result-count" data-result-count>Showing 10 of 10 styles</div>
 
     <!-- ==================== PRODUCT GRID ==================== -->
-    <div class="bestseller-grid">
+    <div class="bestseller-grid" data-filter-grid>
 
-      <a class="product-card" href="product.html?style=inbox">
+      <a class="product-card" href="product.html?style=inbox" data-makeup="natural" data-eye="monolid double-lid inner-double-lid">
         <div class="product-card__image">
           <span class="product-card__badge">First-timer pick</span>
           <img class="product-card__photo" src="assets/images/products/lash-1-inbox.jpg" alt="Inbox magnetic lashes" loading="lazy">
@@ -112,21 +112,30 @@
         <div class="product-card__price tnum">RM 79</div>
       </a>
 
-      <a class="product-card" href="product.html?style=pitch">
+      <a class="product-card" href="product.html?style=minutes" data-makeup="natural" data-eye="monolid inner-double-lid">
         <div class="product-card__image">
-          <span class="product-card__badge">Bestseller</span>
-          <img class="product-card__photo" src="assets/images/products/lash-3-boardroom.jpg" alt="Pitch magnetic lashes" loading="lazy">
+          <img class="product-card__photo" src="assets/images/products/lash-5-minutes.jpg" alt="Minutes magnetic lashes" loading="lazy">
           <span class="product-card__hover-cue" aria-hidden="true">→</span>
         </div>
-        <div class="product-card__title">Pitch</div>
-        <div class="product-card__variant">Work hours</div>
-        <div class="product-card__price tnum">RM 89</div>
+        <div class="product-card__title">Minutes</div>
+        <div class="product-card__variant">Daily</div>
+        <div class="product-card__price tnum">RM 85</div>
       </a>
 
-      <a class="product-card" href="product.html?style=boardroom">
+      <a class="product-card" href="product.html?style=kickoff" data-makeup="natural" data-eye="monolid double-lid inner-double-lid">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-5.jpg" alt="Kickoff magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Kickoff</div>
+        <div class="product-card__variant">Morning</div>
+        <div class="product-card__price tnum">RM 79</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=boardroom" data-makeup="light-makeup" data-eye="monolid double-lid inner-double-lid">
         <div class="product-card__image">
           <span class="product-card__badge">New</span>
-          <img class="product-card__photo" src="assets/images/products/lash-5-minutes.jpg" alt="Boardroom magnetic lashes" loading="lazy">
+          <img class="product-card__photo" src="assets/images/products/lash-3-boardroom.jpg" alt="Boardroom magnetic lashes" loading="lazy">
           <span class="product-card__hover-cue" aria-hidden="true">→</span>
         </div>
         <div class="product-card__title">Boardroom</div>
@@ -134,7 +143,28 @@
         <div class="product-card__price tnum">RM 95</div>
       </a>
 
-      <a class="product-card" href="product.html?style=afterhours">
+      <a class="product-card" href="product.html?style=pitch" data-makeup="light-makeup" data-eye="monolid inner-double-lid">
+        <div class="product-card__image">
+          <span class="product-card__badge">Bestseller</span>
+          <img class="product-card__photo" src="assets/images/products/lash-2-pitch.jpg" alt="Pitch magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Pitch</div>
+        <div class="product-card__variant">Work hours</div>
+        <div class="product-card__price tnum">RM 89</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=memo" data-makeup="light-makeup" data-eye="monolid double-lid inner-double-lid">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-2-memo.jpg" alt="Memo magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Memo</div>
+        <div class="product-card__variant">Day</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=afterhours" data-makeup="heavy-makeup" data-eye="double-lid">
         <div class="product-card__image">
           <span class="product-card__badge">Award winner</span>
           <img class="product-card__photo" src="assets/images/products/lash-4-afterhours.jpg" alt="Afterhours magnetic lashes" loading="lazy">
@@ -145,37 +175,7 @@
         <div class="product-card__price tnum">RM 105</div>
       </a>
 
-      <a class="product-card" href="product.html?style=minutes">
-        <div class="product-card__image">
-          <img class="product-card__photo" src="assets/images/products/lash-6-nightshift.jpg" alt="Minutes magnetic lashes" loading="lazy">
-          <span class="product-card__hover-cue" aria-hidden="true">→</span>
-        </div>
-        <div class="product-card__title">Minutes</div>
-        <div class="product-card__variant">Work hours</div>
-        <div class="product-card__price tnum">RM 85</div>
-      </a>
-
-      <a class="product-card" href="product.html?style=nightshift">
-        <div class="product-card__image">
-          <img class="product-card__photo" src="assets/images/products/lash-2-pitch.jpg" alt="Nightshift magnetic lashes" loading="lazy">
-          <span class="product-card__hover-cue" aria-hidden="true">→</span>
-        </div>
-        <div class="product-card__title">Nightshift</div>
-        <div class="product-card__variant">Evening</div>
-        <div class="product-card__price tnum">RM 95</div>
-      </a>
-
-      <a class="product-card" href="product.html?style=kickoff">
-        <div class="product-card__image">
-          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-5.jpg" alt="Kickoff magnetic lashes" loading="lazy">
-          <span class="product-card__hover-cue" aria-hidden="true">→</span>
-        </div>
-        <div class="product-card__title">Kickoff</div>
-        <div class="product-card__variant">Morning</div>
-        <div class="product-card__price tnum">RM 79</div>
-      </a>
-
-      <a class="product-card" href="product.html?style=twilight">
+      <a class="product-card" href="product.html?style=twilight" data-makeup="heavy-makeup" data-eye="monolid double-lid inner-double-lid">
         <div class="product-card__image">
           <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-6.jpg" alt="Twilight magnetic lashes" loading="lazy">
           <span class="product-card__hover-cue" aria-hidden="true">→</span>
@@ -183,6 +183,27 @@
         <div class="product-card__title">Twilight</div>
         <div class="product-card__variant">After-work</div>
         <div class="product-card__price tnum">RM 89</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=nightshift" data-makeup="heavy-makeup" data-eye="monolid double-lid">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/products/lash-6-nightshift.jpg" alt="Nightshift magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Nightshift</div>
+        <div class="product-card__variant">Evening</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=vip" data-makeup="heavy-makeup" data-eye="monolid double-lid inner-double-lid">
+        <div class="product-card__image">
+          <span class="product-card__badge">Statement</span>
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-1.jpg" alt="VIP Access magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">VIP Access</div>
+        <div class="product-card__variant">Statement</div>
+        <div class="product-card__price tnum">RM 105</div>
       </a>
 
     </div>

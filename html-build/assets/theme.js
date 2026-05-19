@@ -596,6 +596,59 @@
     render(search(initialQuery), initialQuery);
   }
 
+  /* -------------------- Collection filter chips ------------------------ */
+  function initCollectionFilter() {
+    var grid = document.querySelector('[data-filter-grid]');
+    var chips = document.querySelectorAll('[data-filter-chip]');
+    if (!grid || !chips.length) return;
+
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.product-card'));
+    var countEl = document.querySelector('[data-result-count]');
+    var totalCards = cards.length;
+
+    function applyFilter(key, value) {
+      var visible = 0;
+      cards.forEach(function (card) {
+        var show = false;
+        if (!key || key === 'all') {
+          show = true;
+        } else if (key === 'makeup') {
+          show = card.getAttribute('data-makeup') === value;
+        } else if (key === 'eye') {
+          var eye = card.getAttribute('data-eye') || '';
+          show = eye.split(/\s+/).indexOf(value) !== -1;
+        }
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      chips.forEach(function (c) {
+        var ck = c.getAttribute('data-filter-key');
+        var cv = c.getAttribute('data-filter-value') || '';
+        var match = (key === 'all' && ck === 'all') || (ck === key && cv === value);
+        c.classList.toggle('is-active', match);
+      });
+
+      if (countEl) {
+        countEl.textContent = 'Showing ' + visible + ' of ' + totalCards + ' styles';
+      }
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        applyFilter(chip.getAttribute('data-filter-key'), chip.getAttribute('data-filter-value') || '');
+      });
+    });
+
+    /* Initial state from URL: ?makeup=natural or ?eye=monolid */
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('makeup')) {
+      applyFilter('makeup', urlParams.get('makeup'));
+    } else if (urlParams.has('eye')) {
+      applyFilter('eye', urlParams.get('eye'));
+    }
+  }
+
   /* -------------------- PDP — variant selector + accordion ------------- */
   function initPDP() {
     var variants = document.querySelectorAll('[data-pdp-variant]');
@@ -937,6 +990,7 @@
     initNewsletterPopup();
     initLashFinder();
     initSearch();
+    initCollectionFilter();
     initPDP();
     initCollectionTabs();
     initHeroSlider();
