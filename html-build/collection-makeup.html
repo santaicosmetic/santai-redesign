@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="How to apply Santai magnetic lashes — easier than mascara. Three steps, thirty seconds, no glue.">
-<title>How to apply — easier than mascara · Santai Cosmetics</title>
+<meta name="description" content="Shop Santai magnetic lashes by makeup level — from quiet Natural to high-impact Heavy makeup. Choose the energy you want.">
+<title>Shop by makeup · Santai Cosmetics</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body data-screen="howto">
+<body data-screen="collection-makeup">
 
 <!-- ==================== HEADER ==================== -->
 <header class="site-header">
-  <div class="utility-bar" data-utility-bar data-messages='["Free shipping over RM150","Free 5-min Lash Match — find yours","Try first, love forever — 14-day return"]'>
-    <span class="utility-bar__msg">Free shipping over RM150</span>
+  <div class="utility-bar" data-utility-bar data-messages='["Free shipping across Malaysia","Free 5-min Lash Match — find yours","Try first, love forever — 14-day return"]'>
+    <span class="utility-bar__msg">Free shipping across Malaysia</span>
   </div>
   <div class="site-header__main">
     <div class="site-header__left">
-      <button class="site-header__icon" aria-label="Search">
+      <a class="site-header__icon" href="search.html" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      </button>
+      </a>
       <button class="site-header__icon site-header__mobile-toggle" aria-label="Open menu" data-mobile-nav-toggle>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -37,177 +37,190 @@
       <button class="site-header__icon" aria-label="Wishlist">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.5-9-9.5C1.5 6 5 3 8 4.5c1.6.8 3 2.5 4 4 1-1.5 2.4-3.2 4-4 3-1.5 6.5 1.5 5 6-2 5-9 9.5-9 9.5z"/></svg>
       </button>
-      <button class="site-header__icon" aria-label="Cart" data-cart-open>
+      <a class="site-header__icon" href="cart.html" aria-label="Cart">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
         <span class="site-header__cart-count" data-cart-count style="display:none">0</span>
-      </button>
+      </a>
     </div>
   </div>
   <nav class="site-nav">
     <button class="site-nav__close" data-mobile-nav-close aria-label="Close menu">✕</button>
     <ul>
       <li class="site-nav__shop">
-        <a href="index.html#bestsellers">Shop <span class="site-nav__caret" aria-hidden="true">▾</span></a>
+        <a href="collection.html" class="is-current">Shop <span class="site-nav__caret" aria-hidden="true">▾</span></a>
         <div class="site-nav__dropdown">
           <a href="collection-eye-shape.html">Shop by eye shape</a>
           <a href="collection-makeup.html">Shop by makeup</a>
           <a href="collection.html">Shop all products</a>
         </div>
       </li>
-      <li><a href="how-to-apply.html" class="is-current">How to Apply</a></li>
+      <li><a href="how-to-apply.html">How to Apply</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="#">Contact Us</a></li>
     </ul>
   </nav>
 </header>
 
-<main class="howto">
+<main class="collection-page">
 
-  <!-- ==================== HOWTO HERO ==================== -->
-  <section class="howto-hero">
-    <img class="howto-hero__photo" src="assets/images/hero/hero-3-model.png" alt="" loading="eager">
-    <div class="howto-hero__video">
-      <button class="howto-hero__play" type="button" aria-label="Play tutorial">▶</button>
-      <span class="howto-hero__cap">EN · BM captions</span>
-    </div>
-    <div class="howto-hero__copy container">
-      <div class="eyebrow" style="color:var(--bg);opacity:.85">How to apply</div>
-      <h1 class="display-xl howto-hero__h">Easier than <span class="display-italic">mascara.</span></h1>
-      <p class="howto-hero__sub">Thirty seconds, no glue, no commitment. Press play.</p>
+  <!-- ==================== COLLECTION HEADER ==================== -->
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">Shop by makeup</div>
+      <h1 class="display-l">Choose your <span class="display-italic">finish.</span></h1>
+      <p class="collection-header__sub">From whisper-quiet to high-impact — three energies, ten styles. Pick where you want to land.</p>
     </div>
   </section>
 
-  <!-- ==================== STEP 1 ==================== -->
-  <section class="howto-step">
-    <div class="howto-step__media">
-      <img src="assets/images/hero/hero-1-applying.jpg" alt="" loading="lazy">
-      <button class="howto-step__play" type="button" aria-label="Play step 1">▶</button>
+  <!-- ==================== GROUP 1 — NATURAL ==================== -->
+  <section class="container collection-group" id="natural">
+    <div class="collection-group__head">
+      <div class="eyebrow collection-group__eyebrow">01 · Natural</div>
+      <h2 class="display-l collection-group__title">Your lashes, <span class="display-italic">only quieter</span>.</h2>
+      <p class="collection-group__sub">Three soft styles you can wear without anyone noticing you wore anything. Daily-comfort band — sit-under-glasses light.</p>
     </div>
-    <div class="howto-step__copy container">
-      <div class="display-l howto-step__n">01</div>
-      <h2 class="display-m howto-step__t">Place at the lash line</h2>
-      <p class="howto-step__d">Hold the band a hair above your natural lashes. The magnets guide themselves home — you don't have to aim.</p>
+
+    <div class="bestseller-grid">
+      <a class="product-card" href="product.html?style=inbox">
+        <div class="product-card__image">
+          <span class="product-card__badge">First-timer pick</span>
+          <img class="product-card__photo" src="assets/images/products/lash-1-inbox.jpg" alt="Inbox magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Inbox</div>
+        <div class="product-card__variant">Morning</div>
+        <div class="product-card__price tnum">RM 79</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=minutes">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/products/lash-5-minutes.jpg" alt="Minutes magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Minutes</div>
+        <div class="product-card__variant">Daily</div>
+        <div class="product-card__price tnum">RM 85</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=kickoff">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-5.jpg" alt="Kickoff magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Kickoff</div>
+        <div class="product-card__variant">Morning</div>
+        <div class="product-card__price tnum">RM 79</div>
+      </a>
     </div>
   </section>
 
-  <!-- ==================== STEP 2 ==================== -->
-  <section class="howto-step howto-step--alt">
-    <div class="howto-step__media">
-      <img src="assets/images/lifestyle/lifestyle-4-hf.jpg" alt="" loading="lazy">
-      <button class="howto-step__play" type="button" aria-label="Play step 2">▶</button>
+  <!-- ==================== GROUP 2 — LIGHT MAKEUP ==================== -->
+  <section class="container collection-group" id="light-makeup">
+    <div class="collection-group__head">
+      <div class="eyebrow collection-group__eyebrow">02 · Light makeup</div>
+      <h2 class="display-l collection-group__title">Lifted and <span class="display-italic">polished</span>.</h2>
+      <p class="collection-group__sub">The mid-energy three. Defined enough for daylight and meetings, never overdone.</p>
     </div>
-    <div class="howto-step__copy container">
-      <div class="display-l howto-step__n">02</div>
-      <h2 class="display-m howto-step__t">Press from the inner corner</h2>
-      <p class="howto-step__d">Pinch gently inward, then outward. The strip seats itself along the lash line in one motion.</p>
+
+    <div class="bestseller-grid">
+      <a class="product-card" href="product.html?style=boardroom">
+        <div class="product-card__image">
+          <span class="product-card__badge">New</span>
+          <img class="product-card__photo" src="assets/images/products/lash-3-boardroom.jpg" alt="Boardroom magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Boardroom</div>
+        <div class="product-card__variant">Work hours</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=pitch">
+        <div class="product-card__image">
+          <span class="product-card__badge">Bestseller</span>
+          <img class="product-card__photo" src="assets/images/products/lash-2-pitch.jpg" alt="Pitch magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Pitch</div>
+        <div class="product-card__variant">Work hours</div>
+        <div class="product-card__price tnum">RM 89</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=memo">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-2-memo.jpg" alt="Memo magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Memo</div>
+        <div class="product-card__variant">Day</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
     </div>
   </section>
 
-  <!-- ==================== STEP 3 ==================== -->
-  <section class="howto-step">
-    <div class="howto-step__media">
-      <img src="assets/images/hero/hero-2-side-angle.jpg" alt="" loading="lazy">
-      <button class="howto-step__play" type="button" aria-label="Play step 3">▶</button>
+  <!-- ==================== GROUP 3 — HEAVY MAKEUP ==================== -->
+  <section class="container collection-group" id="heavy-makeup">
+    <div class="collection-group__head">
+      <div class="eyebrow collection-group__eyebrow">03 · Heavy makeup</div>
+      <h2 class="display-l collection-group__title">Turn the <span class="display-italic">lights up</span>.</h2>
+      <p class="collection-group__sub">Four statement styles for nights that earn their reputation.</p>
     </div>
-    <div class="howto-step__copy container">
-      <div class="display-l howto-step__n">03</div>
-      <h2 class="display-m howto-step__t">That's it</h2>
-      <p class="howto-step__d">No glue. No drying. No commitment. Lift off cleanly at the end of the night.</p>
+
+    <div class="bestseller-grid">
+      <a class="product-card" href="product.html?style=afterhours">
+        <div class="product-card__image">
+          <span class="product-card__badge">Award winner</span>
+          <img class="product-card__photo" src="assets/images/products/lash-4-afterhours.jpg" alt="Afterhours magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Afterhours</div>
+        <div class="product-card__variant">Evening</div>
+        <div class="product-card__price tnum">RM 105</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=twilight">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-6.jpg" alt="Twilight magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Twilight</div>
+        <div class="product-card__variant">After-work</div>
+        <div class="product-card__price tnum">RM 89</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=nightshift">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/products/lash-6-nightshift.jpg" alt="Nightshift magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">Nightshift</div>
+        <div class="product-card__variant">Evening</div>
+        <div class="product-card__price tnum">RM 95</div>
+      </a>
+
+      <a class="product-card" href="product.html?style=vip">
+        <div class="product-card__image">
+          <img class="product-card__photo" src="assets/images/lifestyle/lifestyle-1.jpg" alt="VIP Access magnetic lashes" loading="lazy">
+          <span class="product-card__hover-cue" aria-hidden="true">→</span>
+        </div>
+        <div class="product-card__title">VIP Access</div>
+        <div class="product-card__variant">Statement</div>
+        <div class="product-card__price tnum">RM 105</div>
+      </a>
     </div>
   </section>
 
-  <!-- ==================== MISTAKES ==================== -->
-  <section class="section container">
-    <div class="section__head">
-      <div class="section__head-text">
-        <div class="eyebrow">Common mistakes</div>
-        <h2 class="display-l">Honest <span class="display-italic">fixes.</span></h2>
-      </div>
-    </div>
-    <div class="howto-mistakes">
-      <article class="howto-mistake">
-        <div class="eyebrow howto-mistake__lbl">Mistake</div>
-        <p class="howto-mistake__m">Strip lifting at the corner.</p>
-        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
-        <p class="howto-mistake__f display-italic">You placed it too low. Lift, raise 1mm, the magnets re-seat.</p>
-      </article>
-      <article class="howto-mistake">
-        <div class="eyebrow howto-mistake__lbl">Mistake</div>
-        <p class="howto-mistake__m">Looks too dramatic in daylight.</p>
-        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
-        <p class="howto-mistake__f display-italic">Try Inbox or Minutes — same band, lighter fibre.</p>
-      </article>
-      <article class="howto-mistake">
-        <div class="eyebrow howto-mistake__lbl">Mistake</div>
-        <p class="howto-mistake__m">Gap between band and lash line.</p>
-        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
-        <p class="howto-mistake__f display-italic">Apply your magnetic liner first, fully dry, then the lash.</p>
-      </article>
-      <article class="howto-mistake">
-        <div class="eyebrow howto-mistake__lbl">Mistake</div>
-        <p class="howto-mistake__m">Hard to remove.</p>
-        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
-        <p class="howto-mistake__f display-italic">Slide a fingertip along the band. They lift off in one piece.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ==================== FIRST-TIMER CHECKLIST ==================== -->
-  <section class="section container howto-checklist">
-    <div class="section__head">
-      <div class="section__head-text">
-        <div class="eyebrow">First-timer checklist</div>
-        <h2 class="display-l">Five minutes. <span class="display-italic">A mirror at eye level.</span></h2>
-      </div>
-    </div>
-    <ul class="howto-list">
-      <li><span class="howto-list__n mono">01</span><span>Take five minutes — the first time only. After that, thirty seconds.</span></li>
-      <li><span class="howto-list__n mono">02</span><span>Mirror at eye level. Looking down hides the lash line.</span></li>
-      <li><span class="howto-list__n mono">03</span><span>Apply magnetic liner first. Let it dry fully before the lash.</span></li>
-      <li><span class="howto-list__n mono">04</span><span>Press from the inside corner outward, never the middle first.</span></li>
-      <li><span class="howto-list__n mono">05</span><span>If it doesn't sit right, lift and replace. The magnets are forgiving.</span></li>
-    </ul>
-  </section>
-
-  <!-- ==================== UGC ==================== -->
-  <section class="section container">
+  <!-- ==================== CTA — TAKE THE QUIZ ==================== -->
+  <section class="section container" style="text-align:center;border-top:1px solid var(--line)">
     <div class="section__head section__head--center">
       <div class="section__head-text">
-        <div class="eyebrow">Real first attempts</div>
-        <h2 class="display-l">Customers, <span class="display-italic">on camera.</span></h2>
+        <div class="eyebrow">Not sure which?</div>
+        <h2 class="display-l">Take the 60-second <span class="display-italic">Lash Match.</span></h2>
+        <p class="section__sub">We'll match you to the one of these ten that fits your eye shape and routine.</p>
       </div>
     </div>
-    <div class="howto-ugc">
-      <div class="howto-ugc__cell" style="background:#F7F7F7">
-        <span class="lash-glyph" style="width:50%;height:2px"></span>
-        <span class="howto-ugc__play">▶</span>
-      </div>
-      <div class="howto-ugc__cell" style="background:#ECECEC">
-        <span class="lash-glyph" style="width:54%;height:3px"></span>
-        <span class="howto-ugc__play">▶</span>
-      </div>
-      <div class="howto-ugc__cell" style="background:#FAFAFA">
-        <span class="lash-glyph" style="width:58%;height:2px"></span>
-        <span class="howto-ugc__play">▶</span>
-      </div>
-      <div class="howto-ugc__cell" style="background:#1A1A1A">
-        <span class="lash-glyph lash-glyph--cream" style="width:62%;height:4px"></span>
-        <span class="howto-ugc__play">▶</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CTA STRIP ==================== -->
-  <section class="section container" style="text-align:center">
-    <div class="section__head section__head--center">
-      <div class="section__head-text">
-        <div class="eyebrow">Ready to try?</div>
-        <h2 class="display-l">Your match in <span class="display-italic">60 seconds.</span></h2>
-      </div>
-    </div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
-      <button class="btn btn-accent" data-finder-open>Find my lash</button>
-      <a class="btn btn-secondary" href="index.html">Browse the collection</a>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:var(--space-4)">
+      <button class="btn btn-accent" data-finder-open type="button">Find my lash</button>
+      <a class="btn btn-secondary" href="how-to-apply.html">How to apply</a>
     </div>
   </section>
 
@@ -219,9 +232,7 @@
     <div class="site-footer__newsletter-inner">
       <div>
         <div class="eyebrow">Newsletter</div>
-        <div class="footer-quote">
-          Join the Santai studio &mdash; get a complimentary <span class="display-italic">lash-fit</span> guide.
-        </div>
+        <div class="footer-quote">Join the Santai studio &mdash; get a complimentary <span class="display-italic">lash-fit</span> guide.</div>
       </div>
       <form class="footer-form" onsubmit="event.preventDefault()">
         <input class="footer-input" placeholder="hello@santai.com" type="email" aria-label="Email address">
@@ -244,7 +255,7 @@
       <ul>
         <li><a href="#" data-finder-open>Lash Match quiz</a></li>
         <li><a href="how-to-apply.html">How to apply</a></li>
-        <li><a href="#">By eye shape</a></li>
+        <li><a href="collection-eye-shape.html">By eye shape</a></li>
         <li><a href="#">The journal</a></li>
       </ul>
     </div>
@@ -271,13 +282,7 @@
     <span class="footer-mark wordmark">SANTAI</span>
     <span class="footer-meta">© 2026 Santai Cosmetics Sdn Bhd · Kuala Lumpur</span>
     <div class="footer-pay">
-      <span class="pay-tile">FPX</span>
-      <span class="pay-tile">GrabPay</span>
-      <span class="pay-tile">TnG</span>
-      <span class="pay-tile">Boost</span>
-      <span class="pay-tile">Atome</span>
-      <span class="pay-tile">Visa</span>
-      <span class="pay-tile">Mastercard</span>
+      <span class="pay-tile">FPX</span><span class="pay-tile">GrabPay</span><span class="pay-tile">TnG</span><span class="pay-tile">Boost</span><span class="pay-tile">Atome</span><span class="pay-tile">Visa</span><span class="pay-tile">Mastercard</span>
     </div>
   </div>
 </footer>
@@ -287,9 +292,7 @@
   <div class="finder__bar"><div class="finder__bar-fill" data-finder-bar></div></div>
   <button class="finder__close" data-finder-close aria-label="Close quiz">✕</button>
   <button class="btn btn-ghost finder__back" data-finder-back>← Back</button>
-
   <div class="finder__stage">
-
     <div class="finder-step is-active" data-finder-step>
       <div class="eyebrow">Step 1 of 4</div>
       <h2 class="display-l finder-step__h">Tell us about <span class="display-italic">your</span> eye.</h2>
@@ -300,31 +303,17 @@
         <button class="finder-shape" data-finder-pick="eye" data-value="inner-double-lid"><img src="assets/eye-shapes/hooded.svg" alt=""><span>Inner double lid</span></button>
       </div>
     </div>
-
     <div class="finder-step" data-finder-step>
       <div class="eyebrow">Step 2 of 4</div>
       <h2 class="display-l finder-step__h">What kind of <span class="display-italic">look</span>?</h2>
-      <p class="finder-step__sub">No wrong answer. We carry a style for every mood.</p>
+      <p class="finder-step__sub">No wrong answer.</p>
       <div class="finder-looks">
-        <button class="finder-look" data-finder-pick="look" data-value="natural">
-          <div class="finder-look__image"><span class="lash-glyph" style="width:50%;height:2px"></span></div>
-          <div class="finder-look__copy"><h3 class="finder-look__h">Natural</h3><p class="finder-look__d">Like yours, only better.</p></div>
-        </button>
-        <button class="finder-look" data-finder-pick="look" data-value="office">
-          <div class="finder-look__image"><span class="lash-glyph" style="width:60%;height:3px"></span></div>
-          <div class="finder-look__copy"><h3 class="finder-look__h">Office Polished</h3><p class="finder-look__d">Defined, never demanding.</p></div>
-        </button>
-        <button class="finder-look" data-finder-pick="look" data-value="soft">
-          <div class="finder-look__image"><span class="lash-glyph" style="width:68%;height:3px"></span></div>
-          <div class="finder-look__copy"><h3 class="finder-look__h">Soft Glam</h3><p class="finder-look__d">Dinner-out lashes.</p></div>
-        </button>
-        <button class="finder-look" data-finder-pick="look" data-value="drama">
-          <div class="finder-look__image"><span class="lash-glyph" style="width:78%;height:5px"></span></div>
-          <div class="finder-look__copy"><h3 class="finder-look__h">Full Drama</h3><p class="finder-look__d">When the brief says drama.</p></div>
-        </button>
+        <button class="finder-look" data-finder-pick="look" data-value="natural"><div class="finder-look__image"><span class="lash-glyph" style="width:50%;height:2px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Natural</h3><p class="finder-look__d">Like yours, only better.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="office"><div class="finder-look__image"><span class="lash-glyph" style="width:60%;height:3px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Office Polished</h3><p class="finder-look__d">Defined, never demanding.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="soft"><div class="finder-look__image"><span class="lash-glyph" style="width:68%;height:3px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Soft Glam</h3><p class="finder-look__d">Dinner-out lashes.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="drama"><div class="finder-look__image"><span class="lash-glyph" style="width:78%;height:5px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Full Drama</h3><p class="finder-look__d">When the brief says drama.</p></div></button>
       </div>
     </div>
-
     <div class="finder-step" data-finder-step>
       <div class="eyebrow">Step 3 of 4</div>
       <h2 class="display-l finder-step__h">How often will you <span class="display-italic">wear</span>?</h2>
@@ -334,11 +323,10 @@
         <button class="finder-freq__opt" data-finder-pick="freq" data-value="events"><span class="finder-freq__l">Just events</span><span class="finder-freq__d">Weddings, dates, festivals.</span></button>
       </div>
     </div>
-
     <div class="finder-step" data-finder-step>
       <div class="eyebrow">Step 4 of 4</div>
       <h2 class="display-l finder-step__h">Anything to <span class="display-italic">flag</span>?</h2>
-      <p class="finder-step__sub">Tap any that apply. We'll factor them in.</p>
+      <p class="finder-step__sub">Tap any that apply.</p>
       <div class="finder-flags">
         <button class="finder-flag" data-finder-flag data-value="sensitive"><span class="finder-flag__check">✓</span>Sensitive eyes</button>
         <button class="finder-flag" data-finder-flag data-value="contacts"><span class="finder-flag__check">✓</span>Wear contact lenses</button>
@@ -347,13 +335,9 @@
       </div>
       <button class="btn btn-accent finder-flag__cta" data-finder-done>See my match</button>
     </div>
-
     <div class="finder-step" data-finder-step>
       <div class="finder-result">
-        <div class="finder-result__hero" style="background:#F7F7F7">
-          <span class="finder-result__hero-tag eyebrow">Your match</span>
-          <span class="lash-glyph" style="width:56%;height:2px"></span>
-        </div>
+        <div class="finder-result__hero" style="background:#F7F7F7"><span class="finder-result__hero-tag eyebrow">Your match</span><span class="lash-glyph" style="width:56%;height:2px"></span></div>
         <div class="finder-result__copy">
           <div class="eyebrow">Recommended for you</div>
           <h2 class="display-l"><span class="display-italic">Inbox.</span></h2>
@@ -367,11 +351,10 @@
             <button class="btn btn-accent" data-add-to-cart data-product-id="inbox" data-product-name="Inbox" data-product-variant="Morning" data-product-price="RM 79" data-product-bg="#F7F7F7">Add to bag</button>
             <a class="btn btn-secondary" href="product.html?style=inbox">See full details</a>
           </div>
-          <a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 8</a>
+          <a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 10</a>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

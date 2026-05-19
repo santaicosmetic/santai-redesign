@@ -418,6 +418,32 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .shape-tile__label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); }
 
 /* ==========================================================================
+   Collection group — one grouped section on collection-makeup / collection-eye-shape
+   Mobile-first.
+   ========================================================================== */
+.collection-group { padding-block: var(--space-7); scroll-margin-top: 80px; }
+.collection-group + .collection-group { border-top: 1px solid var(--line); }
+.collection-group__head { max-width: 640px; margin: 0 auto var(--space-6); text-align: center; }
+.collection-group__eyebrow { color: var(--accent); margin-bottom: 14px; }
+.collection-group__title { margin: 0 0 12px; }
+.collection-group__sub { font-size: 15px; line-height: 1.55; color: var(--fg-muted); margin: 0; }
+@media (min-width: 768px) {
+  .collection-group { padding-block: var(--space-8); }
+}
+@media (min-width: 1024px) {
+  .collection-group { padding-block: var(--space-9); }
+  .collection-group__head { margin-bottom: var(--space-7); }
+}
+
+/* Eye-shape variant — adds the SVG icon above the heading */
+.collection-group__eye-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 18px;
+  display: block;
+}
+.collection-group__eye-icon img { width: 100%; height: 100%; display: block; }
+
+/* ==========================================================================
    By occasion
    ========================================================================== */
 .by-occasion { padding-block: var(--space-9); }
@@ -2274,7 +2300,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 }
 .style-badge--natural      { background: #F0F4EE; color: #5A7A52; }
 .style-badge--light-makeup { background: #F4F0E8; color: #8A6A3A; }
-.style-badge--full-glam    { background: #F0EAEE; color: #7A4A6A; }
+.style-badge--heavy-makeup { background: #F0EAEE; color: #7A4A6A; }
 
 /* --- Compare trigger button (on PDP) --- */
 .compare-trigger {
