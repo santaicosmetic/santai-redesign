@@ -77,7 +77,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 - [ ] **Real reviews** — homepage shows 3 hardcoded reviews; will be replaced by Judge.me / Loox / Yotpo Liquid block at Shopify port. Now confirmed: handled as Shopify product metadata at port time.
 - [ ] **Account pages** — header account icon links nowhere; Shopify generates these on port, defer
 - [ ] **Stockists / Sustainability / Press** — removed from footer or stubbed as `href="#"`. Build only if the brand actually has these (Press → when actual press exists; Stockists → when there's retail presence)
-- [ ] **Newsletter signups (footer + popup)** — `event.preventDefault()` only, no backend yet. Wired to Klaviyo at Shopify port.
+- [ ] **Newsletter signups (footer + popup)** — currently `event.preventDefault()` only. At Shopify port, wrap the existing form markup in `{% form 'customer' %}` and POST to Shopify's customer-create endpoint with `contact[tags]="newsletter"` and `accepts_marketing: true`. Sending handled by **Shopify Email (native)** — no third-party apps. Confirmed 2026-05-20.
 
 ### Out of scope — Shopify handles at port time
 
@@ -85,7 +85,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 - Checkout flow
 - Real search backend (currently client-side over static catalogue)
 - Real discount code validation
-- Newsletter backend (Klaviyo on port)
+- Newsletter sending (Shopify Email native — no app, no separate vendor)
 
 ---
 
