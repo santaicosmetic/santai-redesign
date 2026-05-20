@@ -10,16 +10,16 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ---
 
-## Where we are — as of 2026-05-19
+## Where we are — as of 2026-05-20
 
-> 🆕 **Pickup for next session — start here.** Today's work shipped 5 commits to `main`: Studio purge, link audit, header search overlay, Pages auto-deploy workflow, and the Sort dropdown wire-up on `collection.html`. Everything below reflects the current state. The next-up TODO list is in the **"Up next"** section at the bottom — Lash Finder recommendation map is the recommended next batch.
+> 🆕 **Pickup for next session — start here.** Today's work shipped the About page + the full journal (index + 3 long-form articles) + a footer sweep tying it all together. That clears the two biggest deferred items from yesterday. **The remaining priority item is the Lash Finder recommendation logic — held for Riri** (product knowledge), best paired with also building Lash Finder as its own standalone page.
 
 > 📱 **Live mobile preview** (auto-deploys on every push to `main`): **https://santaicosmetic.github.io/santai-redesign/**
-> - Append `index.html`, `product.html`, `cart.html`, etc. for specific pages
+> - Append `index.html`, `product.html`, `about.html`, `journal.html`, etc. for specific pages
 > - GitHub Pages workflow lives in `.github/workflows/pages.yml`
 > - If the repo flips back to private, the github.io URL still serves (Pages-from-Actions is decoupled from repo visibility)
 
-**21 pages built**:
+**26 pages built**:
 
 | Group | Pages |
 |---|---|
@@ -29,6 +29,8 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 | Educate | `how-to-apply.html`, `faq.html` |
 | Trust | `contact.html`, `shipping.html`, `returns.html`, `care-guide.html` |
 | Legal | `privacy.html`, `terms.html`, `refund-policy.html` |
+| Brand | `about.html` |
+| Journal | `journal.html` (index), `journal-magnetic-vs-strip.html`, `journal-glue-damage.html`, `journal-styling-guide.html` |
 
 **Working interactions** (all client-side, ready for Shopify port):
 - Cart drawer with **gift tiers** (2 lashes → free Foam Cleanser; 3 → +Thermo Curler) + free-shipping promise band
@@ -66,14 +68,16 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ### Smaller / known gaps (carried over)
 
-- [ ] **About / Our Story page** — explicitly skipped per user direction; build later
-- [ ] **Journal index + article template + 3 posts** — explicitly skipped per user direction; homepage has 3 journal cards with copy + images already wired
+- [x] ~~**About / Our Story page**~~ **Done 2026-05-20.** Built `about.html` with founders' magnetic-lash backstory (years of testing brands; the realisation that almost none fit Malaysian eye shapes), the "santai je" naming explanation, and CTAs to Lash Match + the full collection. Uses new `.page-hero` editorial-image class + existing `.page-policy` typography. Footer "Our story" link wired across all 21 pages (column renamed Legal → About, with Our story inserted at the top).
+- [x] ~~**Journal index + article template + 3 posts**~~ **Done 2026-05-20.** Built `journal.html` index + 3 standalone article pages, each with hero image, article-meta line (category · date · read time), .page-policy body, and a "Keep reading" related-posts block at the bottom that cross-links the other two. Articles: `journal-magnetic-vs-strip.html` (The truth about / March), `journal-glue-damage.html` (Lash care / February), `journal-styling-guide.html` (Tutorial / April). Homepage journal cards updated to point to the real articles with matching titles/excerpts. Footer "The journal" link wired across all 21 pages. Placeholder lifestyle images used as covers — swap for real photography later.
 - [x] ~~**Sort dropdown on `collection.html`**~~ **Done 2026-05-19.** Wired the existing `<select>` to actually re-order the grid. Modes: Featured (original DOM order) / Bestselling (Bestseller → Award winner → First-timer pick → rest) / Newest (New badge first) / Price low→high / Price high→low. Sort layer is independent of filter chips — both compose cleanly. Ties broken by original order.
 - [ ] **Real product photography for Cleanser + Thermo Curler** — currently using lifestyle photo stand-ins
-- [ ] **Lash Finder recommendation logic** — quiz always returns "Inbox"; needs a `(eye × look × freq × flags) → product handle` map
-- [ ] **Real reviews** — homepage shows 3 hardcoded reviews; will be replaced by Judge.me / Loox / Yotpo Liquid block at Shopify port
+- [ ] **Lash Finder recommendation logic** — quiz always returns "Inbox"; needs a `(eye × look × freq × flags) → product handle` map. **Owner: Riri** (knows the product taxonomy better than Jeff). Defer until next session with her involved.
+- [ ] **Lash Finder as its own dedicated page** *(new, flagged 2026-05-20)* — currently only exists as a modal triggered by `data-finder-open` buttons across the site. Build a standalone `lash-finder.html` page that runs the same 4-step flow but full-screen, deep-linkable, shareable. The modal would still exist for in-context quick triggering; this is the standalone surface for landing-page traffic. Goes hand-in-hand with the recommendation-logic task — best built as one batch with Riri.
+- [ ] **Real reviews** — homepage shows 3 hardcoded reviews; will be replaced by Judge.me / Loox / Yotpo Liquid block at Shopify port. Now confirmed: handled as Shopify product metadata at port time.
 - [ ] **Account pages** — header account icon links nowhere; Shopify generates these on port, defer
 - [ ] **Stockists / Sustainability / Press** — removed from footer or stubbed as `href="#"`. Build only if the brand actually has these (Press → when actual press exists; Stockists → when there's retail presence)
+- [ ] **Newsletter signups (footer + popup)** — `event.preventDefault()` only, no backend yet. Wired to Klaviyo at Shopify port.
 
 ### Out of scope — Shopify handles at port time
 
@@ -107,27 +111,21 @@ Full history: `git log --oneline`.
 
 ## Up next — recommended order
 
-1. **Lash Finder recommendation map** (1-2h, biggest product-quality lift)
-   - Current: 4-step quiz in `initLashFinder()` (in `theme.js`) always returns "Inbox" regardless of answers.
-   - Goal: build a lookup table `(eye × look × frequency × flags) → product handle` so each answer combo maps to one of the 10 lashes.
-   - Why now: it's literally one of the two brand promises ("the right lash for YOUR eye") and currently faked. Highest-impact remaining item.
-   - Suggested approach: open by asking the user to confirm the rules table draft before wiring it (so the recommendations actually match brand intent).
+1. **Lash Finder: recommendation map + standalone page** (waiting on Riri, ~2-3h once she's in)
+   - Two related tasks best done together:
+     - **(a) Recommendation logic.** Current `initLashFinder()` in `theme.js` always returns "Inbox" regardless of answers. Needs a `(eye × look × frequency × flags) → product handle` lookup mapping each combo to one of the 10 lashes.
+     - **(b) Standalone page.** Quiz currently only exists as a modal. Build `lash-finder.html` as a full-screen, shareable, deep-linkable surface that runs the same flow. Modal stays for in-context quick triggers.
+   - Why now: it's one of the two brand promises ("the right lash for YOUR eye") and currently faked. Highest-impact remaining item.
+   - **Owner: Riri** — she knows the product taxonomy better than Jeff. Defer until she's involved. Suggested approach: she drafts the rules table, then Claude wires it + builds the standalone page in one batch.
 
-2. **About / Our Story page** (~1h layout after copy lands)
-   - Needs brand-story copy from the user before layout begins.
-   - Closes a noticeable nav gap; some menus point at `#` for it.
+2. **Social URLs swap** (trivial when handles arrive)
+   - Replace ~42 `href="#"` on Instagram + TikTok + Loyalty footer links across all 23 pages.
 
-3. **Journal index + article template + 3 posts** (~2-3h after copy lands)
-   - Closes ~25 dead `href="#"` placeholders across homepage + footer in one go.
-   - Needs 3 short articles' copy: Tutorial / Lash Care / The truth about.
-
-4. **Social URLs swap** (trivial when handles arrive)
-   - Replace 42 `href="#"` on Instagram + TikTok footer links across all 21 pages.
-
-5. **Polish, later**
+3. **Polish, later**
    - Real product photography for Cleanser + Thermo Curler
-   - Real reviews integration (deferred to Judge.me at Shopify port)
-   - Account pages (deferred to Shopify port)
+   - Reviews → handled as Shopify product metadata at port time (confirmed 2026-05-20)
+   - Account pages → handled by Shopify at port time
+   - About-related deferrals: Stockists / Sustainability / Press — build only if/when the brand actually has these
 
 ---
 

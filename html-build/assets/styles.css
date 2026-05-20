@@ -482,6 +482,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .btn-save:not(.is-saved) .btn-save__icon::before { content: '♡'; }
 
 /* ==========================================================================
+   Editorial hero photo (used on About + journal article pages)
+   ========================================================================== */
+.page-hero { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--bg-card); }
+.page-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 768px) { .page-hero { aspect-ratio: 21/9; } }
+@media (min-width: 1024px) { .page-hero { aspect-ratio: 5/2; } }
+
+/* Article meta line shown above the H1 on journal posts */
+.article-meta { display: flex; align-items: center; gap: 12px; justify-content: center; margin-bottom: 14px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); }
+.article-meta__category { color: var(--accent); }
+.article-meta__dot { color: var(--line); }
+
+/* Article footer — related-posts row */
+.article-related { padding-block: var(--space-7); border-top: 1px solid var(--line); }
+.article-related__eyebrow { text-align: center; margin-bottom: var(--space-5); }
+
+/* ==========================================================================
    Policy / info pages (Shipping, Returns, Care guide, Privacy, Terms, Refund)
    Long-form readable typography in a centred column.
    ========================================================================== */
