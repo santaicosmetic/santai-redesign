@@ -1,0 +1,27 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Santai 2026",
+    "theme_version": "0.1.0",
+    "theme_author": "Santai Cosmetics",
+    "theme_documentation_url": "https://github.com/santaicosmetic/santai-redesign",
+    "theme_support_url": "https://github.com/santaicosmetic/santai-redesign/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Direction C palette"
+      },
+      {
+        "type": "paragraph",
+        "content": "Brand colour tokens (white background #FFFFFF, warm-nude accent #B8957B, near-black ink #0A0A0A) are defined in CSS at assets/santai.css and will be exposed as theme settings in a future session."
+      },
+      {
+        "type": "paragraph",
+        "content": "Type system: Newsreader (display, weight 300) + Manrope (body) + JetBrains Mono (monospace). Loaded from Google Fonts."
+      }
+    ]
+  }
+]

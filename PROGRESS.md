@@ -12,7 +12,12 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ## Where we are — as of 2026-05-21
 
-> 🆕 **Pickup for next session — start here.** Pre-port audit + cleanup. Today's work: unified all 10 lash prices at RM 119 for a clean Shopify import; unified shipping policy across the site ("free across Malaysia, no minimum"); fixed stale "show all 8" copy on 4 pages; wired the real Instagram + TikTok URLs site-wide; removed the dead Account button from all 26 page headers; flushed all Judge.me / Loox / Yotpo references from docs since reviews will use **Shopify product metafields** instead. **Next: a dedicated session to design the reviews metafield schema, then the Liquid port itself.**
+> 🆕 **Port Session 1 (scaffolding) shipped.** Blank Shopify theme created at `shopify-theme/` and pushed to the production store **`cjuzxh-v0.myshopify.com`** as an **unpublished draft** named *"Santai 2026 — draft"* (theme #156386722014). Atelier (the current live theme) is untouched and serving customers as normal. Backup of Atelier pulled to gitignored `theme-backups/atelier/`. **Next session = header/footer extraction → `sections/header.liquid` + `sections/footer.liquid` + `snippets/cart-drawer.liquid`.**
+
+> 🔑 **Shopify auth setup:** `.env` file in worktree root (gitignored) contains the Custom App admin token. CLI commands work via `set -a; source .env; set +a; shopify theme <cmd>`. Token has very broad scope — narrow it in the Shopify Dev Dashboard when convenient.
+
+> 🔗 **Draft theme preview URL:** https://cjuzxh-v0.myshopify.com?preview_theme_id=156386722014
+> Theme editor: https://cjuzxh-v0.myshopify.com/admin/themes/156386722014/editor
 
 > 📱 **Live mobile preview** (auto-deploys on every push to `main`): **https://santaicosmetic.github.io/santai-redesign/**
 > - Append `index.html`, `product.html`, `about.html`, `journal.html`, etc. for specific pages
@@ -117,6 +122,76 @@ Full history: `git log --oneline`.
 ---
 
 ## Up next — recommended order
+
+> **The Shopify port is now underway.** Session 1 (scaffolding) done. The phased port runs sessions 2-10 below; Reviews + Lash Finder are sub-tracks that slot into the port at the right phase.
+
+### Port sessions (continuing from where session 1 left off)
+
+**Session 2 — Header + footer + cart drawer** (~1-2h, recommended next)
+- Extract from any prototype HTML page → `sections/header.liquid` + `sections/footer.liquid` + `snippets/cart-drawer.liquid` + `snippets/newsletter-popup.liquid`
+- Wire utility bar to repeater settings, nav to a Shopify linklist, cart icon to `cart.item_count`
+- Header dropdown + cart drawer + newsletter popup all working across all pages
+- Theme is still mostly empty pages but the chrome works everywhere
+
+**Session 3 — Product template + data port** (~3-4h)
+- `templates/product.liquid` + `sections/product.liquid` from the prototype's PDP
+- Confirm the 10 lashes + 2 accessories in the Shopify admin have correct prices:
+  - All 10 lashes RM 119 ✓ (per user 2026-05-21)
+  - Memo + VIP Access: compare_at_price RM 139 → sale price RM 119 (compare-at-strikethrough wiring needed)
+  - **Foam Cleanser RM 16.60** (not RM 29 as in prototype JS — prototype is the stale one)
+  - **Thermo Curler RM 29.90** (not RM 39 as in prototype JS — prototype is stale)
+- Design + write metafield definitions (namespace: `santai`) for: group, eyeType, drama, length, curl, design, fits_eye_shapes
+- Populate metafields on existing products via Shopify CLI or admin API
+- One PDP fully working
+
+**Session 4 — Reviews metafields (sub-track of port)** (~1h design + ~1h implementation)
+- Design product-review metafield schema in Shopify (rating, body, name, eye-shape tag, date, optional photo). Decide per-product vs global, anonymous vs named, moderation flow.
+- Liquid renderer for homepage 3-review module + PDP "Based on N reviews" badge + PDP review list + "Read all" / "Write a review" CTAs.
+- Replace the prototype's hardcoded "Based on 247 reviews" with metafield-driven count.
+
+**Session 5 — Collections** (~2-3h)
+- All 4 collection templates: `templates/collection.liquid` (shop-all) + 3 curated (`collection.makeup.liquid`, `collection.eye-shape.liquid`, `collection.accessories.liquid`)
+- Filter chips port to client-side over Liquid-rendered product loops, reading `data-makeup` + `data-eye` from product tags or metafields
+- Sort dropdown switches to Shopify's `?sort_by=` URL pattern
+
+**Session 6 — Cart Ajax rewrite** (~2-3h)
+- Rewrite the in-memory `cart` array + `addToCart` / `renderCart` against `/cart.js` + `/cart/add.js` Ajax
+- Gift-tier logic (2 lashes → free Cleanser, 3 → +Curler) reads live prices from Shopify products. Update the "RM 68 saved" copy in cart UI to RM 46.50 (16.60 + 29.90) — or better, calculate dynamically from real prices.
+- Cart drawer + cart page both render real cart state
+- Upsells row reads from a "you might also like" collection or recommendation engine
+
+**Session 7 — Page templates** (~1-2h)
+- About, FAQ, how-to-apply, contact, all 3 trust pages, all 3 legal pages → Shopify "Online Store > Pages" with each page using `templates/page.<handle>.liquid`
+- Mostly mechanical: copy the page-specific section from the prototype HTML, wrap with `{% layout 'theme' %}`
+
+**Session 8 — Blog (journal)** (~1h)
+- `journal.html` → `templates/blog.journal.liquid`. The 3 articles become Shopify blog posts. Article template `templates/article.liquid` renders any blog post in the journal style.
+
+**Session 9 — Search + Lash Finder** (~1-2h)
+- Header search overlay reads from a Liquid-rendered product JSON blob (or Shopify Predictive Search API).
+- Lash Finder modal stays as-is. Standalone `lash-finder.html` → `templates/page.lash-finder.liquid`. Recommendation rules from Riri's table wired into `initLashFinder()`.
+
+**Session 10 — Testing + publish** (~2-3h)
+- Theme editor walkthrough: every section editable for merchandiser via Shopify admin
+- Cross-browser, mobile-first 360px check on the dev preview URL
+- Set up redirects for any URL changes
+- **Publish** — flip "Santai 2026" from draft to live. Atelier becomes the unpublished fallback. Reversible.
+
+### Lash Finder sub-track (slots into Session 9, waits on Riri)
+
+- (a) Recommendation logic — `(eye × look × frequency × flags) → product handle` lookup map. **Owner: Riri.**
+- (b) Standalone `lash-finder.html` page — full-screen, shareable, deep-linkable surface that runs the same flow.
+
+### Polish (after port lands)
+- Real product photography for Cleanser + Thermo Curler
+- Open Graph / Twitter card tags
+- Favicon (waiting on brand design)
+- Stockists / Sustainability / Press pages (when content exists)
+- ~~Reviews session~~ (now integrated as Session 4 above)
+
+---
+
+## Original "Up next" — superseded by the port plan above
 
 1. **Reviews session (Shopify metafields)** (~1h design + ~1h implementation)
    - Design the product-review metafield schema in Shopify: review body, rating 1-5, reviewer name, eye-shape tag, date, optional photo. Decide on per-product vs global review list, anonymous vs named, moderation flow.

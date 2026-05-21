@@ -1,6 +1,17 @@
 # Claude Code local state
 .claude/settings.local.json
 
+# Secrets — never commit. Shopify API tokens, .env files
+.env
+.env.*
+!.env.example
+*.token
+shopify.theme.toml.local
+
+# Backups of paid Shopify themes (Atelier, etc.) — IP belongs to theme author.
+# Pulled locally for safety/rollback but never published.
+theme-backups/
+
 # OS junk
 .DS_Store
 Thumbs.db
