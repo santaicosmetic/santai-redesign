@@ -10,9 +10,17 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ---
 
-## Where we are — as of 2026-05-21
+## Where we are — as of 2026-05-22
 
-> 🆕 **Port Sessions 1 + 2 shipped.** Blank Shopify theme at `shopify-theme/` is live as draft *"Santai 2026 — draft"* (#156386722014) on production store **`cjuzxh-v0.myshopify.com`**. Atelier still live + serving customers. Backup at gitignored `theme-backups/atelier/`. Session 2 ported the full chrome: header + utility bar + nav dropdown + footer (with **real `{% form 'customer' %}` newsletter signups** wired to Shopify customer accounts), cart drawer snippet, newsletter-popup snippet, Lash Finder modal snippet. All five render on every template via `layout/theme.liquid`. **Next session = product template + LASH_STYLES → real Shopify products + metafield design.**
+> 🚀 **Shopify Liquid port is COMPLETE on the draft theme.** All 10 port sessions shipped across 2026-05-21 / 2026-05-22 autopilot. New theme is **unpublished** on `cjuzxh-v0.myshopify.com` (theme #156386722014) — Atelier is still live and serving customers. **Final step is yours**: open Shopify admin → Online Store → Themes → "Santai 2026 — draft" → Actions → **Publish**. One-click cutover, reversible (Atelier becomes the unpublished backup).
+
+> 🧭 **Walkthrough on the draft theme preview**:
+> - Home: https://cjuzxh-v0.myshopify.com?preview_theme_id=156386722014
+> - PDP: /products/pitch-magnetic-eyelashes (add to bag → cart drawer opens with real Shopify cart)
+> - Collections: /collections/all, /collections/by-eye-shape, /collections/by-makeup, /collections/accessories
+> - Pages: /pages/about, /pages/how-to-apply, /pages/faq, /pages/shipping, /pages/returns, /pages/care-guide, /pages/contact, /pages/wishlist
+> - Blog: /blogs/journal + 3 articles
+> - Search overlay: tap header magnifier on any page
 
 > 🔑 **Shopify auth setup:** `.env` file in worktree root (gitignored) contains the Custom App admin token. CLI commands work via `set -a; source .env; set +a; shopify theme <cmd>`. Token has very broad scope — narrow it in the Shopify Dev Dashboard when convenient.
 

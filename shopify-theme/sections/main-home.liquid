@@ -1,0 +1,254 @@
+{%- comment -%}
+  Santai homepage. Single-section port of html-build/index.html — every block
+  ported, dynamic data pulled from Shopify (products, articles).
+  Session-10 polish will eventually split into per-block sections so the
+  merchandiser can reorder via Online Store 2.0 theme editor.
+{%- endcomment -%}
+
+<!-- ==================== HERO SLIDER ==================== -->
+<section class="hero-slider" data-hero-slider aria-roledescription="carousel" aria-label="Featured promotions">
+  <div class="hero-slider__track">
+
+    <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="1 of 3">
+      <div class="hero__image" aria-hidden="true">
+        <img class="hero__photo" src="{{ 'hero-1-applying.jpg' | asset_url }}" alt="" loading="eager">
+        <div class="hero__scrim"></div>
+      </div>
+      <div class="hero__copy">
+        <div class="eyebrow" style="color:var(--bg);opacity:.85">Effortless eyes</div>
+        <h1 class="display-l hero__headline">Lashes in a <span class="display-italic">snap.</span></h1>
+        <p class="hero__sub">No glue. No artistry. Magnetic, the way it should be.</p>
+        <div class="hero__ctas">
+          <button class="btn btn-accent" data-finder-open type="button">Find my lash</button>
+          <a class="btn btn-secondary btn-secondary--cream" href="{{ routes.root_url }}pages/how-to-apply">See how easy</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="2 of 3">
+      <div class="hero__image" aria-hidden="true">
+        <img class="hero__photo" src="{{ 'hero-2-side-angle.jpg' | asset_url }}" alt="" loading="lazy">
+        <div class="hero__scrim"></div>
+      </div>
+      <div class="hero__copy">
+        <div class="eyebrow" style="color:var(--bg);opacity:.85">The collection</div>
+        <h2 class="display-l hero__headline">Quietly <span class="display-italic">bestselling.</span></h2>
+        <p class="hero__sub">Ten magnetic styles, named for the moments you wear them.</p>
+        <div class="hero__ctas">
+          <a class="btn btn-accent" href="#bestsellers">Shop bestsellers</a>
+          <button class="btn btn-secondary btn-secondary--cream" data-finder-open type="button">Take the quiz</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="3 of 3">
+      <div class="hero__image" aria-hidden="true">
+        <img class="hero__photo" src="{{ 'hero-3-model.png' | asset_url }}" alt="" loading="lazy">
+        <div class="hero__scrim"></div>
+      </div>
+      <div class="hero__copy">
+        <div class="eyebrow" style="color:var(--bg);opacity:.85">The essentials</div>
+        <h2 class="display-l hero__headline">Beyond the <span class="display-italic">lash.</span></h2>
+        <p class="hero__sub">A magnetic curler. A gentle cleanser. The kit that keeps them perfect.</p>
+        <div class="hero__ctas">
+          <a class="btn btn-accent" href="#essentials">Shop accessories</a>
+          <a class="btn btn-secondary btn-secondary--cream" href="{{ routes.root_url }}pages/care-guide">How to care</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+  <div class="hero-slider__dots" role="tablist" aria-label="Slide indicators"></div>
+</section>
+
+<!-- ==================== TWO PILLARS ==================== -->
+<section class="pillars container">
+  <button class="pillar" data-finder-open>
+    <div class="eyebrow">Pillar one</div>
+    <div class="pillar__h display-m">
+      Don't know which lash? Take the <span class="display-italic">60-second</span> Lash Match.
+    </div>
+    <span class="pillar__arrow">→</span>
+  </button>
+  <a class="pillar pillar--alt" href="{{ routes.root_url }}pages/how-to-apply">
+    <div class="eyebrow">Pillar two</div>
+    <div class="pillar__h display-m">
+      Worried about applying? Watch the <span class="display-italic">30-second</span> how-to.
+    </div>
+    <span class="pillar__arrow">→</span>
+  </a>
+</section>
+
+<!-- ==================== BESTSELLERS ==================== -->
+<section class="section container" id="bestsellers">
+  <div class="section__head">
+    <div class="section__head-text">
+      <div class="eyebrow">The favorites</div>
+      <h2 class="display-l">Quietly <span class="display-italic">bestselling.</span></h2>
+    </div>
+    <a class="btn-ghost" href="{{ routes.root_url }}collections/all">Shop all →</a>
+  </div>
+  <div class="bestseller-grid">
+    {%- assign featured_handles = 'inbox-magnetic-eyelashes,pitch-magnetic-eyelashes,boardroom-magnetic-eyelashes,afterhours-magnetic-eyelashes' | split: ',' -%}
+    {%- for h in featured_handles -%}
+      {%- assign p = all_products[h] -%}
+      {%- if p -%}
+        {%- assign badge = '' -%}
+        {%- if p.handle == 'pitch-magnetic-eyelashes' -%}{%- assign badge = 'Bestseller' -%}{%- endif -%}
+        {%- if p.handle == 'inbox-magnetic-eyelashes' -%}{%- assign badge = 'First-timer pick' -%}{%- endif -%}
+        {%- if p.handle == 'boardroom-magnetic-eyelashes' -%}{%- assign badge = 'New' -%}{%- endif -%}
+        {%- if p.handle == 'afterhours-magnetic-eyelashes' -%}{%- assign badge = 'Award winner' -%}{%- endif -%}
+        {% render 'product-card', product: p, badge: badge %}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- ==================== ESSENTIALS ==================== -->
+<section class="essentials container" id="essentials">
+  <div class="essentials__head">
+    <div class="eyebrow">Built to last</div>
+    <h2 class="display-l">The Santai <span class="display-italic">Essentials.</span></h2>
+    <p class="essentials__sub">Make every satisfying snap of your magnetic lashes worth the investment.</p>
+  </div>
+  <div class="essentials-grid">
+    {%- assign accessory_handles = 'the-executive-lift-24h-precision-thermo-curler,the-pure-ritual-professional-magnetic-lash-cleanser' | split: ',' -%}
+    {%- for h in accessory_handles -%}
+      {%- assign p = all_products[h] -%}
+      {%- if p -%}
+        <a class="essential-card" href="{{ p.url }}">
+          <div class="essential-card__image">
+            {%- if p.featured_image -%}
+              <img src="{{ p.featured_image | image_url: width: 800 }}" alt="{{ p.title | escape }}" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="essential-card__body">
+            <div class="eyebrow essential-card__eyebrow">{{ p.metafields.santai.use_case.value | default: 'Accessory' }}</div>
+            <div class="essential-card__title">{{ p.title | split: ':' | first | strip }}</div>
+            {%- if p.metafields.santai.tagline.value -%}
+              <div class="essential-card__tags">
+                <span class="essential-tag">{{ p.metafields.santai.size.value | default: 'Standard kit' }}</span>
+              </div>
+            {%- endif -%}
+            <span class="essential-card__cta">Shop now <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- ==================== JOURNAL ==================== -->
+{%- assign journal = blogs['journal'] -%}
+{%- if journal and journal.articles.size > 0 -%}
+  <section class="journal container" id="journal">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">From the journal</div>
+        <h2 class="display-l">Notes on <span class="display-italic">effortless.</span></h2>
+      </div>
+      <a class="btn-ghost" href="{{ routes.root_url }}blogs/journal">View all articles →</a>
+    </div>
+    <div class="journal-grid">
+      {%- for article in journal.articles limit: 3 -%}
+        <a class="journal-card" href="{{ article.url }}">
+          {%- if article.image -%}
+            <div class="journal-card__image">
+              <img src="{{ article.image | image_url: width: 800 }}" alt="" loading="lazy">
+            </div>
+          {%- endif -%}
+          <div class="eyebrow journal-card__category">{{ article.tags | first | default: 'Notes' }}</div>
+          <h3 class="journal-card__title">{{ article.title }}</h3>
+          {%- if article.summary != blank -%}
+            <p class="journal-card__excerpt">{{ article.summary | strip_html | truncate: 160 }}</p>
+          {%- endif -%}
+          <span class="journal-card__cta">Read more <span aria-hidden="true">→</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+<!-- ==================== SHOP BY EYE SHAPE ==================== -->
+<section class="section container by-shape">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">Shop by eye shape</div>
+      <h2 class="display-l">Made for <span class="display-italic">your</span> eye.</h2>
+    </div>
+  </div>
+  <div class="collection-grid collection-grid--3">
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#monolid">
+      <div class="collection-tile__image">
+        <img src="{{ 'monolid.svg' | asset_url }}" alt="Monolid eye shape">
+      </div>
+      <div class="collection-tile__label">Monolid</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#double-lid">
+      <div class="collection-tile__image">
+        <img src="{{ 'almond.svg' | asset_url }}" alt="Double lid eye shape">
+      </div>
+      <div class="collection-tile__label">Double lid</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#inner-double-lid">
+      <div class="collection-tile__image">
+        <img src="{{ 'hooded.svg' | asset_url }}" alt="Inner double lid eye shape">
+      </div>
+      <div class="collection-tile__label">Inner double lid</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== SHOP BY MAKEUP ==================== -->
+<section class="section container by-makeup">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">Shop by makeup</div>
+      <h2 class="display-l">Pick your <span class="display-italic">finish.</span></h2>
+    </div>
+  </div>
+  <div class="collection-grid collection-grid--3">
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#natural">
+      <div class="collection-tile__image">
+        <span class="lash-glyph" style="width:38%;height:1.5px"></span>
+      </div>
+      <div class="collection-tile__label">Natural</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#light-makeup">
+      <div class="collection-tile__image">
+        <span class="lash-glyph" style="width:50%;height:2.5px"></span>
+      </div>
+      <div class="collection-tile__label">Light makeup</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+    <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#heavy-makeup">
+      <div class="collection-tile__image">
+        <span class="lash-glyph" style="width:62%;height:4px"></span>
+      </div>
+      <div class="collection-tile__label">Heavy makeup</div>
+      <div class="collection-tile__cta">Shop now →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== PROMISE BAND ==================== -->
+<section class="section container" style="text-align:center;border-top:1px solid var(--line)">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">Our two promises</div>
+      <h2 class="display-l">The right lash for <span class="display-italic">your</span> eye. <br>Easier than <span class="display-italic">mascara.</span></h2>
+      <p class="section__sub">Two founders in Kuala Lumpur, ten lashes built around how your eye actually moves. <a href="{{ routes.root_url }}pages/about" style="color:var(--accent)">Read our story →</a></p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home (main)",
+  "settings": []
+}
+{% endschema %}
