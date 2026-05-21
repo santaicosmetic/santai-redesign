@@ -153,4 +153,37 @@ for c in COLLECTIONS:
         print(f'  {c["handle"]:18}  no products')
 
 print()
+print('--- Publishing collections to all sales channels ---')
+
+# Newly-created Shopify collections default to UNPUBLISHED on every sales channel.
+# Without explicit publishing, /collections/<handle> returns 404 on the live store.
+# This block fetches every publication (Online Store, POS, Facebook & Instagram,
+# TikTok, Google & YouTube) and publishes each of our 3 collections to all of them.
+
+PUBS_Q = '{ publications(first: 20) { edges { node { id name } } } }'
+pubs = gql(PUBS_Q)['publications']['edges']
+pub_inputs = [{'publicationId': p['node']['id']} for p in pubs]
+pub_names = [p['node']['name'] for p in pubs]
+print(f'Sales channels: {pub_names}')
+
+PUBLISH = '''
+mutation($id: ID!, $input: [PublicationInput!]!) {
+  publishablePublish(id: $id, input: $input) {
+    publishable { __typename }
+    userErrors { field message }
+  }
+}'''
+
+# Re-fetch the 3 collections by handle to get current IDs
+cols_q = '{ collections(first: 50, query: "handle:by-eye-shape OR handle:by-makeup OR handle:accessories") { edges { node { id handle } } } }'
+for e in gql(cols_q)['collections']['edges']:
+    col_id, handle = e['node']['id'], e['node']['handle']
+    res = gql(PUBLISH, {'id': col_id, 'input': pub_inputs})
+    errs = res['publishablePublish']['userErrors']
+    if errs:
+        print(f'  {handle:18}  PUBLISH ERRORS: {errs}')
+    else:
+        print(f'  {handle:18}  published to all {len(pub_inputs)} channels')
+
+print()
 print('Done.')
