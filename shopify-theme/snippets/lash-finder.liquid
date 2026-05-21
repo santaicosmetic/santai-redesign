@@ -1,0 +1,79 @@
+<div class="finder" data-finder role="dialog" aria-modal="true" aria-label="Lash Match quiz">
+  <div class="finder__bar"><div class="finder__bar-fill" data-finder-bar></div></div>
+  <button class="finder__close" data-finder-close aria-label="Close quiz">✕</button>
+  <button class="btn btn-ghost finder__back" data-finder-back>← Back</button>
+  <div class="finder__stage">
+
+    <div class="finder-step is-active" data-finder-step>
+      <div class="eyebrow">Step 1 of 4</div>
+      <h2 class="display-l finder-step__h">Tell us about <span class="display-italic">your</span> eye.</h2>
+      <p class="finder-step__sub">We'll match you in 60 seconds. Pick the shape closest to yours — close enough is fine.</p>
+      <div class="finder-shapes">
+        <button class="finder-shape" data-finder-pick="eye" data-value="monolid"><img src="{{ 'monolid.svg' | asset_url }}" alt=""><span>Monolid</span></button>
+        <button class="finder-shape" data-finder-pick="eye" data-value="double-lid"><img src="{{ 'almond.svg' | asset_url }}" alt=""><span>Double lid</span></button>
+        <button class="finder-shape" data-finder-pick="eye" data-value="inner-double-lid"><img src="{{ 'hooded.svg' | asset_url }}" alt=""><span>Inner double lid</span></button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 2 of 4</div>
+      <h2 class="display-l finder-step__h">What kind of <span class="display-italic">look</span>?</h2>
+      <p class="finder-step__sub">No wrong answer.</p>
+      <div class="finder-looks">
+        <button class="finder-look" data-finder-pick="look" data-value="natural"><div class="finder-look__image"><span class="lash-glyph" style="width:50%;height:2px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Natural</h3><p class="finder-look__d">Like yours, only better.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="office"><div class="finder-look__image"><span class="lash-glyph" style="width:60%;height:3px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Office Polished</h3><p class="finder-look__d">Defined, never demanding.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="soft"><div class="finder-look__image"><span class="lash-glyph" style="width:68%;height:3px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Soft Glam</h3><p class="finder-look__d">Dinner-out lashes.</p></div></button>
+        <button class="finder-look" data-finder-pick="look" data-value="drama"><div class="finder-look__image"><span class="lash-glyph" style="width:78%;height:5px"></span></div><div class="finder-look__copy"><h3 class="finder-look__h">Full Drama</h3><p class="finder-look__d">When the brief says drama.</p></div></button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 3 of 4</div>
+      <h2 class="display-l finder-step__h">How often will you <span class="display-italic">wear</span>?</h2>
+      <div class="finder-freq">
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="daily"><span class="finder-freq__l">Daily</span><span class="finder-freq__d">Every-day comfort matters most.</span></button>
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="weekly"><span class="finder-freq__l">A few times a week</span><span class="finder-freq__d">Office days and weekends.</span></button>
+        <button class="finder-freq__opt" data-finder-pick="freq" data-value="events"><span class="finder-freq__l">Just events</span><span class="finder-freq__d">Weddings, dates, festivals.</span></button>
+      </div>
+    </div>
+
+    <div class="finder-step" data-finder-step>
+      <div class="eyebrow">Step 4 of 4</div>
+      <h2 class="display-l finder-step__h">Anything to <span class="display-italic">flag</span>?</h2>
+      <p class="finder-step__sub">Tap any that apply.</p>
+      <div class="finder-flags">
+        <button class="finder-flag" data-finder-flag data-value="sensitive"><span class="finder-flag__check">✓</span>Sensitive eyes</button>
+        <button class="finder-flag" data-finder-flag data-value="contacts"><span class="finder-flag__check">✓</span>Wear contact lenses</button>
+        <button class="finder-flag" data-finder-flag data-value="firsttime"><span class="finder-flag__check">✓</span>First time with lashes</button>
+        <button class="finder-flag" data-finder-flag data-value="lashext"><span class="finder-flag__check">✓</span>Coming off lash extensions</button>
+      </div>
+      <button class="btn btn-accent finder-flag__cta" data-finder-done>See my match</button>
+    </div>
+
+    {%- comment -%} Result step — Inbox is the default fallback; rules logic lives in theme.js and will be filled in Riri's session. {%- endcomment -%}
+    <div class="finder-step" data-finder-step>
+      <div class="finder-result">
+        <div class="finder-result__hero" style="background:#F7F7F7">
+          <span class="finder-result__hero-tag eyebrow">Your match</span>
+          <span class="lash-glyph" style="width:56%;height:2px"></span>
+        </div>
+        <div class="finder-result__copy">
+          <div class="eyebrow">Recommended for you</div>
+          <h2 class="display-l"><span class="display-italic">Inbox.</span></h2>
+          <div class="finder-result__price tnum">{{ 11900 | money }}</div>
+          <ul class="finder-result__reasons">
+            <li><em>Natural enough for no-makeup days</em>, sharp enough to get noticed.</li>
+            <li>Daily-comfort band &mdash; <em>thirty-second application</em>.</li>
+            <li>30× reusable, hypoallergenic, no glue.</li>
+          </ul>
+          <div class="finder-result__ctas">
+            <button class="btn btn-accent" data-add-to-cart data-product-id="inbox" data-product-name="Inbox" data-product-variant="Morning" data-product-price="RM 119" data-product-bg="#F7F7F7">Add to bag</button>
+            <a class="btn btn-secondary" href="{{ routes.root_url }}products/inbox">See full details</a>
+          </div>
+          <a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 10</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

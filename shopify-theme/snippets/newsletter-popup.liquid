@@ -1,0 +1,23 @@
+<div class="newsletter-popup" data-newsletter-popup role="dialog" aria-modal="true" aria-labelledby="newsletter-popup-title" aria-hidden="true">
+  <div class="newsletter-popup__backdrop" data-newsletter-close></div>
+  <div class="newsletter-popup__card">
+    <button type="button" class="newsletter-popup__close" data-newsletter-close aria-label="Close">✕</button>
+    <div class="newsletter-popup__eyebrow">— Join the list</div>
+    <h2 class="newsletter-popup__title" id="newsletter-popup-title">First in <em>line</em>.</h2>
+    <p class="newsletter-popup__sub">New drops, restock alerts, and styling notes from the Santai team. Quiet inbox. No noise.</p>
+    {%- form 'customer', class: 'newsletter-popup__form', data-newsletter-form: '' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,newsletter-popup">
+      <input type="text" name="contact[first_name]" class="newsletter-popup__input" placeholder="First name" required aria-label="First name">
+      <input type="email" name="contact[email]" class="newsletter-popup__input" placeholder="Email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-accent newsletter-popup__submit">Join the list</button>
+      {%- if form.posted_successfully? -%}
+        <p class="small" style="margin-top:10px;color:var(--accent);text-align:center">Thanks — you're on the list.</p>
+      {%- elsif form.errors -%}
+        <p class="small" style="margin-top:10px;color:var(--accent);text-align:center">
+          {%- for field in form.errors -%}{{ form.errors.messages[field] }}{%- unless forloop.last -%} · {%- endunless -%}{%- endfor -%}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+    <p class="newsletter-popup__fineprint">Unsubscribe any time. We won't share your email.</p>
+  </div>
+</div>

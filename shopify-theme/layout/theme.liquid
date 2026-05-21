@@ -20,7 +20,17 @@
 </head>
 <body data-screen="{{ template | replace: '.', '-' }}">
 
+  {%- section 'header' -%}
+
   {{ content_for_layout }}
+
+  {%- section 'footer' -%}
+
+  {%- render 'lash-finder' -%}
+  {%- render 'cart-drawer' -%}
+  {%- render 'newsletter-popup' -%}
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
 </body>

@@ -1,0 +1,101 @@
+<footer class="site-footer">
+  <div class="site-footer__newsletter">
+    <div class="site-footer__newsletter-inner">
+      <div>
+        <div class="eyebrow">Newsletter</div>
+        <div class="footer-quote">{{ section.settings.newsletter_quote }}</div>
+      </div>
+      {%- form 'customer', class: 'footer-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input class="footer-input" name="contact[email]" placeholder="hello@santai.com" type="email" aria-label="Email address" required>
+        <button class="btn btn-accent" type="submit">Join</button>
+        {%- if form.posted_successfully? -%}
+          <p class="small" style="margin-top:10px;color:var(--accent)">Thanks — you're on the list.</p>
+        {%- elsif form.errors -%}
+          <p class="small" style="margin-top:10px;color:var(--accent)">
+            {%- for field in form.errors -%}{{ form.errors.messages[field] }}{%- unless forloop.last -%} · {%- endunless -%}{%- endfor -%}
+          </p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+  <div class="site-footer__cols">
+    <div>
+      <div class="eyebrow">Help</div>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/shipping">Shipping</a></li>
+        <li><a href="{{ routes.root_url }}pages/returns">Returns</a></li>
+        <li><a href="{{ routes.root_url }}pages/care-guide">Care guide</a></li>
+        <li><a href="{{ routes.root_url }}pages/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">Learn</div>
+      <ul>
+        <li><a href="#" data-finder-open>Lash Match quiz</a></li>
+        <li><a href="{{ routes.root_url }}pages/how-to-apply">How to apply</a></li>
+        <li><a href="{{ routes.root_url }}collections/by-eye-shape">By eye shape</a></li>
+        <li><a href="{{ routes.root_url }}blogs/journal">The journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">Connect</div>
+      <ul>
+        <li><a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="#">Loyalty</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">About</div>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/about">Our story</a></li>
+        <li><a href="{{ routes.root_url }}policies/privacy-policy">Privacy</a></li>
+        <li><a href="{{ routes.root_url }}policies/terms-of-service">Terms of service</a></li>
+        <li><a href="{{ routes.root_url }}policies/refund-policy">Refund policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__rule"></div>
+  <div class="site-footer__bottom">
+    <span class="footer-mark wordmark">SANTAI</span>
+    <span class="footer-meta">© {{ 'now' | date: '%Y' }} {{ shop.name }} Sdn Bhd · Kuala Lumpur</span>
+    <div class="footer-pay">
+      <span class="pay-tile">FPX</span><span class="pay-tile">GrabPay</span><span class="pay-tile">TnG</span><span class="pay-tile">Boost</span><span class="pay-tile">Atome</span><span class="pay-tile">Visa</span><span class="pay-tile">Mastercard</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_quote",
+      "label": "Newsletter call-to-action",
+      "default": "<p>Join the Santai list &mdash; get a complimentary <em>lash-fit</em> guide.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Social URLs"
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://www.instagram.com/santaicosmetics.my/"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_url",
+      "label": "TikTok URL",
+      "default": "https://www.tiktok.com/@santai.cosmetics/video/7624990695748537608"
+    }
+  ]
+}
+{% endschema %}

@@ -12,7 +12,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ## Where we are — as of 2026-05-21
 
-> 🆕 **Port Session 1 (scaffolding) shipped.** Blank Shopify theme created at `shopify-theme/` and pushed to the production store **`cjuzxh-v0.myshopify.com`** as an **unpublished draft** named *"Santai 2026 — draft"* (theme #156386722014). Atelier (the current live theme) is untouched and serving customers as normal. Backup of Atelier pulled to gitignored `theme-backups/atelier/`. **Next session = header/footer extraction → `sections/header.liquid` + `sections/footer.liquid` + `snippets/cart-drawer.liquid`.**
+> 🆕 **Port Sessions 1 + 2 shipped.** Blank Shopify theme at `shopify-theme/` is live as draft *"Santai 2026 — draft"* (#156386722014) on production store **`cjuzxh-v0.myshopify.com`**. Atelier still live + serving customers. Backup at gitignored `theme-backups/atelier/`. Session 2 ported the full chrome: header + utility bar + nav dropdown + footer (with **real `{% form 'customer' %}` newsletter signups** wired to Shopify customer accounts), cart drawer snippet, newsletter-popup snippet, Lash Finder modal snippet. All five render on every template via `layout/theme.liquid`. **Next session = product template + LASH_STYLES → real Shopify products + metafield design.**
 
 > 🔑 **Shopify auth setup:** `.env` file in worktree root (gitignored) contains the Custom App admin token. CLI commands work via `set -a; source .env; set +a; shopify theme <cmd>`. Token has very broad scope — narrow it in the Shopify Dev Dashboard when convenient.
 

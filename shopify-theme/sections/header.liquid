@@ -1,0 +1,80 @@
+{%- liquid
+  assign on_collection_or_product = false
+  if template contains 'collection' or template contains 'product'
+    assign on_collection_or_product = true
+  endif
+-%}
+
+<header class="site-header">
+  <div class="utility-bar" data-utility-bar data-messages='[{%- for i in (1..section.blocks.size) -%}{%- assign blk = section.blocks[forloop.index0] -%}{%- if forloop.index0 > 0 -%},{%- endif -%}"{{ blk.settings.text | escape | replace: '"', '\\"' }}"{%- endfor -%}]'>
+    <span class="utility-bar__msg">{{ section.blocks.first.settings.text | default: 'Free shipping across Malaysia' }}</span>
+  </div>
+  <div class="site-header__main">
+    <div class="site-header__left">
+      <a class="site-header__icon" href="{{ routes.search_url }}" aria-label="Search" data-search-trigger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </a>
+      <button class="site-header__icon site-header__mobile-toggle" aria-label="Open menu" data-mobile-nav-toggle>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">
+      <span class="wordmark">SANTAI</span>
+    </a>
+    <div class="site-header__right">
+      <a class="site-header__icon" href="{{ routes.root_url }}pages/wishlist" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.5-9-9.5C1.5 6 5 3 8 4.5c1.6.8 3 2.5 4 4 1-1.5 2.4-3.2 4-4 3-1.5 6.5 1.5 5 6-2 5-9 9.5-9 9.5z"/></svg>
+      </a>
+      <a class="site-header__icon" href="{{ routes.cart_url }}" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span class="site-header__cart-count" data-cart-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <button class="site-nav__close" data-mobile-nav-close aria-label="Close menu">✕</button>
+    <ul>
+      <li class="site-nav__shop">
+        <a href="{{ routes.root_url }}collections/all"{% if on_collection_or_product %} class="is-current"{% endif %}>Shop <span class="site-nav__caret" aria-hidden="true">▾</span></a>
+        <div class="site-nav__dropdown">
+          <a href="{{ routes.root_url }}collections/by-eye-shape">Shop by eye shape</a>
+          <a href="{{ routes.root_url }}collections/by-makeup">Shop by makeup</a>
+          <a href="{{ routes.root_url }}collections/accessories">Accessories</a>
+          <a href="{{ routes.root_url }}collections/all">Shop all products</a>
+        </div>
+      </li>
+      <li><a href="{{ routes.root_url }}pages/how-to-apply"{% if page.handle == 'how-to-apply' %} class="is-current"{% endif %}>How to Apply</a></li>
+      <li><a href="{{ routes.root_url }}pages/faq"{% if page.handle == 'faq' %} class="is-current"{% endif %}>FAQ</a></li>
+      <li><a href="{{ routes.root_url }}pages/contact"{% if page.handle == 'contact' %} class="is-current"{% endif %}>Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "utility_message",
+      "name": "Utility bar message",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Rotating utility bar message",
+          "default": "Free shipping across Malaysia"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "utility_message", "settings": { "text": "Free shipping across Malaysia" } },
+      { "type": "utility_message", "settings": { "text": "Free 5-min Lash Match — find yours" } },
+      { "type": "utility_message", "settings": { "text": "Try first, love forever — 14-day return" } }
+    ]
+  }
+}
+{% endschema %}
