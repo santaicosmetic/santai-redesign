@@ -1349,6 +1349,135 @@
     initHeroSlider();
     initUgcSlider();
     initCompare();
+    initShopifyCart();
+  }
+
+  /* ====================================================================
+     SHOPIFY AJAX CART ADAPTER
+     Runs only when window.Shopify is present (i.e. on Shopify, not file://).
+     Overrides the prototype's in-memory cart with /cart.js + /cart/add.js +
+     /cart/change.js Ajax calls. Reuses all existing render functions —
+     just feeds them Shopify-shaped data translated into our local format.
+     Gift auto-add disabled (Shopify discounts will handle this post-port).
+     ==================================================================== */
+  function initShopifyCart() {
+    if (typeof window.Shopify === 'undefined' || !window.Shopify.shop) return;
+
+    /* Mapping from product short_id → variant_id, served by layout/theme.liquid
+       as window.SANTAI_DATA. Used when prototype components (lash finder,
+       compare modal, search overlay) try to add by short_id rather than variant. */
+    var DATA = window.SANTAI_DATA || { productMap: {}, idsByShortId: {} };
+
+    /* Disable gift auto-add — Shopify discounts handle this. Keep the progress
+       bar messaging intact (purely informational). */
+    reconcileGifts = function () { /* no-op in Shopify mode */ };
+
+    /* Translate a Shopify cart-item shape into the prototype's local cart-item
+       shape so renderCart / renderCartItem keep working unchanged. */
+    function translateShopifyCart(shopifyCart) {
+      var items = (shopifyCart && shopifyCart.items) || [];
+      return items.map(function (it) {
+        var info = (DATA.productMap || {})[String(it.product_id)] || {};
+        return {
+          id: info.short_id || String(it.product_id),
+          name: info.title || it.product_title || it.title,
+          variant: it.variant_title || '',
+          price: 'RM ' + (it.final_price / 100).toFixed(2).replace(/\.00$/, ''),
+          image: it.image || '',
+          category: info.category || 'other',
+          qty: it.quantity,
+          // Shopify identifiers — needed for change/remove
+          _key: it.key,
+          _variant_id: it.variant_id,
+          _line_price: it.final_line_price,
+        };
+      });
+    }
+
+    function refreshCart() {
+      return fetch('/cart.js', { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (shopifyCart) {
+          cart = translateShopifyCart(shopifyCart);
+          renderCart();
+          return shopifyCart;
+        });
+    }
+
+    /* Override the prototype's cart mutations with Ajax versions. */
+    addToCart = function (product) {
+      var variantId = product._variant_id || (DATA.idsByShortId && DATA.idsByShortId[product.id]);
+      if (!variantId) {
+        showToast('Could not add to bag — variant not found.');
+        return;
+      }
+      fetch('/cart/add.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: 1 }),
+      })
+        .then(function (r) { if (!r.ok) throw new Error('add failed'); return r.json(); })
+        .then(function () {
+          showToast('Added. One step closer to effortless.');
+          return refreshCart();
+        })
+        .then(function () { setTimeout(openCart, 200); })
+        .catch(function () { showToast('Could not add to bag — try again.'); });
+    };
+
+    changeQty = function (idx, delta) {
+      var item = cart[idx];
+      if (!item || !item._key) return;
+      var newQty = (item.qty || 1) + delta;
+      fetch('/cart/change.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: item._key, quantity: Math.max(0, newQty) }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function () { return refreshCart(); })
+        .catch(function () { showToast('Could not update quantity.'); });
+    };
+
+    removeItem = function (idx) {
+      var item = cart[idx];
+      if (!item || !item._key) return;
+      fetch('/cart/change.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: item._key, quantity: 0 }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function () { return refreshCart(); })
+        .catch(function () { showToast('Could not remove item.'); });
+    };
+
+    /* Intercept Shopify product form submits → Ajax instead of full-page redirect. */
+    document.addEventListener('submit', function (e) {
+      var form = e.target.closest('form[action="/cart/add"], form[action$="/cart/add"]');
+      if (!form) return;
+      e.preventDefault();
+      var fd = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Accept': 'application/json' },
+        body: fd,
+      })
+        .then(function (r) { if (!r.ok) throw new Error('add failed'); return r.json(); })
+        .then(function () {
+          showToast('Added. One step closer to effortless.');
+          return refreshCart();
+        })
+        .then(function () { setTimeout(openCart, 200); })
+        .catch(function () { showToast('Could not add to bag — try again.'); });
+    });
+
+    /* Initial sync from Shopify cart on page load. */
+    refreshCart();
   }
 
   if (document.readyState === 'loading') {

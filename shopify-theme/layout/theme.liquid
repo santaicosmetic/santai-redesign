@@ -16,6 +16,32 @@
 
   {{ 'santai.css' | asset_url | stylesheet_tag }}
 
+  {%- comment -%}
+    SANTAI_DATA: server-rendered product map so theme.js can resolve short_id ↔ variant_id
+    and know which products are lashes vs accessories (for cart drawer + gift tier UI).
+  {%- endcomment -%}
+  <script>
+    window.SANTAI_DATA = {
+      productMap: {
+        {%- for p in collections.all.products -%}
+          "{{ p.id }}": {
+            "handle": {{ p.handle | json }},
+            "short_id": {{ p.metafields.santai.short_id.value | default: p.handle | json }},
+            "category": {{ p.metafields.santai.category.value | default: '' | json }},
+            "title": {{ p.title | json }},
+            "variant_id": {{ p.selected_or_first_available_variant.id }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      },
+      idsByShortId: {
+        {%- for p in collections.all.products -%}
+          {%- assign sid = p.metafields.santai.short_id.value | default: p.handle -%}
+          {{ sid | json }}: {{ p.selected_or_first_available_variant.id }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      }
+    };
+  </script>
+
   {{ content_for_header }}
 </head>
 <body data-screen="{{ template | replace: '.', '-' }}">
