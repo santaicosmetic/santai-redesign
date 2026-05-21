@@ -141,7 +141,7 @@ Upload the woff2 files to `assets/` in Shopify and add `@font-face` declarations
 1. **Real product photography** is missing — every `.product-card__image`, `.pdp-hero__main`, `.story__image`, `.hero__image` uses placeholder treatments. The brand brief calls for "tight crops of eyes; warm studio lighting (slightly golden, never blue); diverse Southeast Asian models; product on `--santai-stone` sweeps."
 2. **Hero photo** at the top of `index.html` is a CSS-only abstract eye composition. Replace `.hero__image-eye` + `.hero__lash` divs with an `<img class="hero__photo" src="…">` (the CSS rule already exists).
 3. **Lash Finder recommendation logic** is hard-coded to Inbox. Build a small rules map mapping each (eye type · density · moment) combination to one of the 8 styles (Afterhours, Nightshift, Pitch, Inbox, Minutes, Boardroom, Kickoff, Twilight).
-4. **Real reviews data** — the homepage shows three hard-coded reviews. Wire to Judge.me, Loox, or Yotpo via their Shopify app's Liquid block.
+4. **Real reviews data** — the homepage shows three hard-coded reviews and the PDP shows a hardcoded count ("Based on 247 reviews"). At port time these will be backed by **Shopify product metafields** (no third-party review app — Judge.me / Loox / Yotpo not in use). A separate working session will design the metafield schema and the Liquid rendering for review counts, star averages, and review cards.
 5. **No FAQ or Contact pages yet** — nav links to them are stubbed `href="#"`. Add Liquid templates when copy lands.
 
 ---
