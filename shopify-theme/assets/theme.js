@@ -58,8 +58,11 @@
     });
   }
 
-  /* -------------------- Cart drawer + add-to-cart ---------------------- */
-  var LASH_STYLES = {
+  /* -------------------- Cart drawer + add-to-cart ----------------------
+     LASH_STYLES + ACCESSORIES read from Liquid-injected window.* when on
+     Shopify (live products + metafields). Hardcoded literal below is the
+     fallback for offline / prototype contexts (file:// or no-Shopify pages). */
+  var LASH_STYLES = window.LASH_STYLES || {
     inbox:      { id:'inbox',      name:'Inbox',      group:'Natural',      tagline:'The one that looks like nothing — and everything.',  image:'assets/images/products/lash-inbox.png',      card:'assets/images/products/lash-inbox-card.jpg',      drama:1, eyeType:'All eye types',              length:'10.5mm',              curl:'45° B+', design:'V-weave airy fibre',          price:'RM 119'  },
     minutes:    { id:'minutes',    name:'Minutes',    group:'Natural',      tagline:'Your lashes, but better.',                           image:'assets/images/products/lash-minutes.png',    card:'assets/images/products/lash-minutes-card.jpg',    drama:1, eyeType:'Monolid / Inner double lid', length:'10.5mm',              curl:'50° C',  design:'True-to-lash simulation',    price:'RM 119'  },
     kickoff:    { id:'kickoff',    name:'Kickoff',    group:'Natural',      tagline:'Fresh air energy. Younger-looking.',                  image:'assets/images/products/lash-kickoff.png',    card:'assets/images/products/lash-kickoff-card.jpg',    drama:2, eyeType:'All eye types',              length:'10–11mm',             curl:'50° C',  design:'Korean strand-by-strand',    price:'RM 119'  },
@@ -72,7 +75,7 @@
     vip:        { id:'vip',        name:'VIP Access', group:'Heavy makeup', tagline:'You were born for the front row.',                    image:'assets/images/products/lash-vip.jpg',        card:'assets/images/products/lash-vip-card.jpg',        drama:5, eyeType:'All eye types',              length:'11–12mm',             curl:'50° C',  design:'Statement volume',           price:'RM 119' }
   };
   /* Accessories — real SKUs, also surface as gifts when lash-tier unlocked */
-  var ACCESSORIES = {
+  var ACCESSORIES = window.ACCESSORIES || {
     cleanser: { id:'cleanser', name:'Foam Cleanser',  tagline:'Daily lash + lid wash.',  price:'RM 29', image:'assets/images/lifestyle/lifestyle-6.jpg' },
     curler:   { id:'curler',   name:'Thermo Curler',  tagline:'Pre-application set.',    price:'RM 39', image:'assets/images/lifestyle/lifestyle-4-hf.jpg' }
   };

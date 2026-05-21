@@ -17,8 +17,9 @@
   {{ 'santai.css' | asset_url | stylesheet_tag }}
 
   {%- comment -%}
-    SANTAI_DATA: server-rendered product map so theme.js can resolve short_id ↔ variant_id
-    and know which products are lashes vs accessories (for cart drawer + gift tier UI).
+    SANTAI_DATA + window.LASH_STYLES + window.ACCESSORIES — server-rendered from
+    Shopify products so theme.js's search, compare, finder, and cart modules read
+    live data instead of the prototype's hardcoded literal.
   {%- endcomment -%}
   <script>
     window.SANTAI_DATA = {
@@ -39,6 +40,60 @@
           {{ sid | json }}: {{ p.selected_or_first_available_variant.id }}{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
       }
+    };
+
+    {%- liquid
+      assign lash_first = true
+      assign acc_first = true
+    -%}
+    window.LASH_STYLES = {
+      {%- for p in collections.all.products -%}
+        {%- if p.metafields.santai.category.value == 'lash' -%}
+          {%- if lash_first %}{%- assign lash_first = false -%}{%- else %},{%- endif -%}
+          {%- assign sid = p.metafields.santai.short_id.value | default: p.handle -%}
+          {%- assign eb_value = p.metafields.santai.eye_buckets.value -%}
+          {%- if eb_value -%}
+            {%- assign eye_type_str = eb_value | join: ' / ' | replace: 'monolid', 'Monolid' | replace: 'double-lid', 'Double lid' | replace: 'inner-double-lid', 'Inner double lid' -%}
+          {%- else -%}
+            {%- assign eye_type_str = 'All eye types' -%}
+          {%- endif -%}
+          {{ sid | json }}: {
+            "id": {{ sid | json }},
+            "name": {{ p.title | split: ' ' | first | json }},
+            "group": {{ p.metafields.santai.group.value | default: '' | json }},
+            "tagline": {{ p.metafields.santai.tagline.value | default: '' | json }},
+            "image": {{ p.featured_image | image_url: width: 800 | json }},
+            "card": {{ p.featured_image | image_url: width: 600 | json }},
+            "drama": {{ p.metafields.santai.drama.value | default: 1 }},
+            "eyeType": {{ eye_type_str | json }},
+            "length": {{ p.metafields.santai.length.value | default: '' | json }},
+            "curl": {{ p.metafields.santai.curl.value | default: '' | json }},
+            "design": {{ p.metafields.santai.design.value | default: '' | json }},
+            "price": {{ p.price | money | json }},
+            "handle": {{ p.handle | json }},
+            "url": {{ p.url | json }},
+            "variant_id": {{ p.selected_or_first_available_variant.id }}
+          }
+        {%- endif -%}
+      {%- endfor -%}
+    };
+    window.ACCESSORIES = {
+      {%- for p in collections.all.products -%}
+        {%- if p.metafields.santai.category.value == 'accessory' -%}
+          {%- if acc_first %}{%- assign acc_first = false -%}{%- else %},{%- endif -%}
+          {%- assign sid = p.metafields.santai.short_id.value | default: p.handle -%}
+          {{ sid | json }}: {
+            "id": {{ sid | json }},
+            "name": {{ p.title | split: ':' | first | json }},
+            "tagline": {{ p.metafields.santai.tagline.value | default: '' | json }},
+            "image": {{ p.featured_image | image_url: width: 800 | json }},
+            "price": {{ p.price | money | json }},
+            "handle": {{ p.handle | json }},
+            "url": {{ p.url | json }},
+            "variant_id": {{ p.selected_or_first_available_variant.id }}
+          }
+        {%- endif -%}
+      {%- endfor -%}
     };
   </script>
 
