@@ -21,7 +21,7 @@
       {%- if product.images.size > 1 -%}
         <div class="pdp-hero__thumbs">
           {%- for image in product.images limit: 4 -%}
-            <button class="pdp-hero__thumb{% if forloop.first %} is-active{% endif %}" data-pdp-thumb type="button">
+            <button class="pdp-hero__thumb{% if forloop.first %} is-active{% endif %}" data-pdp-thumb data-full-src="{{ image | image_url: width: 1200 }}" type="button">
               <img src="{{ image | image_url: width: 320 }}" alt="{{ image.alt | default: product.title | escape }} — view {{ forloop.index }}" loading="lazy">
             </button>
           {%- endfor -%}
@@ -60,7 +60,8 @@
         {%- endif -%}
       </div>
 
-      {%- form 'product', product, id: 'product-form-' | append: section.id, class: 'pdp-hero__ctas' -%}
+      {%- assign form_id = 'product-form-' | append: section.id -%}
+      {%- form 'product', product, id: form_id, class: 'pdp-hero__ctas' -%}
         <input type="hidden" name="id" value="{{ variant.id }}">
         <button class="btn btn-accent" type="submit" {% unless variant.available %}disabled{% endunless %}>
           {% if variant.available %}Add to bag{% else %}Sold out{% endif %}

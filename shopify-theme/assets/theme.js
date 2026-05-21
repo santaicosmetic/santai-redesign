@@ -1019,12 +1019,44 @@
     }
 
     var thumbs = document.querySelectorAll('[data-pdp-thumb]');
-    thumbs.forEach(function (t) {
-      t.addEventListener('click', function () {
-        thumbs.forEach(function (x) { x.classList.remove('is-active'); });
-        t.classList.add('is-active');
-      });
+    var mainImg = document.querySelector('.pdp-hero__main img');
+
+    function activateThumb(idx) {
+      if (idx < 0 || idx >= thumbs.length) return;
+      thumbs.forEach(function (x) { x.classList.remove('is-active'); });
+      var t = thumbs[idx];
+      t.classList.add('is-active');
+      if (!mainImg) return;
+      var fullSrc = t.getAttribute('data-full-src');
+      var thumbImg = t.querySelector('img');
+      var newSrc = fullSrc || (thumbImg && thumbImg.src);
+      var newAlt = thumbImg && thumbImg.alt;
+      if (newSrc) mainImg.src = newSrc;
+      if (newAlt) mainImg.alt = newAlt;
+    }
+
+    thumbs.forEach(function (t, idx) {
+      t.addEventListener('click', function () { activateThumb(idx); });
     });
+
+    // Touch swipe on main image: left/right to advance/retreat through thumbs.
+    var mainEl = document.querySelector('.pdp-hero__main');
+    if (mainEl && thumbs.length > 1) {
+      var touchStartX = null;
+      mainEl.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      mainEl.addEventListener('touchend', function (e) {
+        if (touchStartX === null) return;
+        var delta = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(delta) < 40) return; // ignore tiny moves
+        var current = -1;
+        thumbs.forEach(function (t, i) { if (t.classList.contains('is-active')) current = i; });
+        if (current === -1) current = 0;
+        activateThumb(delta < 0 ? current + 1 : current - 1);
+      }, { passive: true });
+    }
 
     document.querySelectorAll('[data-accordion]').forEach(function (a) {
       var head = a.querySelector('[data-accordion-head]');
