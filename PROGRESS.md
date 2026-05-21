@@ -49,7 +49,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 - Fonts: Newsreader (display, weight 300) + Manrope (body)
 - 3 makeup buckets: **Natural / Light makeup / Heavy makeup**
 - 3 eye-shape buckets: **Monolid / Double lid / Inner double lid**
-- 10 lashes + 2 accessories (Foam Cleanser RM 29, Thermo Curler RM 39)
+- 10 lashes (all RM 119, unified) + 2 accessories (Foam Cleanser RM 29, Thermo Curler RM 39)
 
 ---
 
