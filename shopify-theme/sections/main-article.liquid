@@ -1,0 +1,63 @@
+<main>
+
+  {%- if article.image -%}
+    <section class="page-hero">
+      <img src="{{ article.image | image_url: width: 1600 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="eager">
+    </section>
+  {%- endif -%}
+
+  <article class="container page-policy">
+    <div class="page-policy__inner">
+      <div class="page-policy__head">
+        <div class="article-meta">
+          {%- if article.tags.size > 0 -%}<span class="article-meta__category">{{ article.tags | first }}</span><span class="article-meta__dot">·</span>{%- endif -%}
+          <span>{{ article.published_at | date: '%-d %B %Y' }}</span>
+          {%- assign words = article.content | strip_html | split: ' ' | size -%}
+          {%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
+          <span class="article-meta__dot">·</span>
+          <span>{{ minutes }} min read</span>
+        </div>
+        <h1 class="display-l">{{ article.title }}</h1>
+        {%- if article.summary != blank -%}
+          <p class="page-policy__sub">{{ article.summary | strip_html }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="page-policy__body">
+        {{ article.content }}
+      </div>
+    </div>
+  </article>
+
+  {%- comment -%} Related: other articles in the same blog {%- endcomment -%}
+  {%- assign related_count = 0 -%}
+  {%- if blog.articles.size > 1 -%}
+    <section class="container article-related">
+      <p class="eyebrow article-related__eyebrow">— Keep reading</p>
+      <div class="journal-grid">
+        {%- for other in blog.articles -%}
+          {%- if other.id != article.id and related_count < 2 -%}
+            {%- assign related_count = related_count | plus: 1 -%}
+            <a class="journal-card" href="{{ other.url }}">
+              {%- if other.image -%}
+                <div class="journal-card__image">
+                  <img src="{{ other.image | image_url: width: 600 }}" alt="" loading="lazy">
+                </div>
+              {%- endif -%}
+              <div class="eyebrow journal-card__category">{{ other.tags | first | default: 'Notes' }}</div>
+              <h3 class="journal-card__title">{{ other.title }}</h3>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+</main>
+
+{% schema %}
+{
+  "name": "Article (single)",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,58 @@
+<main class="collection-page">
+
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">{{ blog.title }}</div>
+      <h1 class="display-l">Notes on <span class="display-italic">effortless</span>.</h1>
+      <p class="collection-header__sub">Lash care, eye-shape fit, and honest comparisons — short reading from the Santai team.</p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-block:var(--space-7) var(--space-9)">
+    <div class="journal-grid">
+      {%- for article in blog.articles -%}
+        <a class="journal-card" href="{{ article.url }}">
+          {%- if article.image -%}
+            <div class="journal-card__image">
+              <img src="{{ article.image | image_url: width: 800 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy">
+            </div>
+          {%- endif -%}
+          <div class="eyebrow journal-card__category">{{ article.tags | first | default: 'Notes' }} · {{ article.published_at | date: '%B %Y' }}</div>
+          <h2 class="journal-card__title">{{ article.title }}</h2>
+          {%- if article.summary != blank -%}
+            <p class="journal-card__excerpt">{{ article.summary | strip_html | truncate: 180 }}</p>
+          {%- endif -%}
+          <span class="journal-card__cta">Read more <span aria-hidden="true">→</span></span>
+        </a>
+      {%- else -%}
+        <p style="color:var(--fg-muted);text-align:center">No articles yet.</p>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  <section class="section container" style="text-align:center;border-top:1px solid var(--line)">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">Quiet inbox</div>
+        <h2 class="display-l">Get new posts in your <span class="display-italic">email</span>.</h2>
+        <p class="section__sub">One short read a month. Plus new lash drops and the occasional restock alert. Unsubscribe anytime.</p>
+      </div>
+    </div>
+    {%- form 'customer', class: 'footer-form', style: 'max-width:420px;margin:var(--space-5) auto 0' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,journal">
+      <input class="footer-input" name="contact[email]" placeholder="hello@santai.com" type="email" aria-label="Email address" required>
+      <button class="btn btn-accent" type="submit">Join</button>
+      {%- if form.posted_successfully? -%}
+        <p class="small" style="color:var(--accent);margin-top:8px">Thanks — you&rsquo;re on the list.</p>
+      {%- endif -%}
+    {%- endform -%}
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "Blog (journal)",
+  "settings": []
+}
+{% endschema %}
