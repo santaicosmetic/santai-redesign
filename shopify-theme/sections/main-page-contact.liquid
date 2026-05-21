@@ -1,0 +1,75 @@
+<main class="container page-contact">
+  <div class="page-contact__head">
+    <div class="eyebrow">Contact</div>
+    <h1 class="display-l">We'd love to <span class="display-italic">hear from you</span>.</h1>
+    <p class="page-contact__sub">Order questions, press, stockist enquiries, or just a hello. We reply within one working day from our KL team.</p>
+  </div>
+
+  <div class="page-contact__grid">
+    {%- form 'contact', class: 'contact-form' -%}
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-name">Your name</label>
+        <input class="contact-form__input" type="text" id="contact-name" name="contact[name]" required value="{{ form.name }}">
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-email">Email address</label>
+        <input class="contact-form__input" type="email" id="contact-email" name="contact[email]" required value="{{ form.email }}">
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-order">Order number <span style="text-transform:none;letter-spacing:0;color:var(--fg-muted);font-weight:400">(optional)</span></label>
+        <input class="contact-form__input" type="text" id="contact-order" name="contact[Order number]" placeholder="e.g. SAN-2026-1042">
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="contact-message">Message</label>
+        <textarea class="contact-form__textarea" id="contact-message" name="contact[body]" required placeholder="Tell us how we can help.">{{ form.body }}</textarea>
+      </div>
+      <button class="btn btn-accent contact-form__submit" type="submit">Send message</button>
+      {%- if form.posted_successfully? -%}
+        <p class="small" style="color:var(--accent);text-align:center;margin-top:8px">Thanks &mdash; we'll be in touch shortly.</p>
+      {%- elsif form.errors -%}
+        <p class="small" style="color:var(--accent);text-align:center;margin-top:8px">
+          {%- for field in form.errors -%}{{ form.errors.messages[field] }}{%- unless forloop.last -%} · {%- endunless -%}{%- endfor -%}
+        </p>
+      {%- endif -%}
+      <p class="small" style="color:var(--fg-muted);text-align:center;margin-top:4px">We typically reply within one working day.</p>
+    {%- endform -%}
+
+    <aside class="contact-aside">
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Live chat</div>
+        <h2 class="contact-card__title">WhatsApp</h2>
+        <div class="contact-card__body">
+          Fastest for order status and sizing questions.<br>
+          <strong>+60 12-345 6789</strong>
+        </div>
+        <a class="contact-card__cta" href="https://wa.me/60123456789" target="_blank" rel="noopener">Open WhatsApp →</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Email</div>
+        <h2 class="contact-card__title">Direct lines</h2>
+        <div class="contact-card__body">
+          Customer care · <a href="mailto:hello@santai-cosmetics.com">hello@santai-cosmetics.com</a><br>
+          Press · <a href="mailto:press@santai-cosmetics.com">press@santai-cosmetics.com</a><br>
+          Wholesale · <a href="mailto:wholesale@santai-cosmetics.com">wholesale@santai-cosmetics.com</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__eyebrow">— Hours</div>
+        <h2 class="contact-card__title">When we reply</h2>
+        <div class="contact-card__body">
+          Monday – Friday, 9am – 6pm MYT.<br>
+          Weekends and public holidays: next working day.
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+{% schema %}
+{
+  "name": "Page (contact)",
+  "settings": []
+}
+{% endschema %}

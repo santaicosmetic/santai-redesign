@@ -1,0 +1,24 @@
+<main class="container page-wishlist">
+  <div class="page-wishlist__head">
+    <div class="eyebrow">Wishlist</div>
+    <h1 class="display-l">Your saved <span class="display-italic">styles</span>.</h1>
+    <p class="page-wishlist__count" data-wishlist-page-count>0 items saved</p>
+  </div>
+
+  <div class="wishlist-grid" data-wishlist-grid>
+    {%- comment -%} Rendered dynamically from localStorage by theme.js renderWishlistPage() {%- endcomment -%}
+  </div>
+
+  <div class="wishlist-empty" data-wishlist-empty>
+    <p class="wishlist-empty__title">Your wishlist is <span class="display-italic">empty</span>.</p>
+    <p class="wishlist-empty__sub">Save your favourite styles for later — tap the heart on any product page and they'll appear here.</p>
+    <a class="btn btn-accent" href="{{ routes.root_url }}collections/all">Browse all styles</a>
+  </div>
+</main>
+
+{% schema %}
+{
+  "name": "Page (wishlist)",
+  "settings": []
+}
+{% endschema %}
