@@ -1,0 +1,252 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign mf = product.metafields.santai
+  assign is_accessory = false
+  if mf.category.value == 'accessory'
+    assign is_accessory = true
+  endif
+  assign short_id = mf.short_id.value | default: product.handle
+-%}
+
+<main class="pdp">
+
+  <!-- ==================== PDP HERO ==================== -->
+  <section class="pdp-hero container">
+    <div class="pdp-hero__gallery">
+      <div class="pdp-hero__main">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="eager">
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="pdp-hero__thumbs">
+          {%- for image in product.images limit: 4 -%}
+            <button class="pdp-hero__thumb{% if forloop.first %} is-active{% endif %}" data-pdp-thumb type="button">
+              <img src="{{ image | image_url: width: 320 }}" alt="{{ image.alt | default: product.title | escape }} — view {{ forloop.index }}" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="pdp-hero__info">
+      <div class="eyebrow">
+        {%- if mf.group.value -%}{{ mf.group.value }}{%- elsif is_accessory -%}Accessory · {{ mf.use_case.value | default: 'Lash care' }}{%- else -%}{{ product.product_type | default: 'Magnetic lashes' }}{%- endif -%}
+      </div>
+      <h1 class="display-l pdp-hero__h">
+        {%- assign title_parts = product.title | split: ' ' -%}
+        <span class="display-italic">{{ title_parts.first }}.</span>
+      </h1>
+      <div class="pdp-hero__sku mono">{{ variant.sku | default: 'SKU' }}</div>
+
+      {%- if mf.tagline.value -%}
+        <p class="pdp-hero__blurb">{{ mf.tagline.value }}</p>
+      {%- endif -%}
+
+      {%- if mf.eye_buckets.value -%}
+        <div class="pdp-hero__chips">
+          {%- for bucket in mf.eye_buckets.value -%}
+            <span class="chip-static">{%- case bucket -%}{%- when 'monolid' -%}Monolid{%- when 'double-lid' -%}Double lid{%- when 'inner-double-lid' -%}Inner double lid{%- else -%}{{ bucket }}{%- endcase -%}</span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="pdp-hero__price tnum">
+        {%- if variant.compare_at_price and variant.compare_at_price > variant.price -%}
+          <s style="color:var(--fg-muted);font-weight:400;margin-right:6px">{{ variant.compare_at_price | money }}</s>
+          <span style="color:var(--accent)">{{ variant.price | money }}</span>
+        {%- else -%}
+          {{ variant.price | money }}
+        {%- endif -%}
+      </div>
+
+      {%- form 'product', product, id: 'product-form-' | append: section.id, class: 'pdp-hero__ctas' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <button class="btn btn-accent" type="submit" {% unless variant.available %}disabled{% endunless %}>
+          {% if variant.available %}Add to bag{% else %}Sold out{% endif %}
+        </button>
+        <button type="button" class="btn-save" data-wishlist-toggle data-wishlist-id="{{ short_id }}" aria-label="Save to wishlist"><span class="btn-save__icon" aria-hidden="true"></span>Save</button>
+      {%- endform -%}
+
+      {%- unless is_accessory -%}
+        <button type="button" class="compare-trigger" data-compare-trigger data-style-id="{{ short_id }}">
+          Compare styles
+        </button>
+      {%- endunless -%}
+
+      <p class="small pdp-hero__note">Same-day Klang Valley dispatch · Free returns within 14 days</p>
+
+      <div class="pdp-info-accordions">
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>Description</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            {%- if product.description != blank -%}
+              {{ product.description }}
+            {%- else -%}
+              <p>{{ mf.tagline.value }}</p>
+              <p>Engineered for the woman who refuses to spend fifteen minutes on her morning routine. Magnetic, hypoallergenic, no glue.</p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- unless is_accessory -%}
+          <div class="pdp-accordion" data-accordion>
+            <button class="pdp-accordion__head" data-accordion-head type="button">
+              <h3>Specifications</h3>
+              <span data-accordion-icon>+</span>
+            </button>
+            <div class="pdp-accordion__body">
+              <p><strong>Length:</strong> {{ mf.length.value | default: '—' }}</p>
+              <p><strong>Curl:</strong> {{ mf.curl.value | default: '—' }}</p>
+              <p><strong>Band design:</strong> {{ mf.design.value | default: '—' }}</p>
+              <p><strong>Drama level:</strong> {{ mf.drama.value | default: '—' }}/5</p>
+            </div>
+          </div>
+        {%- endunless -%}
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>Shipping info</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            <p><strong>Klang Valley:</strong> same-day dispatch on orders placed before 2pm.</p>
+            <p><strong>West Malaysia:</strong> 1&ndash;3 working days via J&amp;T or Pos Laju.</p>
+            <p><strong>East Malaysia:</strong> 3&ndash;5 working days.</p>
+            <p><strong>Free shipping</strong> on every order within Malaysia &mdash; no minimum spend.</p>
+            <p>International shipping available &mdash; see our <a href="{{ routes.root_url }}pages/shipping">shipping page</a> for rates.</p>
+          </div>
+        </div>
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>{% if is_accessory %}How to use{% else %}How to wear{% endif %}</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            {%- if is_accessory -%}
+              <p>See the <a href="{{ routes.root_url }}pages/care-guide">care guide</a> for daily and weekly routines.</p>
+            {%- else -%}
+              <p><strong>Step 1.</strong> Apply Santai magnetic liner along your lash line. Let dry fully (~30 seconds).</p>
+              <p><strong>Step 2.</strong> Hold the band a hair above your natural lashes. The magnets guide themselves home.</p>
+              <p><strong>Step 3.</strong> Press gently from the inner corner outward to seat the band.</p>
+              <p><strong>To remove:</strong> slide a fingertip along the band and lift cleanly. No tugging, no residue.</p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="pdp-accordion" data-accordion>
+          <button class="pdp-accordion__head" data-accordion-head type="button">
+            <h3>What's included</h3>
+            <span data-accordion-icon>+</span>
+          </button>
+          <div class="pdp-accordion__body">
+            {%- if is_accessory -%}
+              <p>{{ mf.size.value | default: 'Standard kit' }}. See product description for full contents.</p>
+            {%- else -%}
+              <ul>
+                <li>1 pair of {{ product.title | split: ' ' | first }} magnetic lashes</li>
+                <li>Storage compact with mirror</li>
+                <li>Magnetic liner (3.5ml, jet black)</li>
+                <li>Application tweezer</li>
+                <li>Care brush</li>
+                <li>Care guide card</li>
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TRUST STRIP ==================== -->
+  <section class="pdp-trust">
+    <div class="container pdp-trust__inner">
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">3-second application</div>
+          <div class="pdp-trust__s">Even on your first try</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">Lasts 3&ndash;12 months</div>
+          <div class="pdp-trust__s">Up to 30 wears per pair</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="M16.71 13.88l.7.71-2.82 2.82"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">~{{ 400 | money }} per wear</div>
+          <div class="pdp-trust__s">Less than your morning coffee</div>
+        </div>
+      </div>
+
+      <div class="pdp-trust__item">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </span>
+        <div class="pdp-trust__copy">
+          <div class="pdp-trust__t">Hypoallergenic</div>
+          <div class="pdp-trust__s">No glue, no irritation</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== RELATED PRODUCTS — siblings ==================== -->
+  {%- assign related_count = 0 -%}
+  {%- if product.metafields.santai.category.value == 'lash' -%}
+    <section class="section container pdp-related">
+      <div class="section__head section__head--center">
+        <div class="section__head-text">
+          <div class="eyebrow">Try another</div>
+          <h2 class="display-l">Other <span class="display-italic">{{ mf.group.value | default: 'styles' | downcase }}</span> lashes.</h2>
+        </div>
+      </div>
+      <div class="bestseller-grid">
+        {%- for sibling in collections['all'].products limit: 50 -%}
+          {%- if sibling.metafields.santai.category.value == 'lash' and sibling.metafields.santai.group.value == mf.group.value and sibling.id != product.id and related_count < 3 -%}
+            {%- assign related_count = related_count | plus: 1 -%}
+            <a class="product-card" href="{{ sibling.url }}">
+              <div class="product-card__image">
+                {%- if sibling.featured_image -%}
+                  <img class="product-card__photo" src="{{ sibling.featured_image | image_url: width: 600 }}" alt="{{ sibling.title | escape }}" loading="lazy">
+                {%- endif -%}
+                <span class="product-card__hover-cue" aria-hidden="true">→</span>
+              </div>
+              <div class="product-card__title">{{ sibling.title | split: ' ' | first }}</div>
+              <div class="product-card__variant">{{ sibling.metafields.santai.group.value }}</div>
+              <div class="product-card__price tnum">{{ sibling.price | money }}</div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+</main>
+
+{% schema %}
+{
+  "name": "Product (main)",
+  "settings": []
+}
+{% endschema %}
