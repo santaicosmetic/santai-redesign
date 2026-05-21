@@ -1,0 +1,90 @@
+{%- liquid
+  assign all_count = collection.products_count
+  assign monolid_count = 0
+  assign double_count = 0
+  assign inner_count = 0
+  assign natural_count = 0
+  assign light_count = 0
+  assign heavy_count = 0
+  for p in collection.products
+    if p.metafields.santai.group.value == 'Natural'
+      assign natural_count = natural_count | plus: 1
+    elsif p.metafields.santai.group.value == 'Light makeup'
+      assign light_count = light_count | plus: 1
+    elsif p.metafields.santai.group.value == 'Heavy makeup'
+      assign heavy_count = heavy_count | plus: 1
+    endif
+    if p.metafields.santai.eye_buckets.value
+      for b in p.metafields.santai.eye_buckets.value
+        case b
+          when 'monolid'
+            assign monolid_count = monolid_count | plus: 1
+          when 'double-lid'
+            assign double_count = double_count | plus: 1
+          when 'inner-double-lid'
+            assign inner_count = inner_count | plus: 1
+        endcase
+      endfor
+    endif
+  endfor
+-%}
+
+<main class="collection-page">
+
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">{{ collection.title | default: 'The collection' }}</div>
+      <h1 class="display-l">The full <span class="display-italic">collection.</span></h1>
+      {%- if collection.description != blank -%}
+        <p class="collection-header__sub">{{ collection.description | strip_html }}</p>
+      {%- else -%}
+        <p class="collection-header__sub">{{ all_count }} magnetic styles. Filter by eye shape or makeup level to narrow it down.</p>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="collection-toolbar">
+      <div class="collection-filters" role="group" aria-label="Filter products" data-filter-group>
+        <button class="collection-filter is-active" type="button" data-filter-chip data-filter-key="all">All <span class="collection-filter__count">{{ all_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="monolid">Monolid <span class="collection-filter__count">{{ monolid_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="double-lid">Double lid <span class="collection-filter__count">{{ double_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="eye" data-filter-value="inner-double-lid">Inner double lid <span class="collection-filter__count">{{ inner_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="natural">Natural <span class="collection-filter__count">{{ natural_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="light-makeup">Light makeup <span class="collection-filter__count">{{ light_count }}</span></button>
+        <button class="collection-filter" type="button" data-filter-chip data-filter-key="makeup" data-filter-value="heavy-makeup">Heavy makeup <span class="collection-filter__count">{{ heavy_count }}</span></button>
+      </div>
+      <div class="collection-sort">
+        <label for="collection-sort-select" class="collection-sort__label">Sort</label>
+        <select id="collection-sort-select" class="collection-sort__select" data-sort-select>
+          <option value="featured">Featured</option>
+          <option value="bestselling">Bestselling</option>
+          <option value="newest">Newest</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="collection-result-count" data-result-count>Showing {{ all_count }} of {{ all_count }} styles</div>
+
+    <div class="bestseller-grid" data-filter-grid>
+      {%- for p in collection.products -%}
+        {%- assign badge = '' -%}
+        {%- if p.metafields.santai.drama.value == 1 -%}{%- assign badge = 'First-timer pick' -%}{%- endif -%}
+        {%- if p.handle == 'pitch-magnetic-eyelashes' -%}{%- assign badge = 'Bestseller' -%}{%- endif -%}
+        {%- if p.handle == 'afterhours-magnetic-eyelashes' -%}{%- assign badge = 'Award winner' -%}{%- endif -%}
+        {%- if p.tags contains 'new' -%}{%- assign badge = 'New' -%}{%- endif -%}
+        {% render 'product-card', product: p, badge: badge %}
+      {%- endfor -%}
+    </div>
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "Collection (shop-all)",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,78 @@
+{%- liquid
+  assign buckets = 'monolid|double-lid|inner-double-lid' | split: '|'
+-%}
+
+<main class="collection-page">
+
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">Shop by eye shape</div>
+      <h1 class="display-l">The right lash for <span class="display-italic">your</span> eye.</h1>
+      <p class="collection-header__sub">Lash fit isn't one-size-fits-all. Find the styles cut for the shape of your eye — no guesswork, no flat band perched halfway up your lid.</p>
+    </div>
+  </section>
+
+  {%- for bucket in buckets -%}
+    {%- liquid
+      case bucket
+        when 'monolid'
+          assign bucket_label = 'Monolid'
+          assign bucket_svg = 'monolid.svg'
+          assign bucket_h = 'Lift the line, <span class="display-italic">don&#39;t cover</span> it.'
+          assign bucket_sub = 'Monolid eyes deserve lashes designed to lift the lash line, not flatten it.'
+        when 'double-lid'
+          assign bucket_label = 'Double lid'
+          assign bucket_svg = 'almond.svg'
+          assign bucket_h = 'Bolder is <span class="display-italic">your</span> birthright.'
+          assign bucket_sub = 'Double-lid eyes show off the lash line completely — so you can wear depth, drama, and length the way they were designed to look.'
+        when 'inner-double-lid'
+          assign bucket_label = 'Inner double lid'
+          assign bucket_svg = 'hooded.svg'
+          assign bucket_h = 'Open up the <span class="display-italic">inner</span> corner.'
+          assign bucket_sub = 'Inner-double-lid eyes need a little extra lift at the centre — and a band that doesn&#39;t disappear under a partial crease.'
+      endcase
+    -%}
+
+    <section class="container collection-group" id="{{ bucket }}">
+      <div class="collection-group__head">
+        <div class="collection-group__eye-icon">
+          <img src="{{ bucket_svg | asset_url }}" alt="{{ bucket_label }} eye shape">
+        </div>
+        <div class="eyebrow collection-group__eyebrow">{{ bucket_label }}</div>
+        <h2 class="display-l collection-group__title">{{ bucket_h }}</h2>
+        <p class="collection-group__sub">{{ bucket_sub }}</p>
+      </div>
+
+      <div class="bestseller-grid">
+        {%- for p in collection.products -%}
+          {%- if p.metafields.santai.eye_buckets.value contains bucket -%}
+            {% render 'product-card', product: p %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endfor -%}
+
+  <!-- CTA — Take the quiz -->
+  <section class="section container" style="text-align:center;border-top:1px solid var(--line)">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">Not sure which eye shape?</div>
+        <h2 class="display-l">Take the 60-second <span class="display-italic">Lash Match.</span></h2>
+        <p class="section__sub">We'll match you to the one of these ten that fits your eye shape and routine.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:var(--space-4)">
+      <button class="btn btn-accent" data-finder-open type="button">Find my lash</button>
+      <a class="btn btn-secondary" href="{{ routes.root_url }}pages/how-to-apply">How to apply</a>
+    </div>
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "Collection (by eye shape)",
+  "settings": []
+}
+{% endschema %}

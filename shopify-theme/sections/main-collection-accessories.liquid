@@ -1,0 +1,78 @@
+<main class="collection-page">
+
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">Accessories</div>
+      <h1 class="display-l">The two <span class="display-italic">essentials</span>.</h1>
+      <p class="collection-header__sub">Magnetic lashes are designed to last 30+ wears — but only if you treat them right. These two small things are how the maths works out.</p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-block:var(--space-7)">
+    <div class="bestseller-grid">
+      {%- for p in collection.products -%}
+        {%- assign badge = '' -%}
+        {%- if p.metafields.santai.short_id.value == 'cleanser' -%}{%- assign badge = 'Daily care' -%}{%- endif -%}
+        {%- if p.metafields.santai.short_id.value == 'curler' -%}{%- assign badge = 'Pre-application' -%}{%- endif -%}
+        {% render 'product-card', product: p, badge: badge %}
+      {%- endfor -%}
+    </div>
+  </section>
+
+  <!-- Why bother — 3-step explainer -->
+  <section class="section container" style="border-top:1px solid var(--line)">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">Why bother?</div>
+        <h2 class="display-l">Thirty wears, <span class="display-italic">honestly</span>.</h2>
+        <p class="section__sub">A magnetic lash band is a precision strip of micro-magnets in a polymer base. Treat it like a tool — not like makeup — and it will last 30+ wears.</p>
+      </div>
+    </div>
+    <div class="bestseller-grid" style="margin-top:var(--space-5)">
+      <div class="product-card" style="cursor:default">
+        <div class="product-card__image" style="background:var(--bg-soft);display:grid;place-items:center">
+          <span style="font-family:var(--font-display);font-size:80px;font-weight:300;color:var(--accent)">01</span>
+        </div>
+        <div class="product-card__title" style="text-align:left">Wash daily</div>
+        <div class="product-card__variant" style="text-align:left">Foam Cleanser lifts oil and mascara residue without disturbing the magnets.</div>
+      </div>
+      <div class="product-card" style="cursor:default">
+        <div class="product-card__image" style="background:var(--bg-soft);display:grid;place-items:center">
+          <span style="font-family:var(--font-display);font-size:80px;font-weight:300;color:var(--accent)">02</span>
+        </div>
+        <div class="product-card__title" style="text-align:left">Curl before</div>
+        <div class="product-card__variant" style="text-align:left">Thermo Curler pre-sets your natural lashes so the band sits flush — no crossing, no fanning.</div>
+      </div>
+      <div class="product-card" style="cursor:default">
+        <div class="product-card__image" style="background:var(--bg-soft);display:grid;place-items:center">
+          <span style="font-family:var(--font-display);font-size:80px;font-weight:300;color:var(--accent)">03</span>
+        </div>
+        <div class="product-card__title" style="text-align:left">Store flat</div>
+        <div class="product-card__variant" style="text-align:left">Always in the included compact, never loose in a makeup bag. The band shape matters.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gift band -->
+  <section class="section container" style="text-align:center;border-top:1px solid var(--line)">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">Or — get them free</div>
+        <h2 class="display-l">Buy <span class="display-italic">two lashes</span>, the Cleanser is on us.</h2>
+        <p class="section__sub">Three lashes and we throw in the Thermo Curler too. Free accessories with every multi-lash order. Stack discreetly applied in the bag.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:var(--space-4)">
+      <a class="btn btn-accent" href="{{ routes.root_url }}collections/all">Shop all lashes</a>
+      <button class="btn btn-secondary" data-finder-open type="button">Take the 60-second quiz</button>
+    </div>
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "Collection (accessories)",
+  "settings": []
+}
+{% endschema %}

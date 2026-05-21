@@ -1,0 +1,75 @@
+{%- liquid
+  assign groups = 'Natural|Light makeup|Heavy makeup' | split: '|'
+-%}
+
+<main class="collection-page">
+
+  <section class="collection-header container">
+    <div class="collection-header__inner">
+      <div class="eyebrow">Shop by makeup</div>
+      <h1 class="display-l">Choose your <span class="display-italic">finish.</span></h1>
+      <p class="collection-header__sub">From whisper-quiet to high-impact — three energies, ten styles. Pick where you want to land.</p>
+    </div>
+  </section>
+
+  {%- for group_name in groups -%}
+    {%- liquid
+      case group_name
+        when 'Natural'
+          assign step = '01'
+          assign group_h = 'Your lashes, <span class="display-italic">only quieter</span>.'
+          assign group_sub = 'Three soft styles you can wear without anyone noticing you wore anything. Daily-comfort band — sit-under-glasses light.'
+          assign group_anchor = 'natural'
+        when 'Light makeup'
+          assign step = '02'
+          assign group_h = 'Lifted and <span class="display-italic">polished</span>.'
+          assign group_sub = 'The mid-energy three. Defined enough for daylight and meetings, never overdone.'
+          assign group_anchor = 'light-makeup'
+        when 'Heavy makeup'
+          assign step = '03'
+          assign group_h = 'Turn the <span class="display-italic">lights up</span>.'
+          assign group_sub = 'Four statement styles for nights that earn their reputation.'
+          assign group_anchor = 'heavy-makeup'
+      endcase
+    -%}
+
+    <section class="container collection-group" id="{{ group_anchor }}">
+      <div class="collection-group__head">
+        <div class="eyebrow collection-group__eyebrow">{{ step }} · {{ group_name }}</div>
+        <h2 class="display-l collection-group__title">{{ group_h }}</h2>
+        <p class="collection-group__sub">{{ group_sub }}</p>
+      </div>
+
+      <div class="bestseller-grid">
+        {%- for p in collection.products -%}
+          {%- if p.metafields.santai.group.value == group_name -%}
+            {% render 'product-card', product: p %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endfor -%}
+
+  <!-- CTA — Take the quiz -->
+  <section class="section container" style="text-align:center;border-top:1px solid var(--line)">
+    <div class="section__head section__head--center">
+      <div class="section__head-text">
+        <div class="eyebrow">Not sure which?</div>
+        <h2 class="display-l">Take the 60-second <span class="display-italic">Lash Match.</span></h2>
+        <p class="section__sub">We'll match you to the one of these ten that fits your eye shape and routine.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:var(--space-4)">
+      <button class="btn btn-accent" data-finder-open type="button">Find my lash</button>
+      <a class="btn btn-secondary" href="{{ routes.root_url }}pages/how-to-apply">How to apply</a>
+    </div>
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "Collection (by makeup)",
+  "settings": []
+}
+{% endschema %}

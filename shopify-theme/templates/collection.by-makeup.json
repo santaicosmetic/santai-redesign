@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection-by-makeup",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

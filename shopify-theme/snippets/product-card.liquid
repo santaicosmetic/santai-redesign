@@ -1,0 +1,40 @@
+{%- comment -%}
+  Reusable product card.
+  Usage: {% render 'product-card', product: product_object, badge: 'Bestseller' %}
+  - product (required): Shopify product object
+  - badge (optional): short text shown over the image
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.santai
+  assign variant = product.selected_or_first_available_variant
+  assign data_makeup = mf.group.value | default: '' | downcase | replace: ' ', '-'
+  assign data_eye = ''
+  if mf.eye_buckets.value
+    assign data_eye = mf.eye_buckets.value | join: ' '
+  endif
+  assign display_title = product.title | split: ' ' | first
+-%}
+
+<a class="product-card" href="{{ product.url }}" data-makeup="{{ data_makeup }}" data-eye="{{ data_eye }}">
+  <div class="product-card__image">
+    {%- if badge -%}<span class="product-card__badge">{{ badge }}</span>{%- endif -%}
+    {%- if product.featured_image -%}
+      <img class="product-card__photo" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy">
+    {%- endif -%}
+    <span class="product-card__hover-cue" aria-hidden="true">→</span>
+  </div>
+  <div class="product-card__title">{{ display_title }}</div>
+  {%- if mf.group.value -%}
+    <div class="product-card__variant">{{ mf.group.value }}</div>
+  {%- elsif mf.use_case.value -%}
+    <div class="product-card__variant">{{ mf.use_case.value }}</div>
+  {%- endif -%}
+  <div class="product-card__price tnum">
+    {%- if variant.compare_at_price and variant.compare_at_price > variant.price -%}
+      <s style="color:var(--fg-muted);font-weight:400;margin-right:4px">{{ variant.compare_at_price | money }}</s>
+      <span style="color:var(--accent)">{{ variant.price | money }}</span>
+    {%- else -%}
+      {{ variant.price | money }}
+    {%- endif -%}
+  </div>
+</a>

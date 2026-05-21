@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection-by-eye-shape",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
