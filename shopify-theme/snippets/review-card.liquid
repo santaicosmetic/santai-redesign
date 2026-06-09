@@ -1,0 +1,40 @@
+{%- comment -%}
+  Single review card. Used by PDP + all-reviews page to render one metaobject.
+
+  Usage: {% render 'review-card', r: review_metaobject, show_product: true %}
+   - r            (required): a review metaobject from a metafield list
+   - show_product (optional): when true, renders a link to the associated product
+{%- endcomment -%}
+{%- liquid
+  assign rt = r.rating.value | times: 1
+  assign eye_label = r.tag.value | split: ' · ' | first | default: ''
+  assign eye_slug = eye_label | downcase | replace: ' ', '-'
+  assign has_photos = false
+  if r.photos.value and r.photos.value.size > 0
+    assign has_photos = true
+  endif
+  assign linked_product = r.product.value
+-%}
+<article class="pdp-review" data-review-item data-eye="{{ eye_slug }}" data-has-photos="{{ has_photos }}">
+  <div class="pdp-review__row">
+    <div class="pdp-review__stars" aria-label="{{ rt }} stars">
+      {%- for i in (1..5) -%}{% if i <= rt %}&#9733;{% else %}&#9734;{% endif %}{%- endfor -%}
+    </div>
+    {%- if r.date.value != blank -%}<span class="pdp-review__date">{{ r.date.value }}</span>{%- endif -%}
+  </div>
+  {%- if r.title.value != blank -%}<h3 class="pdp-review__title">{{ r.title.value }}</h3>{%- endif -%}
+  <p class="pdp-review__body">{{ r.body.value }}</p>
+  {%- if has_photos -%}
+    <div class="pdp-review__photos">
+      {%- for photo in r.photos.value limit: 4 -%}
+        <span class="pdp-review__photo"><img src="{{ photo | image_url: width: 240 }}" alt="Customer photo by {{ r.author.value | escape }}" loading="lazy"></span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+  <div class="pdp-review__meta">
+    <span class="pdp-review__name">{{ r.author.value }}</span>
+    {%- if r.verified.value -%}<span class="pdp-review__verified">Verified buyer</span>{%- endif -%}
+    {%- if r.tag.value != blank -%}<span class="pdp-review__tag">{{ r.tag.value }}</span>{%- endif -%}
+    {%- if show_product and linked_product -%}<a class="pdp-review__product" href="{{ linked_product.url }}">{{ linked_product.title | split: ' ' | first }}</a>{%- endif -%}
+  </div>
+</article>

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-all-reviews",
+      "settings": {
+        "eyebrow": "Customer reviews",
+        "heading_pre": "Loved by ",
+        "heading_italic": "1,600+ converts."
+      }
+    }
+  },
+  "order": ["main"]
+}

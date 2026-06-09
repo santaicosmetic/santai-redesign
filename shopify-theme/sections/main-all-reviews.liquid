@@ -1,0 +1,93 @@
+{%- liquid
+  comment
+    All-reviews page. Aggregates every `review` metaobject by iterating each
+    product's `santai.reviews` list. We avoid `shop.metaobjects.review.values`
+    here because that's capped at 50 entries on the storefront — see REVIEWS.md.
+  endcomment
+
+  assign total_count = 0
+  assign sum_score = 0
+  for p in collections['all'].products limit: 50
+    if p.metafields.santai.reviews.value
+      for r in p.metafields.santai.reviews.value
+        assign total_count = total_count | plus: 1
+        assign sum_score = sum_score | plus: r.rating.value
+      endfor
+    endif
+    if p.metafields.santai.reviews_overflow.value
+      for r in p.metafields.santai.reviews_overflow.value
+        assign total_count = total_count | plus: 1
+        assign sum_score = sum_score | plus: r.rating.value
+      endfor
+    endif
+  endfor
+  assign avg_x10 = 0
+  if total_count > 0
+    assign avg_x10 = sum_score | times: 10 | divided_by: total_count
+  endif
+  assign avg_whole = avg_x10 | divided_by: 10
+  assign avg_frac = avg_x10 | modulo: 10
+-%}
+
+<main class="all-reviews">
+
+  <section class="all-reviews__header container">
+    <div class="all-reviews__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h1 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h1>
+      <p class="all-reviews__sub">{{ total_count }} verified reviews · average {{ avg_whole }}.{{ avg_frac }} out of 5</p>
+    </div>
+  </section>
+
+  {%- if total_count > 0 -%}
+    <section class="all-reviews__body container" data-review-total="{{ total_count }}">
+
+      <div class="pdp-reviews__filters" role="group" aria-label="Filter reviews" data-review-filters>
+        <span class="pdp-reviews__filter-label">Filter:</span>
+        <button class="pdp-reviews__filter is-active" type="button" data-review-filter="all">All</button>
+        <button class="pdp-reviews__filter" type="button" data-review-filter="monolid">Monolid</button>
+        <button class="pdp-reviews__filter" type="button" data-review-filter="double-lid">Double lid</button>
+        <button class="pdp-reviews__filter" type="button" data-review-filter="inner-double-lid">Inner double lid</button>
+        <button class="pdp-reviews__filter" type="button" data-review-filter="photos">With photos</button>
+      </div>
+
+      <div class="pdp-review-list" data-review-list>
+        {%- for p in collections['all'].products limit: 50 -%}
+          {%- if p.metafields.santai.reviews.value -%}
+            {%- for r in p.metafields.santai.reviews.value -%}
+              {% render 'review-card', r: r, show_product: true %}
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if p.metafields.santai.reviews_overflow.value -%}
+            {%- for r in p.metafields.santai.reviews_overflow.value -%}
+              {% render 'review-card', r: r, show_product: true %}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <p class="pdp-reviews__empty" data-review-empty hidden>No reviews match this filter yet.</p>
+
+      <div class="pdp-reviews__cta">
+        <button type="button" class="btn btn-secondary" data-review-load-more hidden>Load more reviews</button>
+      </div>
+    </section>
+  {%- else -%}
+    <section class="container" style="text-align:center; padding:var(--space-9) 0">
+      <p>No reviews yet. Be the first to share your Santai story.</p>
+    </section>
+  {%- endif -%}
+
+</main>
+
+{% schema %}
+{
+  "name": "All reviews (page)",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",        "default": "Customer reviews" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start",  "default": "Loved by " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic", "default": "1,600+ converts." }
+  ],
+  "presets": [{ "name": "All reviews" }]
+}
+{% endschema %}

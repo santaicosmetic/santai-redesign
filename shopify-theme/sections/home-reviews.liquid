@@ -1,0 +1,115 @@
+{%- liquid
+  comment
+    Reviews band — driven by `shop.metaobjects.review` (when populated).
+    Until then, falls back to manual review blocks added in the theme editor.
+    Aggregate count is editable in section settings.
+  endcomment
+
+  assign featured = shop.metafields.santai.featured_reviews.value
+  assign has_metaobject_reviews = false
+  if featured != blank and featured.size > 0
+    assign has_metaobject_reviews = true
+  endif
+
+  assign manual_blocks = section.blocks
+  assign has_manual_reviews = false
+  if manual_blocks.size > 0
+    assign has_manual_reviews = true
+  endif
+
+  assign show_section = false
+  if has_metaobject_reviews or has_manual_reviews
+    assign show_section = true
+  endif
+-%}
+
+{%- if show_section -%}
+<section class="section reviews-band container">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_count }} {{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+  <div class="reviews-grid">
+
+    {%- if has_metaobject_reviews -%}
+      {%- for r in featured limit: 3 -%}
+        {%- assign rating = r.rating.value | default: 5 | times: 1 -%}
+        <article class="review">
+          <div class="stars" aria-label="{{ rating }} stars">
+            {%- for i in (1..5) -%}
+              {%- if i <= rating -%}
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <p class="review__quote display-italic">&ldquo;{{ r.body.value }}&rdquo;</p>
+          <div class="review__meta">
+            <span class="review__name">{{ r.author.value }}</span>
+            {%- if r.tag.value != blank -%}<span class="review__tag">{{ r.tag.value }}</span>{%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for b in manual_blocks limit: 3 -%}
+        {%- assign rating = b.settings.rating | default: 5 -%}
+        <article class="review">
+          <div class="stars" aria-label="{{ rating }} stars">
+            {%- for i in (1..5) -%}
+              {%- if i <= rating -%}
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <p class="review__quote display-italic">&ldquo;{{ b.settings.quote }}&rdquo;</p>
+          <div class="review__meta">
+            <span class="review__name">{{ b.settings.author }}</span>
+            {%- if b.settings.tag != blank -%}<span class="review__tag">{{ b.settings.tag }}</span>{%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    {%- endif -%}
+
+  </div>
+  {%- if section.settings.all_url != blank -%}
+    <div class="section__head section__head--center" style="margin-top:var(--space-7);margin-bottom:0">
+      <a class="btn btn-secondary" href="{{ section.settings.all_url }}">Read all reviews →</a>
+    </div>
+  {%- endif -%}
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Reviews band",
+  "settings": [
+    { "type": "text",   "id": "eyebrow",        "label": "Eyebrow",         "default": "Loved by" },
+    { "type": "text",   "id": "heading_count",  "label": "Count (e.g. 12,400)", "default": "12,400" },
+    { "type": "text",   "id": "heading_pre",    "label": "Heading word",    "default": "lash " },
+    { "type": "text",   "id": "heading_italic", "label": "Heading italic",  "default": "converts." },
+    { "type": "url",    "id": "all_url",        "label": "All reviews link" },
+    { "type": "paragraph", "content": "Reviews are pulled from the `featured_review` metaobject once defined. Until then, add up to 3 manual review blocks below as a placeholder." }
+  ],
+  "blocks": [
+    {
+      "type": "manual_review",
+      "name": "Manual review (fallback)",
+      "limit": 3,
+      "settings": [
+        { "type": "text",   "id": "author", "label": "Author",            "default": "Aisyah R." },
+        { "type": "text",   "id": "tag",    "label": "Tag (eye · use)",   "default": "Monolid · Office" },
+        { "type": "textarea","id": "quote", "label": "Quote",             "default": "Genuinely faster than mascara." },
+        { "type": "range",  "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Reviews band" }
+  ]
+}
+{% endschema %}

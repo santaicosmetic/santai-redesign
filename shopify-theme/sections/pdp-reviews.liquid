@@ -1,0 +1,187 @@
+{%- liquid
+  comment
+    PDP reviews — driven by product.metafields.santai.reviews (metaobject list).
+    Until populated, falls back to manual placeholder reviews from the theme editor.
+    Each review metaobject expects: rating, title, body, author, tag, verified, date, photos
+  endcomment
+
+  comment
+    Shopify Liquid caps `list.metaobject_reference` at 50 entries per list. For
+    products with more reviews, IDs 51+ live in `santai.reviews_overflow`. We
+    iterate both lists in sequence — see REVIEWS.md "50-per-list" gotcha.
+  endcomment
+  assign reviews = product.metafields.santai.reviews.value
+  assign reviews_overflow = product.metafields.santai.reviews_overflow.value
+  assign has_real_reviews = false
+  if reviews != blank and reviews.size > 0
+    assign has_real_reviews = true
+  endif
+
+  assign manual_blocks = section.blocks
+  assign has_manual = false
+  if manual_blocks.size > 0
+    assign has_manual = true
+  endif
+
+  assign total_score = 0
+  assign total_count = 0
+  assign c5 = 0
+  assign c4 = 0
+  assign c3 = 0
+  assign c2 = 0
+  assign c1 = 0
+  if has_real_reviews
+    for r in reviews
+      assign rt = r.rating.value | times: 1
+      assign total_score = total_score | plus: rt
+      assign total_count = total_count | plus: 1
+      case rt
+        when 5
+          assign c5 = c5 | plus: 1
+        when 4
+          assign c4 = c4 | plus: 1
+        when 3
+          assign c3 = c3 | plus: 1
+        when 2
+          assign c2 = c2 | plus: 1
+        when 1
+          assign c1 = c1 | plus: 1
+      endcase
+    endfor
+    if reviews_overflow != blank
+      for r in reviews_overflow
+        assign rt = r.rating.value | times: 1
+        assign total_score = total_score | plus: rt
+        assign total_count = total_count | plus: 1
+        case rt
+          when 5
+            assign c5 = c5 | plus: 1
+          when 4
+            assign c4 = c4 | plus: 1
+          when 3
+            assign c3 = c3 | plus: 1
+          when 2
+            assign c2 = c2 | plus: 1
+          when 1
+            assign c1 = c1 | plus: 1
+        endcase
+      endfor
+    endif
+    assign avg = total_score | times: 10 | divided_by: total_count | divided_by: 10.0
+    assign pct5 = c5 | times: 100 | divided_by: total_count
+    assign pct4 = c4 | times: 100 | divided_by: total_count
+    assign pct3 = c3 | times: 100 | divided_by: total_count
+    assign pct2 = c2 | times: 100 | divided_by: total_count
+    assign pct1 = c1 | times: 100 | divided_by: total_count
+  endif
+-%}
+
+<section class="pdp-reviews">
+  <div class="container">
+    <div class="pdp-reviews__inner">
+
+      <div class="pdp-reviews__head">
+        <div class="pdp-reviews__summary">
+          {%- if has_real_reviews -%}
+            <div class="pdp-reviews__score">{{ avg }}</div>
+            <div class="pdp-reviews__stars-row" aria-label="{{ avg }} out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="pdp-reviews__count">Based on {{ total_count }} review{% if total_count != 1 %}s{% endif %}</div>
+          {%- else -%}
+            <div class="pdp-reviews__score">—</div>
+            <div class="pdp-reviews__count">Be the first to review this product.</div>
+            {%- if section.settings.write_url != blank -%}
+              <a class="btn-ghost" href="{{ section.settings.write_url }}" style="margin-top:12px">Write a review</a>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+
+        {%- if has_real_reviews -%}
+          <div class="pdp-reviews__histogram" aria-label="Rating distribution">
+            <div class="pdp-reviews__bar"><span>5</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:{{ pct5 }}%"></span></span><span>{{ pct5 }}%</span></div>
+            <div class="pdp-reviews__bar"><span>4</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:{{ pct4 }}%"></span></span><span>{{ pct4 }}%</span></div>
+            <div class="pdp-reviews__bar"><span>3</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:{{ pct3 }}%"></span></span><span>{{ pct3 }}%</span></div>
+            <div class="pdp-reviews__bar"><span>2</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:{{ pct2 }}%"></span></span><span>{{ pct2 }}%</span></div>
+            <div class="pdp-reviews__bar"><span>1</span><span class="pdp-reviews__bar-track"><span class="pdp-reviews__bar-fill" style="width:{{ pct1 }}%"></span></span><span>{{ pct1 }}%</span></div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if has_real_reviews -%}
+        <div class="pdp-reviews__filters" role="group" aria-label="Filter reviews" data-review-filters>
+          <span class="pdp-reviews__filter-label">Filter:</span>
+          <button class="pdp-reviews__filter is-active" type="button" data-review-filter="all">All</button>
+          <button class="pdp-reviews__filter" type="button" data-review-filter="monolid">Monolid</button>
+          <button class="pdp-reviews__filter" type="button" data-review-filter="double-lid">Double lid</button>
+          <button class="pdp-reviews__filter" type="button" data-review-filter="inner-double-lid">Inner double lid</button>
+          <button class="pdp-reviews__filter" type="button" data-review-filter="photos">With photos</button>
+        </div>
+
+        <div class="pdp-review-list" data-review-list>
+          {%- for r in reviews -%}
+            {% render 'review-card', r: r, show_product: false %}
+          {%- endfor -%}
+          {%- if reviews_overflow != blank -%}
+            {%- for r in reviews_overflow -%}
+              {% render 'review-card', r: r, show_product: false %}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        <p class="pdp-reviews__empty" data-review-empty hidden>No reviews match this filter yet.</p>
+
+        <div class="pdp-reviews__cta">
+          <button type="button" class="btn btn-secondary" data-review-load-more hidden>Load more reviews</button>
+          {%- if section.settings.write_url != blank -%}
+            <a class="btn-ghost" href="{{ section.settings.write_url }}">Write a review</a>
+          {%- endif -%}
+        </div>
+      {%- elsif has_manual -%}
+        <div class="pdp-review-list">
+          {%- for b in manual_blocks -%}
+            <article class="pdp-review">
+              <div class="pdp-review__row">
+                <div class="pdp-review__stars" aria-label="{{ b.settings.rating }} stars">
+                  {%- for i in (1..5) -%}{% if i <= b.settings.rating %}&#9733;{% else %}&#9734;{% endif %}{%- endfor -%}
+                </div>
+              </div>
+              <h3 class="pdp-review__title">{{ b.settings.title }}</h3>
+              <p class="pdp-review__body">{{ b.settings.body }}</p>
+              <div class="pdp-review__meta">
+                <span class="pdp-review__name">{{ b.settings.author }}</span>
+                <span class="pdp-review__verified">Sample</span>
+                {%- if b.settings.tag != blank -%}<span class="pdp-review__tag">{{ b.settings.tag }}</span>{%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Reviews",
+  "settings": [
+    { "type": "url", "id": "all_url",   "label": "All reviews link" },
+    { "type": "url", "id": "write_url", "label": "Write a review link" },
+    { "type": "paragraph", "content": "Real reviews come from the `santai.reviews` product metafield (metaobject list). Manual blocks below are placeholders until real reviews are populated." }
+  ],
+  "blocks": [
+    {
+      "type": "manual",
+      "name": "Sample review (fallback)",
+      "limit": 6,
+      "settings": [
+        { "type": "text",     "id": "title",  "label": "Review title", "default": "Honestly didn't believe it would work" },
+        { "type": "textarea", "id": "body",   "label": "Body",         "default": "First time trying magnetic lashes. Skeptical, but they stayed flat on my monolid through a 14-hour wedding." },
+        { "type": "text",     "id": "author", "label": "Author",       "default": "Aisyah R." },
+        { "type": "text",     "id": "tag",    "label": "Tag",          "default": "Monolid" },
+        { "type": "range",    "id": "rating", "label": "Stars",        "min": 1, "max": 5, "step": 1, "default": 5 }
+      ]
+    }
+  ],
+  "presets": [{ "name": "PDP — Reviews" }]
+}
+{% endschema %}
