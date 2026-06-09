@@ -10,9 +10,17 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ---
 
-## Where we are — as of 2026-05-22
+## Where we are — as of 2026-05-28 (post-Session 14 UGC port)
 
-> 🚀 **Shopify Liquid port is COMPLETE on the draft theme.** All 10 port sessions shipped across 2026-05-21 / 2026-05-22 autopilot. New theme is **unpublished** on `cjuzxh-v0.myshopify.com` (theme #156386722014) — Atelier is still live and serving customers. **Final step is yours**: open Shopify admin → Online Store → Themes → "Santai 2026 — draft" → Actions → **Publish**. One-click cutover, reversible (Atelier becomes the unpublished backup).
+> 🚀 **Shopify Liquid port is COMPLETE on the draft theme.** All 10 port sessions + 1 audit-rebuild session shipped 2026-05-21 / 2026-05-22 autopilot. New theme is **unpublished** on `cjuzxh-v0.myshopify.com` (theme #156386722014) — Atelier is still live and serving customers. **Final step is yours**: open Shopify admin → Online Store → Themes → "Santai 2026 — draft" → Actions → **Publish**. One-click cutover, reversible (Atelier becomes the unpublished backup).
+
+> 📍 **Session 11 audit-rebuild (2026-05-22)** — Riri reported that homepage + PDP were missing many sections vs. the html-build prototype, and the cart drawer didn't open. Audit confirmed 5 missing homepage sections + 7 missing PDP sections + 2 cart bugs (icon navigated instead of opening drawer; no `/cart` template). All fixed and shipped as **theme-editor configurable** sections (Option C). Cart progress bar milestones rebalanced from 66.66%/100% → 50%/100%. PDP gallery now has prev/next arrows + pagination dots.
+
+> 📍 **Session 12 reviews port (2026-05-23)** — Defined `review` metaobject + `santai.reviews` (product) + `santai.featured_reviews` (shop) metafields. Generated 367 mock reviews from a seeded Python script with realistic Malaysian Chinese / Malay / Indian voice mix + 17% lazy short-form. Populated metaobjects via GraphQL. PDP renderer now reads from per-product list, computes histogram + average + filter chips (All / Monolid / Double lid / Inner double lid / With photos) with client-side load-more pagination. Homepage band reads from shop's `featured_reviews` list. Full architecture documented in `REVIEWS.md`.
+
+> 📍 **Session 13 reviews polish (2026-05-24)** — Fixed histogram bar visibility (`<span>` was inline). Built `/pages/reviews` all-reviews page with same filter chips + load-more. Changed homepage social-proof number `12,400 → 1,600+` for realism. Bumped Inbox / Boardroom review counts to 75 / 68 (bestsellers). Expanded voice pools 2-3×; scrubbed "Sangat suka" overuse; added Mandarin / Chinese-English code-switch voice; added a 20%-of-positive-reviews "learning curve narrative" arc ("first try was rough, now I'm hooked"). Bumped no-recent-repeat dedup window 12 → 20. Hit the Liquid 50-per-list cap; bypassed with a `santai.reviews_overflow` second list per product so 100 reviews can render. Reviews regenerated and re-populated (422 total).
+
+> 📍 **Session 14 UGC video port (2026-05-28)** — Found the **Spark** app on the store (handle: `storeprops-spark`) — that's where Riri uploaded her UGC. Spark stores its data in a `sparkfeedlist` metaobject with a `feed_data` JSON field. Extracted 12 UGC videos with creator captions + product tags from "UGC Creator Videos" feed. Wired them as blocks in `home-ugc-slider` for both homepage and PDP (same 11 blocks). Videos autoplay (muted), loop, no @ handles shown. Card CSS was zooming/cropping because `<video>` had no sizing — fixed with `width:100%; height:100%; object-fit:cover` on `.ugc-card__video` and `.ugc-card__poster`.
 
 > 🧭 **Walkthrough on the draft theme preview**:
 > - Home: https://cjuzxh-v0.myshopify.com?preview_theme_id=156386722014
@@ -68,6 +76,38 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 
 ## Open TODOs
 
+### 🚧 Pending follow-ups from Session 11 audit-rebuild (2026-05-22)
+
+These are the items flagged at the end of Session 11. All require Riri's input or content. The Liquid sections + JS + CSS are already shipped — these are the content / config tasks remaining.
+
+**Reviews data (highest impact)**
+- [x] ~~**Define `review` metaobject in Shopify admin**~~ **Done Session 12 (2026-05-23).** Defined as a single metaobject type with `product` reference field. Architecture chose per-product `santai.reviews` metafield list (instead of one big `featured_review` type) — see `REVIEWS.md` for the full data model + why-duplicate explanation.
+- [x] ~~**Define `featured_review` metaobject**~~ **Done Session 12 (different shape than originally planned).** Used a shop-level metafield `santai.featured_reviews` (list of `review` references) instead of a separate metaobject type. Homepage renderer updated accordingly. 9 featured pull-quotes curated from the 367 generated reviews.
+- [x] ~~**Populate at least 6 real reviews per lash + 3 featured pull-quotes**~~ **Done Session 12 with mock data (367 reviews).** Generated via `scripts/generate-mock-reviews.py` (seeded, reproducible) with realistic Malaysian voice mix (Chinese / Malay / Indian, 17% lazy short-form). Real reviews from the Atelier theme can replace these by editing the CSV + re-running populate after a wipe.
+- [ ] **Replace mock reviews with real ones** — pull real customer reviews from the Atelier admin, format them into the CSV schema (`data/mock-reviews.csv`), wipe existing review metaobjects, re-run `scripts/shopify-populate-reviews.py`. Owner: Riri. See `REVIEWS.md` "Wipe all reviews and start over" for the runbook.
+
+**UGC content uploads (Riri can do via Shopify theme editor)**
+- [ ] **Upload UGC videos for the homepage UGC slider** — Customize → "Real people, real results" → blocks have video picker + poster image + creator handle (e.g. `@aisyah_kl`) + quote + optional product tag. Currently shows 4 placeholder blocks with handles + quotes but no media.
+- [ ] **Upload UGC videos for the PDP "From the community" slider** — same setup, different block content per product page.
+- [ ] **Upload PDP demo video for "See it in action"** — Customize → "Watch how it works" → single video upload + poster image + caption. Currently shows a placeholder.
+
+**Photography**
+- [ ] **Real product photography for Cleanser + Thermo Curler** — carried over from earlier sessions. Currently using lifestyle stand-ins.
+- [ ] **Reshoot Afterhours on-eye photo** — current `[1]` image looks too natural for a "Heavy makeup, drama 5" hero. Card hover undersells the product. Non-blocking.
+- [ ] **Accessory titles split-first-word display** — product cards show `product.title | split: ' ' | first`, so "The Pure Ritual: Professional Magnetic Lash Cleanser" displays as "The." Not a bug for lashes (one-word titles work), but accessories need either a shorter title (e.g. "Cleanser") or a different display strategy. Decide with Riri.
+
+**Lash Finder (carried over, blocked on Riri)**
+- [ ] **Recommendation logic** — `(eye × look × frequency × flags) → product handle` map. Quiz currently always returns "Inbox". Owner: Riri.
+- [ ] **Standalone `/pages/lash-finder` page** — currently only exists as a modal. Build a full-screen, deep-linkable surface. Pairs with the recommendation logic.
+
+**Brand chrome (carried over)**
+- [ ] **Open Graph / Twitter Card tags** — none on any template yet. Social previews break when shared.
+- [ ] **Favicon** — waiting on brand design.
+- [ ] **Stockists / Sustainability / Press pages** — stubbed `href="#"`. Build when content exists.
+
+**Sections built but not yet exercised in theme editor by merchandiser**
+- [ ] Once the live theme is published, Riri should do a pass through the theme editor to confirm she can reorder sections, edit copy, swap images. The 5 new homepage sections + 5 new PDP sections all have presets so this should be straightforward.
+
 ### High priority — from review on 2026-05-19
 
 - [x] ~~**Search → dropdown overlay.**~~ **Done 2026-05-19.** New `initSearchOverlay()` module in `theme.js` injects an overlay into `<body>` and intercepts every `[data-search-trigger]` anchor across all 26 pages. Mobile: full-screen sheet with sticky input. Desktop (≥720px): centered 720px dropdown with backdrop + shadow. Live filter against same corpus as `search.html` (LASH_STYLES + ACCESSORIES); shows up to 6 compact rows with "See all N results →" link to `search.html?q=…` when more exist. Form action still submits to `search.html` as the no-JS / full-results fallback. Skips on `search.html` itself via `body[data-screen=search]`. ESC + backdrop + close button all dismiss; body scroll-locked while open.
@@ -102,6 +142,51 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 - Real search backend (currently client-side over static catalogue)
 - Real discount code validation
 - Newsletter sending (Shopify Email native — no app, no separate vendor)
+
+---
+
+## What shipped in Session 11 audit-rebuild (2026-05-22)
+
+**Cart fixes**
+- `sections/header.liquid` — cart icon (`href="{{ routes.cart_url }}"`) now also carries `data-cart-open` → opens drawer
+- `templates/cart.json` + `sections/main-cart.liquid` — graceful fallback when a user hits `/cart` directly (e.g. from cookie restore, from Shopify checkout back-link)
+- `assets/santai.css` — milestone positions changed from `66.66% / 100%` → `50% / 100%` so the bar reads as two equal halves
+- `assets/theme.js` — `renderProgress()` fill math now: 0 lashes = 0%, 1 = 25%, 2 = 50%, 3+ = 100%
+
+**Homepage — 5 new theme-editor configurable sections** (all live in `shopify-theme/sections/`)
+- `home-comparison.liquid` — "Beauty shouldn't hurt" table, schema has repeatable feature rows (feature + santai_value) + 3 column labels + CTA
+- `home-reviews.liquid` — "12,400 lash converts", metaobject-driven (`shop.metaobjects.featured_review.values`) with manual fallback blocks and full empty-state hide
+- `home-value-props.liquid` — "Made for every day" 4-grid, blocks have icon picker (sparkle/feather/recycle/shield/clock/leaf) + title + description
+- `home-ugc-slider.liquid` — "Real people, real results", blocks have video + poster image + creator handle + quote + optional product picker (clicking the card opens that PDP)
+- `home-faq.liquid` — "You asked, we answered", blocks have question + rich-text answer
+
+**PDP — 5 new sections + 2 reused** (all live in `shopify-theme/sections/`)
+- `pdp-action.liquid` — "Watch how it works" single video + poster + caption
+- `pdp-howto.liquid` — "Three steps. Thirty seconds." 3-step blocks (image + title + description)
+- `pdp-suit.liquid` — "Will this suit me?" 3-cell verdict grid; metafield-driven from `product.metafields.santai.eye_buckets`. Marks fitting eye shapes as "Beautiful" in accent colour; for shapes that don't fit, recommends the first sibling lash that does
+- `pdp-reviews.liquid` — driven by `product.metafields.santai.reviews` metaobject list; computes histogram + average automatically; falls back to manual sample blocks; empty state: "Be the first to review"
+- `pdp-editorial.liquid` — full-bleed image + italic quote
+- `home-comparison.liquid` (reused on PDP via `product.json`)
+- `home-ugc-slider.liquid` (reused on PDP via `product.json`)
+
+**Template wiring**
+- `templates/index.json` — order: `main, comparison, reviews, value_props, ugc, faq`
+- `templates/product.json` — order: `main, comparison, action, howto, suit, ugc, reviews, editorial`
+- `templates/cart.json` — added
+
+**PDP gallery**
+- `sections/main-product.liquid` — added prev/next nav buttons + pagination dots
+- `assets/theme.js` `initPDP()` — wired prev/next + dot clicks, keeps dot active state in sync with main image. Touch-swipe still works.
+- `assets/santai.css` — added `.pdp-hero__nav` + `.pdp-hero__dots` styles. Arrows fade in on hover (desktop) / always visible on touch devices. Dots use frosted-glass background.
+
+**Product images audit** (no Shopify-side reordering needed)
+- Confirmed all 10 lash products have `images[1]` = on-the-eye close-up (photographer was consistent across shoots). Hover-swap on product cards uses this directly.
+
+**Metafield narrowing** (pre-Session 11)
+- `scripts/shopify-metafields.py` — narrowed `eye_buckets` from "most lashes fit all 3 shapes" to a curated 4-per-bucket scoping matching the prototype's expert taxonomy (Inbox/Pitch/Nightshift/Minutes for Monolid, etc.). Re-ran on production.
+
+**Collection template suffix fix** (pre-Session 11)
+- `scripts/shopify-collections.py` — added `templateSuffix` field on collection create/update mutations. Before this, `/collections/by-eye-shape` was falling through to the default flat-grid template instead of our grouped-by-bucket template.
 
 ---
 
@@ -283,6 +368,7 @@ Either of these works but needs setup:
 |---|---|---|
 | `CLAUDE.md` (root) | Project brief, design rules, visual system, agents | Auto-loaded by Claude Code every session. In Mandarin. |
 | `PROGRESS.md` (this file) | Current state + open TODOs + how to continue | Anyone picking up; especially you on iOS |
+| `REVIEWS.md` (root) | Reviews system architecture + runbook (metaobject schema, populate scripts, filter logic, Flow patterns) | Anyone touching the review system or wiring it into automation |
 | `HANDOFF.md` (root) | Original one-time Jeffery → Riri setup | First-time clone on a new machine |
 | `html-build/README.md` | Visual system reference, file map, Liquid port spec | Engineering / port to Shopify |
 

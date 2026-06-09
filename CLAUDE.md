@@ -126,6 +126,8 @@ santai-redesign/
 | 路径 | 用途 |
 |---|---|
 | `html-build/README.md` | **视觉系统、Liquid 移植指南、已知缺口 —— 必读** |
+| `REVIEWS.md` | **评论系统架构 + runbook**（metaobject schema, 入数脚本, filter 逻辑, Shopify Flow 整合）—— 改评论之前必读 |
+| `PROGRESS.md` | 当前进度 + open TODOs + session 日志 |
 | `html-build/assets/styles.css` | 单一的 CSS 主文件（所有页面共用） |
 | `html-build/assets/theme.js` | 购物车、Lash Finder、移动导航、手风琴 的 vanilla JS（in-memory cart） |
 | `html-build/assets/eye-shapes/` | 6 个眼形 SVG（almond、hooded、monolid、round、upturned、downturned）—— **品牌专属插画，不要替换** |
