@@ -1,0 +1,63 @@
+<section class="faq" id="faq">
+  <div class="container faq__inner">
+    <div class="faq__head">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+
+    {%- for block in section.blocks -%}
+      <div class="pdp-accordion" data-accordion {{ block.shopify_attributes }}>
+        <button class="pdp-accordion__head" data-accordion-head type="button">
+          <h3>{{ block.settings.question }}</h3>
+          <span data-accordion-icon>+</span>
+        </button>
+        <div class="pdp-accordion__body">
+          {{ block.settings.answer }}
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- if section.settings.full_faq_url != blank -%}
+      <div class="faq__cta">
+        <a class="btn btn-secondary" href="{{ section.settings.full_faq_url }}">More questions? See full FAQ →</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",       "default": "Common questions" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start", "default": "You asked, " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic","default": "we answered." },
+    { "type": "url",  "id": "full_faq_url",   "label": "Full FAQ page link" }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question & answer",
+      "settings": [
+        { "type": "text",     "id": "question", "label": "Question", "default": "How do I choose the right lashes?" },
+        { "type": "richtext", "id": "answer",   "label": "Answer",   "default": "<p>Take our 60-second Lash Match quiz — pick your eye shape, the look you want, and how often you'll wear them.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion",
+      "blocks": [
+        { "type": "qa", "settings": { "question": "How do I choose the right lashes?",      "answer": "<p>Take our 60-second Lash Match quiz — pick your eye shape, the look you want, and how often you'll wear them. We'll match you to one of 8 styles. If you'd rather browse, start with Inbox (first-timer friendly) or Pitch (our bestseller).</p>" } },
+        { "type": "qa", "settings": { "question": "Are they hard to wear for first-timers?", "answer": "<p>Genuinely easier than mascara. The first time takes about 5 minutes — after that, 30 seconds. The magnets do the alignment work; you just hold the band near your lash line and let it find its place.</p>" } },
+        { "type": "qa", "settings": { "question": "Will they damage my natural lashes?",     "answer": "<p>No. Our lashes are magnet-only — no glue, no pulling, no tugging on your real lashes. Removal is a clean lift, not a pull.</p>" } },
+        { "type": "qa", "settings": { "question": "How long do they last?",                   "answer": "<p>Up to 30 wears per pair when cared for properly. With our magnet-safe cleanser and flat storage, customers report 3–12 months of regular wear.</p>" } },
+        { "type": "qa", "settings": { "question": "Can I wear them with glasses?",            "answer": "<p>Yes. Our Natural and Light makeup styles (Inbox, Minutes, Kickoff) are short enough to sit comfortably under glasses without touching the lenses.</p>" } },
+        { "type": "qa", "settings": { "question": "Can I wear them with contact lenses?",     "answer": "<p>Absolutely. Hypoallergenic synthetic fibre, no glue near the eye, no irritation. Apply your contacts first, then your lashes.</p>" } },
+        { "type": "qa", "settings": { "question": "Do they work for monolids?",               "answer": "<p>Yes — and we built specific styles for monolids. Inbox and Minutes have flatter bands designed to sit on monolid and inner-double-lid eyes without lifting at the corners.</p>" } },
+        { "type": "qa", "settings": { "question": "What's your return policy?",               "answer": "<p>14-day no-questions returns on unopened sets. If you've opened them and they don't fit your eye shape, message us — we'll match you with a different style on the house.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

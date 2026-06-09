@@ -17,6 +17,19 @@
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="eager">
         {%- endif -%}
+        {%- if product.images.size > 1 -%}
+          <button class="pdp-hero__nav pdp-hero__nav--prev" type="button" data-pdp-prev aria-label="Previous image">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="pdp-hero__nav pdp-hero__nav--next" type="button" data-pdp-next aria-label="Next image">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="pdp-hero__dots" data-pdp-dots aria-label="Image pagination">
+            {%- for image in product.images limit: 4 -%}
+              <button class="pdp-hero__dot{% if forloop.first %} is-active{% endif %}" type="button" data-pdp-dot="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}"></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
       </div>
       {%- if product.images.size > 1 -%}
         <div class="pdp-hero__thumbs">
@@ -152,10 +165,9 @@
               <ul>
                 <li>1 pair of {{ product.title | split: ' ' | first }} magnetic lashes</li>
                 <li>Storage compact with mirror</li>
-                <li>Magnetic liner (3.5ml, jet black)</li>
+                <li>Magnetic fixer (3.5ml, jet black)</li>
                 <li>Application tweezer</li>
-                <li>Care brush</li>
-                <li>Care guide card</li>
+                <li>Gift card with voucher</li>
               </ul>
             {%- endif -%}
           </div>
@@ -194,8 +206,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="M16.71 13.88l.7.71-2.82 2.82"/></svg>
         </span>
         <div class="pdp-trust__copy">
-          <div class="pdp-trust__t">~{{ 400 | money }} per wear</div>
-          <div class="pdp-trust__s">Less than your morning coffee</div>
+          <div class="pdp-trust__t">{{ variant.price | divided_by: 30 | money }} per wear</div>
+          <div class="pdp-trust__s">Across 30 wears per pair</div>
         </div>
       </div>
 

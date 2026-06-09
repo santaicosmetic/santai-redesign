@@ -195,7 +195,13 @@
     var fillEl = drawer.querySelector('[data-progress-fill]');
     var milestones = drawer.querySelectorAll('[data-milestone]');
     var lc = lashCount();
-    var pct = Math.min(100, (lc / GIFT_TARGET) * 100);
+    // Two evenly-spaced gift milestones at 50% (Cleanser, 2 lashes) and 100% (Curler, 3 lashes).
+    // 0 lashes: 0%, 1 lash: 25%, 2 lashes: 50%, 3+ lashes: 100%.
+    var pct;
+    if (lc <= 0) pct = 0;
+    else if (lc === 1) pct = 25;
+    else if (lc === 2) pct = 50;
+    else pct = 100;
     if (fillEl) fillEl.style.width = pct + '%';
     milestones.forEach(function (m) {
       var th = parseInt(m.getAttribute('data-milestone'), 10);
@@ -1019,13 +1025,17 @@
     }
 
     var thumbs = document.querySelectorAll('[data-pdp-thumb]');
+    var dots = document.querySelectorAll('[data-pdp-dot]');
     var mainImg = document.querySelector('.pdp-hero__main img');
+    var currentIdx = 0;
 
     function activateThumb(idx) {
       if (idx < 0 || idx >= thumbs.length) return;
+      currentIdx = idx;
       thumbs.forEach(function (x) { x.classList.remove('is-active'); });
       var t = thumbs[idx];
       t.classList.add('is-active');
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
       if (!mainImg) return;
       var fullSrc = t.getAttribute('data-full-src');
       var thumbImg = t.querySelector('img');
@@ -1037,6 +1047,18 @@
 
     thumbs.forEach(function (t, idx) {
       t.addEventListener('click', function () { activateThumb(idx); });
+    });
+    dots.forEach(function (d, idx) {
+      d.addEventListener('click', function () { activateThumb(idx); });
+    });
+
+    var prevBtn = document.querySelector('[data-pdp-prev]');
+    var nextBtn = document.querySelector('[data-pdp-next]');
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      activateThumb((currentIdx - 1 + thumbs.length) % thumbs.length);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      activateThumb((currentIdx + 1) % thumbs.length);
     });
 
     // Touch swipe on main image: left/right to advance/retreat through thumbs.
@@ -1051,10 +1073,7 @@
         var delta = e.changedTouches[0].clientX - touchStartX;
         touchStartX = null;
         if (Math.abs(delta) < 40) return; // ignore tiny moves
-        var current = -1;
-        thumbs.forEach(function (t, i) { if (t.classList.contains('is-active')) current = i; });
-        if (current === -1) current = 0;
-        activateThumb(delta < 0 ? current + 1 : current - 1);
+        activateThumb(delta < 0 ? (currentIdx + 1) % thumbs.length : (currentIdx - 1 + thumbs.length) % thumbs.length);
       }, { passive: true });
     }
 
@@ -1385,6 +1404,69 @@
     initUgcSlider();
     initCompare();
     initShopifyCart();
+    initReviewFilters();
+  }
+
+  /* -------------------- PDP review filters + load-more ----------------- */
+  function initReviewFilters() {
+    var filterBar = document.querySelector('[data-review-filters]');
+    var list = document.querySelector('[data-review-list]');
+    if (!filterBar || !list) return;
+    var items = Array.prototype.slice.call(list.querySelectorAll('[data-review-item]'));
+    if (!items.length) return;
+
+    var loadBtn = document.querySelector('[data-review-load-more]');
+    var emptyMsg = document.querySelector('[data-review-empty]');
+    var BATCH = 6;
+    var activeFilter = 'all';
+    var visibleCount = BATCH;
+
+    function matches(item) {
+      if (activeFilter === 'all') return true;
+      if (activeFilter === 'photos') return item.getAttribute('data-has-photos') === 'true';
+      return item.getAttribute('data-eye') === activeFilter;
+    }
+
+    function render() {
+      var shown = 0;
+      var totalMatched = 0;
+      items.forEach(function (item) {
+        if (matches(item)) {
+          totalMatched++;
+          if (shown < visibleCount) {
+            item.hidden = false;
+            shown++;
+          } else {
+            item.hidden = true;
+          }
+        } else {
+          item.hidden = true;
+        }
+      });
+      if (emptyMsg) emptyMsg.hidden = totalMatched > 0;
+      if (loadBtn) loadBtn.hidden = shown >= totalMatched;
+    }
+
+    filterBar.querySelectorAll('[data-review-filter]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBar.querySelectorAll('[data-review-filter]').forEach(function (b) {
+          b.classList.remove('is-active');
+        });
+        btn.classList.add('is-active');
+        activeFilter = btn.getAttribute('data-review-filter');
+        visibleCount = BATCH;
+        render();
+      });
+    });
+
+    if (loadBtn) {
+      loadBtn.addEventListener('click', function () {
+        visibleCount += BATCH;
+        render();
+      });
+    }
+
+    render();
   }
 
   /* ====================================================================

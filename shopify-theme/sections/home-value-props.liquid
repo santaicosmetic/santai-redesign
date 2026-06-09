@@ -1,0 +1,95 @@
+<section class="section container value-props">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+  <div class="value-grid">
+    {%- for block in section.blocks -%}
+      <article class="value-card" {{ block.shopify_attributes }}>
+        <span class="value-card__icon" aria-hidden="true">
+          {%- case block.settings.icon -%}
+            {%- when 'sparkle' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2 2M16.4 16.4l2 2M5.6 18.4l2-2M16.4 7.6l2-2"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            {%- when 'feather' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+                <line x1="16" y1="8" x2="2" y2="22"/>
+                <line x1="17.5" y1="15" x2="9" y2="15"/>
+              </svg>
+            {%- when 'recycle' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"/>
+                <polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            {%- when 'shield' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            {%- when 'clock' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <polyline points="12 7 12 12 15 14"/>
+              </svg>
+            {%- when 'leaf' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 22s4-1 8-5 7-10 12-15c-2 7-5 14-9 17s-9 5-11 3z"/>
+              </svg>
+          {%- endcase -%}
+        </span>
+        <h3 class="value-card__title">{{ block.settings.title }}</h3>
+        <p class="value-card__desc">{{ block.settings.description }}</p>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Value props (4-grid)",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",      "default": "Why Santai" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start","default": "Made for " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic","default": "every day." }
+  ],
+  "blocks": [
+    {
+      "type": "prop",
+      "name": "Value card",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "recycle", "label": "Recycle" },
+            { "value": "shield",  "label": "Shield"  },
+            { "value": "clock",   "label": "Clock"   },
+            { "value": "leaf",    "label": "Leaf"    }
+          ],
+          "default": "sparkle"
+        },
+        { "type": "text",     "id": "title",       "label": "Title",       "default": "Instant Glam" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Lashes in seconds. No artistry, no learning curve." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Value props",
+      "blocks": [
+        { "type": "prop", "settings": { "icon": "sparkle", "title": "Instant Glam",     "description": "Lashes in seconds. No artistry, no learning curve." } },
+        { "type": "prop", "settings": { "icon": "feather", "title": "All Day Comfort",  "description": "Lightweight band — wear all day with ease." } },
+        { "type": "prop", "settings": { "icon": "recycle", "title": "Reusable",         "description": "Up to 30 wears per pair. Care for them, they last." } },
+        { "type": "prop", "settings": { "icon": "shield",  "title": "No Glue",          "description": "Magnetic-only. Doesn't damage your real lashes." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

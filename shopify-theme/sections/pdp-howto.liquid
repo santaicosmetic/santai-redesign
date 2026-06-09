@@ -1,0 +1,55 @@
+<section class="section container pdp-howto">
+  <div class="section__head">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+  <div class="pdp-howto__grid">
+    {%- for block in section.blocks -%}
+      <article class="pdp-step" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <div class="pdp-step__image">
+            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+          </div>
+        {%- endif -%}
+        <div class="eyebrow pdp-step__label">Step {{ forloop.index }}</div>
+        <h3 class="pdp-step__t">{{ block.settings.title }}</h3>
+        <p class="pdp-step__d">{{ block.settings.description }}</p>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP — How to apply",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",        "default": "How to apply" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start",  "default": "Three steps. " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic", "default": "Thirty seconds." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "image",       "label": "Step image" },
+        { "type": "text",         "id": "title",       "label": "Step title",       "default": "Place at the lash line" },
+        { "type": "textarea",     "id": "description", "label": "Step description", "default": "Hold the band a hair above your natural lashes. The magnets do the work." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP — How to apply",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Place at the lash line",      "description": "Hold the band a hair above your natural lashes. The magnets do the work." } },
+        { "type": "step", "settings": { "title": "Press from the inner corner", "description": "Pinch gently inward, then outward. The strip seats itself." } },
+        { "type": "step", "settings": { "title": "That's it",                    "description": "No glue. No drying. No commitment. Lift off at end of night." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

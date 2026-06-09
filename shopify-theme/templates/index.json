@@ -3,7 +3,102 @@
     "main": {
       "type": "main-home",
       "settings": {}
+    },
+    "comparison": {
+      "type": "home-comparison",
+      "settings": {
+        "eyebrow": "The honest comparison",
+        "heading_pre": "Beauty ",
+        "heading_italic": "shouldn't hurt.",
+        "subheading": "Gentle lashes, made easy.",
+        "us_label": "Santai Magnetic Lashes",
+        "them_a_label": "Strip Lashes",
+        "them_b_label": "Lash Extensions",
+        "cta_label": "Go Santai",
+        "cta_url": "#bestsellers"
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "feature": "Apply & remove",          "santai_value": "3 seconds" } },
+        "r2": { "type": "row", "settings": { "feature": "Lasts up to",             "santai_value": "3–12 months" } },
+        "r3": { "type": "row", "settings": { "feature": "Gentle on natural lashes","santai_value": "No glue, no pulling" } },
+        "r4": { "type": "row", "settings": { "feature": "Technology",              "santai_value": "Soft magnet" } },
+        "r5": { "type": "row", "settings": { "feature": "Water & wind resistant",  "santai_value": "Water proof" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"]
+    },
+    "reviews": {
+      "type": "home-reviews",
+      "settings": {
+        "eyebrow": "Loved by",
+        "heading_count": "1,600+",
+        "heading_pre": "lash ",
+        "heading_italic": "converts.",
+        "all_url": "/pages/reviews"
+      },
+      "blocks": {
+        "rv1": { "type": "manual_review", "settings": { "author": "Aisyah R.", "tag": "Monolid · Office",      "quote": "Genuinely faster than mascara. I'm a monolid and Inbox just sits.", "rating": 5 } },
+        "rv2": { "type": "manual_review", "settings": { "author": "Priya M.",  "tag": "Almond · Wedding",      "quote": "Wore Afterhours to my akad. Photographer asked which salon. None — they're magnetic.", "rating": 5 } },
+        "rv3": { "type": "manual_review", "settings": { "author": "Lin T.",    "tag": "Hooded · First-timer",  "quote": "First magnetic lash that didn't make me feel like I was suturing my eyelid.", "rating": 4 } }
+      },
+      "block_order": ["rv1", "rv2", "rv3"]
+    },
+    "value_props": {
+      "type": "home-value-props",
+      "settings": {
+        "eyebrow": "Why Santai",
+        "heading_pre": "Made for ",
+        "heading_italic": "every day."
+      },
+      "blocks": {
+        "vp1": { "type": "prop", "settings": { "icon": "sparkle", "title": "Instant Glam",    "description": "Lashes in seconds. No artistry, no learning curve." } },
+        "vp2": { "type": "prop", "settings": { "icon": "feather", "title": "All Day Comfort", "description": "Lightweight band — wear all day with ease." } },
+        "vp3": { "type": "prop", "settings": { "icon": "recycle", "title": "Reusable",        "description": "Up to 30 wears per pair. Care for them, they last." } },
+        "vp4": { "type": "prop", "settings": { "icon": "shield",  "title": "No Glue",         "description": "Magnetic-only. Doesn't damage your real lashes." } }
+      },
+      "block_order": ["vp1", "vp2", "vp3", "vp4"]
+    },
+    "ugc": {
+      "type": "home-ugc-slider",
+      "settings": {
+        "eyebrow": "Real first attempts",
+        "heading_pre": "Real people, ",
+        "heading_italic": "real results."
+      },
+      "blocks": {
+        "u01": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/c80029b02f994531aab4c5c9e6010aa0.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/b06e5986-9d27-426c-b40c-5646977ee450-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Real wear test from our community." } },
+        "u02": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/21cd55abe2aa444abc11c76f391e3cdb.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/7e3119ca-ebc1-44fd-bf07-6d87efcd851f-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Real wear test of Afterhours.", "product": "afterhours-magnetic-eyelashes" } },
+        "u03": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/71dc2def3af94be5a2d004b48d13797a.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/c3cd8860-7eb2-47f5-82b6-1857834f43f8-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Hairdryer test." } },
+        "u04": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/95b0839c693245f2ab3f14c135752195.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/52482fdd-dc97-409f-8173-b4d9794ff0f2-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Real wear test from our community." } },
+        "u05": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/ab00e256674d4fb5b6936fce9cab7ac9.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/fdb21522-8ce8-4e46-92a5-771a47e828cd-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Real wear test from our community." } },
+        "u06": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/35c90975471944329295e198715667e4.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/aee7aaff-c497-41c3-86d3-e2c4d6dc9ff0-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Reusable, non-allergic magnetic eyelashes." } },
+        "u07": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/2b90f00940464c2aa3923e7141c73524.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/fd2f4ac6-eed7-49f5-90c3-a0745466a9ca-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Real wear test of Twilight.", "product": "twilight-magnetic-eyelashes" } },
+        "u08": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/192eadeecef04d078ebffd14c3d2c573.mp4", "poster_url": "https://d3mpdreqnm1mhz.cloudfront.net/cjuzxh-v0.myshopify.com/7c65be1a-ecaa-4015-824d-904185688d77-thumbnail.jpg", "handle": "@santaicosmetics.my", "quote": "Glue-on lashes 1, magnetic 10. Real comparison." } },
+        "u09": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/79b3a474738d49a59ce8461b070536e0.mp4", "poster_url": "https://cdn.shopify.com/s/files/1/0749/2367/1774/files/preview_images/0d50ec27b56348998d256147e54f898c.thumbnail.0000000000.jpg", "handle": "@santaicosmetics.my", "quote": "Nightshift wear test. 7.5/10 grip with enough fixer.", "product": "nightshift-magnetic-eyelashes" } },
+        "u10": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/b0af1f9bdad149498c25f4589072920a.mp4", "poster_url": "https://cdn.shopify.com/s/files/1/0749/2367/1774/files/preview_images/4a531f1bd30f4d828f083865560a1ea6.thumbnail.0000000000.jpg", "handle": "@santaicosmetics.my", "quote": "BTS: applying magnetic lashes before another performance.", "product": "kickoff-magnetic-eyelashes" } },
+        "u11": { "type": "ugc_card", "settings": { "video_url": "https://cdn.shopify.com/videos/c/o/v/88a0dae79baa4fc58fc47d78b951ce72.mp4", "poster_url": "https://cdn.shopify.com/s/files/1/0749/2367/1774/files/preview_images/bd983dadb6bb44128681e67aaa8166d9.thumbnail.0000000000.jpg", "handle": "@santaicosmetics.my", "quote": "Customer wear: easy to apply, comfortable, AMAZING.", "product": "pitch-magnetic-eyelashes" } }
+      },
+      "block_order": ["u01", "u02", "u03", "u04", "u05", "u06", "u07", "u08", "u09", "u10", "u11"]
+    },
+    "faq": {
+      "type": "home-faq",
+      "settings": {
+        "eyebrow": "Common questions",
+        "heading_pre": "You asked, ",
+        "heading_italic": "we answered.",
+        "full_faq_url": "/pages/faq"
+      },
+      "blocks": {
+        "q1": { "type": "qa", "settings": { "question": "How do I choose the right lashes?",      "answer": "<p>Take our 60-second Lash Match quiz — pick your eye shape, the look you want, and how often you'll wear them. We'll match you to one of 8 styles. If you'd rather browse, start with Inbox (first-timer friendly) or Pitch (our bestseller).</p>" } },
+        "q2": { "type": "qa", "settings": { "question": "Are they hard to wear for first-timers?", "answer": "<p>Genuinely easier than mascara. The first time takes about 5 minutes — after that, 30 seconds. The magnets do the alignment work; you just hold the band near your lash line and let it find its place.</p>" } },
+        "q3": { "type": "qa", "settings": { "question": "Will they damage my natural lashes?",     "answer": "<p>No. Our lashes are magnet-only — no glue, no pulling, no tugging on your real lashes. Removal is a clean lift, not a pull.</p>" } },
+        "q4": { "type": "qa", "settings": { "question": "How long do they last?",                   "answer": "<p>Up to 30 wears per pair when cared for properly. With our magnet-safe cleanser and flat storage, customers report 3–12 months of regular wear.</p>" } },
+        "q5": { "type": "qa", "settings": { "question": "Can I wear them with glasses?",            "answer": "<p>Yes. Our Natural and Light makeup styles (Inbox, Minutes, Kickoff) are short enough to sit comfortably under glasses without touching the lenses.</p>" } },
+        "q6": { "type": "qa", "settings": { "question": "Can I wear them with contact lenses?",     "answer": "<p>Absolutely. Hypoallergenic synthetic fibre, no glue near the eye, no irritation.</p>" } },
+        "q7": { "type": "qa", "settings": { "question": "Do they work for monolids?",               "answer": "<p>Yes — and we built specific styles for monolids. Inbox and Minutes have flatter bands designed to sit on monolid and inner-double-lid eyes without lifting at the corners.</p>" } },
+        "q8": { "type": "qa", "settings": { "question": "What's your return policy?",               "answer": "<p>14-day no-questions returns on unopened sets. If you've opened them and they don't fit your eye shape, message us — we'll match you with a different style on the house.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"]
     }
   },
-  "order": ["main"]
+  "order": ["main", "comparison", "reviews", "value_props", "ugc", "faq"]
 }

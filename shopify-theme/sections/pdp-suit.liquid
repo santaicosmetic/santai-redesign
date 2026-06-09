@@ -1,0 +1,86 @@
+{%- liquid
+  comment
+    Per-eye-shape verdict for THIS product. Uses product.metafields.santai.eye_buckets
+    to mark each eye shape as "Beautiful" (fits), "Wearable" (neutral) or "Try X" (doesn't fit, recommend a sibling).
+    Sibling recommendation: pick first lash in same group that matches the missing bucket.
+  endcomment
+
+  assign mf = product.metafields.santai
+  assign current_buckets = mf.eye_buckets.value
+  assign all_shapes = 'monolid|double-lid|inner-double-lid' | split: '|'
+-%}
+
+<section class="section pdp-suit">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+      </div>
+    </div>
+    <div class="pdp-suit__grid">
+      {%- for shape in all_shapes -%}
+        {%- liquid
+          case shape
+            when 'monolid'
+              assign label = 'Monolid'
+              assign svg = 'monolid.svg'
+            when 'double-lid'
+              assign label = 'Double lid'
+              assign svg = 'almond.svg'
+            when 'inner-double-lid'
+              assign label = 'Inner double lid'
+              assign svg = 'hooded.svg'
+          endcase
+
+          assign fits = false
+          if current_buckets contains shape
+            assign fits = true
+          endif
+
+          assign sibling_url = ''
+          assign sibling_title = ''
+          unless fits
+            for sibling in collections['all'].products limit: 50
+              if sibling.metafields.santai.category.value == 'lash' and sibling.id != product.id
+                if sibling.metafields.santai.eye_buckets.value contains shape
+                  assign sibling_url = sibling.url
+                  assign sibling_title = sibling.title | split: ' ' | first
+                  break
+                endif
+              endif
+            endfor
+          endunless
+        -%}
+
+        <article class="pdp-suit__cell{% unless fits %} pdp-suit__cell--alt{% endunless %}">
+          <div class="pdp-suit__image"{% unless fits %} style="opacity:.55"{% endunless %}>
+            <img src="{{ svg | asset_url }}" alt="{{ label }} eye shape">
+          </div>
+          <div class="pdp-suit__verdict">
+            {%- if fits -%}
+              <span class="eyebrow" style="color:var(--accent)">Beautiful</span>
+            {%- elsif sibling_title != blank -%}
+              <span class="eyebrow"><a href="{{ sibling_url }}" style="color:inherit">Try {{ sibling_title }}</a></span>
+            {%- else -%}
+              <span class="eyebrow">Not the best fit</span>
+            {%- endif -%}
+            <h3>{{ label }}</h3>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Will this suit me",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",        "default": "Will this suit me?" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start",  "default": "Three eye shapes. " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic", "default": "Honest verdicts." }
+  ],
+  "presets": [{ "name": "PDP — Will this suit me" }]
+}
+{% endschema %}

@@ -28,3 +28,7 @@ npm-debug.log*
 
 # Logs
 *.log
+
+# Local audit dumps (product image downloads, UGC manifest, etc.) — temp working files
+.audit/
+.ugc-audit/

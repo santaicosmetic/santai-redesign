@@ -1,0 +1,49 @@
+<section class="pdp-action container">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+
+  {%- liquid
+    assign vid = section.settings.video
+    assign poster = section.settings.poster
+  -%}
+
+  <div class="pdp-action__video" data-pdp-action-video>
+    {%- if vid != blank -%}
+      <video
+        src="{{ vid.sources[1].url | default: vid.sources[0].url }}"
+        {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}
+        playsinline
+        controls
+        preload="metadata"
+      ></video>
+    {%- elsif poster != blank -%}
+      <img src="{{ poster | image_url: width: 1600 }}" alt="" loading="lazy">
+      <button class="pdp-action__play" type="button" aria-label="Play video" disabled>▶</button>
+    {%- else -%}
+      <div class="pdp-action__placeholder" aria-hidden="true">Add a demo video in the theme editor</div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.caption != blank -%}
+    <p class="pdp-action__caption">{{ section.settings.caption }}</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Demo video",
+  "settings": [
+    { "type": "text",         "id": "eyebrow",        "label": "Eyebrow",          "default": "See it in action" },
+    { "type": "text",         "id": "heading_pre",    "label": "Heading start",    "default": "Watch how it " },
+    { "type": "text",         "id": "heading_italic", "label": "Heading italic",   "default": "works." },
+    { "type": "video",        "id": "video",          "label": "Demo video (mp4)" },
+    { "type": "image_picker", "id": "poster",         "label": "Poster image" },
+    { "type": "text",         "id": "caption",        "label": "Caption below",    "default": "60-second demo · how it goes on" }
+  ],
+  "presets": [{ "name": "PDP — Demo video" }]
+}
+{% endschema %}

@@ -1,0 +1,58 @@
+<main class="cart-page container">
+  <section class="cart-page__head">
+    <div class="eyebrow">Your bag</div>
+    <h1 class="display-l">{% if cart.item_count > 0 %}A few <span class="display-italic">good</span> things.{% else %}Your bag is <span class="display-italic">empty.</span>{% endif %}</h1>
+  </section>
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-page__form">
+      <div class="cart-page__items">
+        {%- for item in cart.items -%}
+          <div class="cart-line">
+            <a href="{{ item.url }}" class="cart-line__image">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.title | escape }}" loading="lazy">
+              {%- endif -%}
+            </a>
+            <div class="cart-line__body">
+              <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title | split: ' ' | first }}</a>
+              {%- if item.variant.title and item.variant.title != 'Default Title' -%}
+                <div class="cart-line__variant">{{ item.variant.title }}</div>
+              {%- endif -%}
+              <div class="cart-line__qty">
+                <label class="visually-hidden" for="qty-{{ item.key }}">Quantity</label>
+                <input type="number" id="qty-{{ item.key }}" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+              </div>
+              <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+            <div class="cart-line__price tnum">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart-page__foot">
+        <div class="cart-page__subtotal">
+          <span>Subtotal</span>
+          <span class="tnum">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="small cart-page__note">Free shipping on every order within Malaysia.</p>
+        <div class="cart-page__actions">
+          <button type="submit" name="update" class="btn btn-secondary">Update bag</button>
+          <button type="submit" name="checkout" class="btn btn-accent">Checkout</button>
+        </div>
+      </div>
+    </form>
+  {%- else -%}
+    <div class="cart-page__empty">
+      <p>Nothing in here yet.</p>
+      <a class="btn btn-accent" href="{{ routes.root_url }}collections/all">Start shopping</a>
+    </div>
+  {%- endif -%}
+</main>
+
+{% schema %}
+{
+  "name": "Cart (main)",
+  "settings": []
+}
+{% endschema %}

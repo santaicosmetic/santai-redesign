@@ -1,0 +1,115 @@
+<section class="section container ugc-section" data-ugc-slider>
+  <div class="section__head">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+
+  <div class="ugc-slider__track">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign vid = block.settings.video
+        assign poster = block.settings.poster
+        assign linked = block.settings.product
+        assign card_url = '#'
+        if linked != blank
+          assign card_url = linked.url
+        endif
+
+        # Prefer external URL fields (used to bring in videos from external CDNs / apps
+        # like Spark UGC). Fall back to Shopify Files video/image pickers.
+        assign video_src = block.settings.video_url
+        if video_src == blank and vid != blank
+          assign video_src = vid.sources[1].url | default: vid.sources[0].url
+        endif
+        assign poster_src = block.settings.poster_url
+        if poster_src == blank and poster != blank
+          assign poster_src = poster | image_url: width: 600
+        endif
+      -%}
+
+      <article class="ugc-card" {{ block.shopify_attributes }}>
+        {%- if linked != blank -%}<a class="ugc-card__link" href="{{ card_url }}" aria-label="{{ linked.title | escape }}">{%- endif -%}
+
+        <div class="ugc-card__media">
+          {%- if video_src != blank -%}
+            <video
+              class="ugc-card__video"
+              src="{{ video_src }}"
+              {% if poster_src != blank %}poster="{{ poster_src }}"{% endif %}
+              autoplay
+              playsinline
+              muted
+              loop
+              preload="metadata"
+              data-ugc-video
+            ></video>
+          {%- elsif poster_src != blank -%}
+            <img class="ugc-card__poster" src="{{ poster_src }}" alt="{{ block.settings.quote | escape }}" loading="lazy">
+          {%- else -%}
+            <span class="lash-glyph lash-glyph--cream" aria-hidden="true" style="width:54%;height:3px"></span>
+          {%- endif -%}
+        </div>
+
+        <div class="ugc-card__overlay">
+          {%- if block.settings.quote != blank -%}
+            <p class="ugc-card__caption">&ldquo;{{ block.settings.quote }}&rdquo;</p>
+          {%- endif -%}
+        </div>
+
+        {%- if linked != blank -%}</a>{%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="ugc-slider__nav">
+      <button class="ugc-slider__btn" type="button" data-ugc-prev aria-label="Previous video">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="ugc-slider__btn" type="button" data-ugc-next aria-label="Next video">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "UGC slider",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",       "default": "Real first attempts" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start", "default": "Real people, " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic","default": "real results." }
+  ],
+  "blocks": [
+    {
+      "type": "ugc_card",
+      "name": "UGC card",
+      "settings": [
+        { "type": "header",         "content": "Video (pick one source)" },
+        { "type": "video",          "id": "video",       "label": "Shopify-hosted video (mp4/webm)" },
+        { "type": "text",           "id": "video_url",   "label": "OR external video URL",  "info": "Paste a direct mp4 URL — use this for videos hosted by external apps like Spark UGC." },
+        { "type": "image_picker",   "id": "poster",      "label": "Shopify-hosted poster image" },
+        { "type": "text",           "id": "poster_url",  "label": "OR external poster URL" },
+        { "type": "header",         "content": "Overlay" },
+        { "type": "text",           "id": "handle",      "label": "Creator handle", "default": "@aisyah_kl", "info": "e.g. @riri_kl" },
+        { "type": "textarea",       "id": "quote",       "label": "Caption / quote", "default": "Took me 30 seconds. I'm not even kidding." },
+        { "type": "product",        "id": "product",     "label": "Tag a product (optional)", "info": "Clicking the card opens this PDP." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC slider",
+      "blocks": [
+        { "type": "ugc_card" },
+        { "type": "ugc_card" },
+        { "type": "ugc_card" },
+        { "type": "ugc_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

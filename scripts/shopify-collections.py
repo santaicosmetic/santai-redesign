@@ -77,18 +77,21 @@ COLLECTIONS = [
         'title': 'Shop by eye shape',
         'desc': 'Lashes grouped by Monolid / Double lid / Inner double lid — the right band for the geometry of your eye.',
         'product_ids': lash_ids,
+        'template_suffix': 'by-eye-shape',
     },
     {
         'handle': 'by-makeup',
         'title': 'Shop by makeup',
         'desc': 'Lashes grouped by Natural / Light makeup / Heavy makeup — pick the energy you want.',
         'product_ids': lash_ids,
+        'template_suffix': 'by-makeup',
     },
     {
         'handle': 'accessories',
         'title': 'Accessories',
         'desc': 'The two essentials that keep magnetic lashes wearable for 30+ uses.',
         'product_ids': accessory_ids,
+        'template_suffix': 'accessories',
     },
 ]
 
@@ -121,9 +124,10 @@ print('--- Creating / updating collections ---')
 for c in COLLECTIONS:
     existing_id = existing_by_handle.get(c['handle'])
     if existing_id:
-        # Update title/desc, then re-set products
+        # Update title/desc + template suffix, then re-set products
         res = gql(UPDATE_COLLECTION, {'input': {
             'id': existing_id, 'title': c['title'], 'descriptionHtml': f'<p>{c["desc"]}</p>',
+            'templateSuffix': c['template_suffix'],
         }})
         errs = res['collectionUpdate']['userErrors']
         if errs:
@@ -132,6 +136,7 @@ for c in COLLECTIONS:
     else:
         res = gql(CREATE_COLLECTION, {'input': {
             'handle': c['handle'], 'title': c['title'], 'descriptionHtml': f'<p>{c["desc"]}</p>',
+            'templateSuffix': c['template_suffix'],
         }})
         errs = res['collectionCreate']['userErrors']
         if errs:

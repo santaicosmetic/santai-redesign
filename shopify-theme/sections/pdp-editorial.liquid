@@ -1,0 +1,29 @@
+<section class="pdp-editorial">
+  {%- if section.settings.image != blank -%}
+    <div class="pdp-editorial__image">
+      <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="" loading="lazy">
+    </div>
+  {%- endif -%}
+  {%- if section.settings.quote != blank -%}
+    <div class="pdp-editorial__quote container">
+      <div class="display-m display-italic">
+        &ldquo;{{ section.settings.quote }}&rdquo;
+      </div>
+      {%- if section.settings.attribution != blank -%}
+        <div class="pdp-editorial__attribution">— {{ section.settings.attribution }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Editorial band",
+  "settings": [
+    { "type": "image_picker", "id": "image",       "label": "Full-bleed image (landscape)" },
+    { "type": "textarea",     "id": "quote",       "label": "Italic quote",       "default": "I forgot I was wearing them. That's the whole point." },
+    { "type": "text",         "id": "attribution", "label": "Attribution (optional, no leading dash)" }
+  ],
+  "presets": [{ "name": "PDP — Editorial band" }]
+}
+{% endschema %}

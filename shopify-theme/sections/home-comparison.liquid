@@ -1,0 +1,77 @@
+{%- liquid
+  assign rows = section.blocks
+-%}
+
+<section class="comparison">
+  <div class="container">
+    <div class="comparison__head">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="comparison__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+    <div class="comparison__table">
+
+      <div class="comparison__cell comparison__cell--head">Feature</div>
+      <div class="comparison__cell comparison__cell--head comparison__cell--santai-head">{{ section.settings.us_label }}</div>
+      <div class="comparison__cell comparison__cell--head">{{ section.settings.them_a_label }}</div>
+      <div class="comparison__cell comparison__cell--head">{{ section.settings.them_b_label }}</div>
+
+      {%- for row in rows -%}
+        <div class="comparison__cell comparison__cell--feature">{{ row.settings.feature }}</div>
+        <div class="comparison__cell comparison__cell--santai">
+          <span class="comparison__check" aria-hidden="true">&#10003;</span>
+          <span class="comparison__value">{{ row.settings.santai_value }}</span>
+        </div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+        <div class="comparison__cell"><span class="comparison__cross" aria-hidden="true">&times;</span></div>
+      {%- endfor -%}
+
+    </div>
+    {%- if section.settings.cta_label != blank -%}
+      <div class="comparison__cta">
+        <a class="btn btn-accent" href="{{ section.settings.cta_url | default: '#bestsellers' }}">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison table",
+  "settings": [
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",      "default": "The honest comparison" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start",  "default": "Beauty " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic (one word/phrase)", "default": "shouldn't hurt." },
+    { "type": "text", "id": "subheading",     "label": "Sub",            "default": "Gentle lashes, made easy." },
+    { "type": "text", "id": "us_label",       "label": "Our column",     "default": "Santai Magnetic Lashes" },
+    { "type": "text", "id": "them_a_label",   "label": "Column 2",       "default": "Strip Lashes" },
+    { "type": "text", "id": "them_b_label",   "label": "Column 3",       "default": "Lash Extensions" },
+    { "type": "text", "id": "cta_label",      "label": "CTA label",      "default": "Go Santai" },
+    { "type": "url",  "id": "cta_url",        "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "settings": [
+        { "type": "text", "id": "feature",       "label": "Feature label",   "default": "Apply & remove" },
+        { "type": "text", "id": "santai_value",  "label": "Our value",       "default": "3 seconds" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "Apply & remove",         "santai_value": "3 seconds" } },
+        { "type": "row", "settings": { "feature": "Lasts up to",            "santai_value": "3–12 months" } },
+        { "type": "row", "settings": { "feature": "Gentle on natural lashes","santai_value": "No glue, no pulling" } },
+        { "type": "row", "settings": { "feature": "Technology",             "santai_value": "Soft magnet" } },
+        { "type": "row", "settings": { "feature": "Water & wind resistant", "santai_value": "Water proof" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
