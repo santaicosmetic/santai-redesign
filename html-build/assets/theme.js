@@ -549,6 +549,42 @@
       document.body.style.overflow = '';
     }
 
+    function renderResult(lashId) {
+      var s = LASH_STYLES[lashId];
+      if (!s) return;
+      var box = finder.querySelector('.finder-result__copy');
+      if (!box) return;
+      var reasons = [
+        FINDER_REASONS[lashId] || s.tagline,
+        FINDER_FREQ_COPY[state.freq] || FINDER_FREQ_COPY.weekly,
+        finderFlagLine(state.flags)
+      ];
+      box.innerHTML = ''
+        + '<div class="eyebrow">Recommended for you</div>'
+        + '<h2 class="display-l"><span class="display-italic">' + s.name + '.</span></h2>'
+        + '<div class="finder-result__price tnum">' + s.price + '</div>'
+        + '<ul class="finder-result__reasons">'
+        +   reasons.map(function (r) { return '<li>' + r + '</li>'; }).join('')
+        + '</ul>'
+        + '<div class="finder-result__ctas">'
+        +   '<button class="btn btn-accent" data-add-to-cart'
+        +     ' data-product-id="' + s.id + '"'
+        +     ' data-product-name="' + s.name + '"'
+        +     ' data-product-variant="' + s.group + '"'
+        +     ' data-product-price="' + s.price + '"'
+        +     ' data-product-image="' + (s.card || s.image || '') + '">Add to bag</button>'
+        +   '<a class="btn btn-secondary" href="product.html?style=' + s.id + '">See full details</a>'
+        + '</div>'
+        + '<a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 10</a>';
+      // The injected add-to-cart button is handled by the delegated document listener.
+      // Only the injected close link needs its handler re-attached:
+      box.querySelectorAll('[data-finder-close]').forEach(function (b) {
+        b.addEventListener('click', close);
+      });
+    }
+
+    validateFinderMap();
+
     document.querySelectorAll('[data-finder-open]').forEach(function (b) {
       b.addEventListener('click', function (e) { e.preventDefault(); open(); });
     });
@@ -589,7 +625,10 @@
       });
     });
     var doneBtn = finder.querySelector('[data-finder-done]');
-    if (doneBtn) doneBtn.addEventListener('click', function () { show(4); });
+    if (doneBtn) doneBtn.addEventListener('click', function () {
+      renderResult(resolveLash(state));
+      show(4);
+    });
   }
 
   /* -------------------- Search results page ---------------------------- */
