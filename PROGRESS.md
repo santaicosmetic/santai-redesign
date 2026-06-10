@@ -62,7 +62,7 @@ Static HTML/CSS/JS prototype of `santai-cosmetics.com` — a Malaysian magnetic-
 - **Collection sort dropdown** — Featured / Bestselling / Newest / Price ↑ / Price ↓; composes with filter chips
 - **Compare Styles modal** on lash PDP
 - **Wishlist** — localStorage-backed, Save buttons on all 3 PDPs
-- **Lash Finder** — 4-step quiz modal (⚠️ recommendation still hardcoded to "Inbox" — see "Up next")
+- **Lash Finder** — 4-step quiz modal with **working recommendation logic** (2026-06-10): `LASH_FINDER_MAP[eye][look][freq] → lash` in `theme.js` (36-cell table + dev self-check); flags add reassurance copy. Standalone `lash-finder.html` page + Shopify-theme port of the same map still open.
 - **Contact form** — toast on submit, no backend
 
 **Visual system + taxonomy** standardised everywhere:
@@ -97,7 +97,7 @@ These are the items flagged at the end of Session 11. All require Riri's input o
 - [ ] **Accessory titles split-first-word display** — product cards show `product.title | split: ' ' | first`, so "The Pure Ritual: Professional Magnetic Lash Cleanser" displays as "The." Not a bug for lashes (one-word titles work), but accessories need either a shorter title (e.g. "Cleanser") or a different display strategy. Decide with Riri.
 
 **Lash Finder (carried over, blocked on Riri)**
-- [ ] **Recommendation logic** — `(eye × look × frequency × flags) → product handle` map. Quiz currently always returns "Inbox". Owner: Riri.
+- [x] ~~**Recommendation logic**~~ **Done 2026-06-10 (html-build prototype).** `LASH_FINDER_MAP[eye][look][freq] → lash` in `theme.js` — a 36-cell table with a dev self-check that warns on any cell whose lash doesn't fit that eye shape; flags add reassurance copy only (don't change the pick). Design + plan in `docs/superpowers/specs|plans/2026-06-10-lash-finder-recommendation*`. **Shopify-theme port of the same map still pending** (reuse `LASH_FINDER_MAP` + `resolveLash` when porting `initLashFinder`).
 - [ ] **Standalone `/pages/lash-finder` page** — currently only exists as a modal. Build a full-screen, deep-linkable surface. Pairs with the recommendation logic.
 
 **Brand chrome (carried over)**
@@ -127,7 +127,7 @@ These are the items flagged at the end of Session 11. All require Riri's input o
 - [x] ~~**Social URLs (Instagram + TikTok)**~~ **Done 2026-05-21.** Instagram → `https://www.instagram.com/santaicosmetics.my/` and TikTok → `https://www.tiktok.com/@santai.cosmetics/video/7624990695748537608` wired across all 26 footers (`target="_blank" rel="noopener"`). Note: TikTok URL is a specific video, not a profile — users can tap the username to reach the profile. Loyalty footer link stays as `#` until a loyalty page exists.
 - [x] ~~**Remove dead Account button**~~ **Done 2026-05-21.** Header account icon was a `<button>` with no link or handler — removed from all 26 headers. Header right side now has only Wishlist + Cart icons. Shopify-managed account pages can be added back at port time.
 - [ ] **Real product photography for Cleanser + Thermo Curler** — currently using lifestyle photo stand-ins
-- [ ] **Lash Finder recommendation logic** — quiz always returns "Inbox"; needs a `(eye × look × freq × flags) → product handle` map. **Owner: Riri** (knows the product taxonomy better than Jeff). Defer until next session with her involved.
+- [x] ~~**Lash Finder recommendation logic**~~ **Done 2026-06-10 (html-build).** 36-cell `LASH_FINDER_MAP` in `theme.js` maps (eye × look × freq) → lash; flags add reassurance copy. Verified in-browser across 3 representative paths (monolid·drama·events→Nightshift, double-lid·natural·daily+firsttime→Inbox, inner-double-lid·office·weekly→Boardroom) + add-to-cart + close-link regressions. Shopify-theme port pending.
 - [ ] **Lash Finder as its own dedicated page** — currently only exists as a modal triggered by `data-finder-open` buttons across the site. Build a standalone `lash-finder.html` page that runs the same 4-step flow but full-screen, deep-linkable, shareable. Pairs with the recommendation-logic task — build both with Riri.
 - [ ] **Reviews: dedicated session** — homepage shows 3 hardcoded reviews; PDP shows a hardcoded "Based on 247 reviews" + "Read all 247 reviews" / "Write a review" links. **No third-party app** (no Judge.me / Loox / Yotpo). At port time, reviews live in **Shopify product metafields**. A separate session will design the metafield schema (review body, rating 1-5, reviewer name, eye-shape tag, date) and the Liquid rendering for review cards + count + average. Until then, keep the placeholder copy on the prototype.
 - [ ] **Stockists / Sustainability / Press** — stubbed as `href="#"`. Build only if/when the brand actually has these.
