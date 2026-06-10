@@ -428,6 +428,100 @@
     }
   }
 
+  /* -------------------- Lash Finder recommendation data ----------------- */
+  var LASH_FINDER_MAP = {
+    'monolid': {
+      'natural': { daily:'minutes',  weekly:'inbox',      events:'kickoff'    },
+      'office':  { daily:'pitch',     weekly:'pitch',      events:'boardroom'  },
+      'soft':    { daily:'memo',      weekly:'memo',       events:'boardroom'  },
+      'drama':   { daily:'twilight',  weekly:'nightshift', events:'nightshift' }
+    },
+    'double-lid': {
+      'natural': { daily:'inbox',     weekly:'inbox',      events:'kickoff'    },
+      'office':  { daily:'boardroom', weekly:'boardroom',  events:'memo'       },
+      'soft':    { daily:'memo',      weekly:'memo',       events:'boardroom'  },
+      'drama':   { daily:'twilight',  weekly:'afterhours', events:'vip'        }
+    },
+    'inner-double-lid': {
+      'natural': { daily:'minutes',   weekly:'inbox',      events:'kickoff'    },
+      'office':  { daily:'pitch',     weekly:'boardroom',  events:'boardroom'  },
+      'soft':    { daily:'memo',      weekly:'memo',       events:'boardroom'  },
+      'drama':   { daily:'twilight',  weekly:'twilight',   events:'vip'        }
+    }
+  };
+
+  var FINDER_REASONS = {
+    inbox:      "Looks like nothing, reads like everything — the most natural band we make.",
+    minutes:    "A true-to-lash simulation made for monolid and inner-double-lid eyes.",
+    kickoff:    "Fresh, youthful lift that opens the eye without looking 'done'.",
+    boardroom:  "Classic soft volume that never reads as too much — the safe yes.",
+    pitch:      "A 70° high-lift arc that refuses to droop on monolid and inner-double-lid eyes.",
+    memo:       "A sweet 7-cluster burst that makes the eye look wide and bright.",
+    afterhours: "A full triangle cluster built for double-lid eyes after dark.",
+    twilight:   "Volumised but still natural — drama you can actually wear out.",
+    nightshift: "A fox-eye upsweep that elongates monolid and double-lid eyes.",
+    vip:        "Statement volume for the nights you want to be seen."
+  };
+
+  var FINDER_FREQ_COPY = {
+    daily:  "Daily-comfort band — thirty-second application, light enough to forget you're wearing it.",
+    weekly: "Comfortable for full days, with just enough lift to feel polished.",
+    events: "Built to hold its shape all night — no drooping, no resets."
+  };
+
+  var FINDER_FLAG_COPY = {
+    sensitive: "Glue-free and hypoallergenic — safe for sensitive eyes.",
+    firsttime: "One of the easiest bands to place — ideal for a first time with lashes.",
+    contacts:  "No glue near the waterline — comfortable over contact lenses.",
+    lashext:   "A gentle, glue-free reset while you take a break from extensions."
+  };
+  var FINDER_FLAG_PRIORITY = ['sensitive', 'firsttime', 'contacts', 'lashext'];
+  var FINDER_FLAG_DEFAULT  = "30× reusable, hypoallergenic, no glue.";
+
+  var FINDER_EYE_POOLS = {
+    'monolid':          ['inbox','minutes','kickoff','boardroom','pitch','memo','twilight','nightshift','vip'],
+    'double-lid':       ['inbox','kickoff','boardroom','memo','afterhours','twilight','nightshift','vip'],
+    'inner-double-lid': ['inbox','minutes','kickoff','boardroom','pitch','memo','twilight','vip']
+  };
+
+  function validateFinderMap() {
+    Object.keys(LASH_FINDER_MAP).forEach(function (eye) {
+      var pool = FINDER_EYE_POOLS[eye] || [];
+      var looks = LASH_FINDER_MAP[eye];
+      Object.keys(looks).forEach(function (look) {
+        Object.keys(looks[look]).forEach(function (freq) {
+          var id = looks[look][freq];
+          if (!LASH_STYLES[id]) {
+            console.warn('Finder map: unknown lash "' + id + '" at ' + eye + '/' + look + '/' + freq);
+          } else if (pool.indexOf(id) === -1) {
+            console.warn('Finder map: "' + id + '" does not fit ' + eye + ' (' + look + '/' + freq + ')');
+          }
+        });
+      });
+    });
+  }
+
+  function resolveLash(state) {
+    var eye  = state.eye  || 'double-lid';
+    var look = state.look || 'natural';
+    var freq = state.freq || 'weekly';
+    var byEye  = LASH_FINDER_MAP[eye]  || LASH_FINDER_MAP['double-lid'];
+    var byLook = byEye[look] || byEye['natural'];
+    var id = byLook[freq] || byLook['weekly'];
+    if (!id || !LASH_STYLES[id]) { console.warn('Finder: no match for', state); id = 'inbox'; }
+    return id;
+  }
+
+  function finderFlagLine(flags) {
+    flags = flags || [];
+    for (var i = 0; i < FINDER_FLAG_PRIORITY.length; i++) {
+      if (flags.indexOf(FINDER_FLAG_PRIORITY[i]) !== -1) {
+        return FINDER_FLAG_COPY[FINDER_FLAG_PRIORITY[i]];
+      }
+    }
+    return FINDER_FLAG_DEFAULT;
+  }
+
   /* -------------------- Lash Finder modal ------------------------------ */
   function initLashFinder() {
     var finder = document.querySelector('[data-finder]');
