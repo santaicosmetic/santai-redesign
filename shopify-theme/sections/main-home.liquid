@@ -249,6 +249,12 @@
 {% schema %}
 {
   "name": "Home (main)",
-  "settings": []
+  "settings": [
+    { "type": "header", "content": "Shop by eye shape — tile images" },
+    { "type": "paragraph", "content": "Upload your own photo to replace the default illustration for each eye shape. Leave empty to keep the illustration. Photos are cropped to a 4:5 tile." },
+    { "type": "image_picker", "id": "eye_image_monolid", "label": "Monolid image" },
+    { "type": "image_picker", "id": "eye_image_double_lid", "label": "Double lid image" },
+    { "type": "image_picker", "id": "eye_image_inner_double_lid", "label": "Inner double lid image" }
+  ]
 }
 {% endschema %}
