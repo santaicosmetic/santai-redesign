@@ -2442,6 +2442,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 }
 .collection-tile__image > img,
 .collection-tile__image > svg { width: 65%; max-width: 180px; height: auto; }
+.collection-tile__image--photo > img { width: 100%; max-width: none; height: 100%; object-fit: cover; }
 .collection-tile:hover .collection-tile__image { background: var(--bg-soft); }
 .collection-tile__label {
   font-family: var(--font-display);
