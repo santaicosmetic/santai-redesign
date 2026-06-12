@@ -107,6 +107,7 @@ These are the items flagged at the end of Session 11. All require Riri's input o
 
 **Sections built but not yet exercised in theme editor by merchandiser**
 - [ ] Once the live theme is published, Riri should do a pass through the theme editor to confirm she can reorder sections, edit copy, swap images. The 5 new homepage sections + 5 new PDP sections all have presets so this should be straightforward.
+- [x] **Swappable "Shop by eye shape" tile images (Shopify theme)** — Done 2026-06-12. Three `image_picker` settings on `main-home.liquid`; each tile shows the merchant photo (object-fit: cover, 4:5) when set, else the brand SVG. Click-through links + Lash Finder / collection-page illustrations unchanged. Spec/plan: `docs/superpowers/{specs,plans}/2026-06-12-eye-shape-tile-images*`. ⚠️ Code-only — verify in theme editor after the draft theme is deployed/published.
 
 ### High priority — from review on 2026-05-19
 
