@@ -179,22 +179,34 @@
   </div>
   <div class="collection-grid collection-grid--3">
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#monolid">
-      <div class="collection-tile__image">
-        <img src="{{ 'monolid.svg' | asset_url }}" alt="Monolid eye shape">
+      <div class="collection-tile__image{% if section.settings.eye_image_monolid != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.eye_image_monolid != blank -%}
+          {{ section.settings.eye_image_monolid | image_url: width: 800 | image_tag: alt: 'Monolid eye shape', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'monolid.svg' | asset_url }}" alt="Monolid eye shape">
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Monolid</div>
       <div class="collection-tile__cta">Shop now →</div>
     </a>
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#double-lid">
-      <div class="collection-tile__image">
-        <img src="{{ 'almond.svg' | asset_url }}" alt="Double lid eye shape">
+      <div class="collection-tile__image{% if section.settings.eye_image_double_lid != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.eye_image_double_lid != blank -%}
+          {{ section.settings.eye_image_double_lid | image_url: width: 800 | image_tag: alt: 'Double lid eye shape', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'almond.svg' | asset_url }}" alt="Double lid eye shape">
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Double lid</div>
       <div class="collection-tile__cta">Shop now →</div>
     </a>
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-eye-shape#inner-double-lid">
-      <div class="collection-tile__image">
-        <img src="{{ 'hooded.svg' | asset_url }}" alt="Inner double lid eye shape">
+      <div class="collection-tile__image{% if section.settings.eye_image_inner_double_lid != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.eye_image_inner_double_lid != blank -%}
+          {{ section.settings.eye_image_inner_double_lid | image_url: width: 800 | image_tag: alt: 'Inner double lid eye shape', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'hooded.svg' | asset_url }}" alt="Inner double lid eye shape">
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Inner double lid</div>
       <div class="collection-tile__cta">Shop now →</div>
