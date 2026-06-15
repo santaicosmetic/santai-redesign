@@ -91,6 +91,9 @@ These are the items flagged at the end of Session 11. All require Riri's input o
 - [ ] **Upload UGC videos for the PDP "From the community" slider** — same setup, different block content per product page.
 - [ ] **Upload PDP demo video for "See it in action"** — Customize → "Watch how it works" → single video upload + poster image + caption. Currently shows a placeholder.
 
+**Accessory PDPs**
+- [x] **Accessory PDP — title fix + single video (Shopify theme)** — Done + deployed 2026-06-12. Curler/Cleanser fell back to the lash `product.json` (broken "The." title + two-column lash videos). Fixed: (1) `main-product.liquid` now shows the accessory name before the colon ("The Executive Lift." / "The Pure Ritual."), lash titles unchanged; (2) new `pdp-accessory-video.liquid` (one portrait centered video, theme-editor upload); (3) dedicated templates `product.executive-lift.json` (curler) + `product.pure-ritual.json` (cleanser) — clones of `product.json` with the two-column `videos` swapped for the single `accessory_video`, copy "Curlier lashes, lighter wear." / "Clean lashes, longer life." Pushed to draft #156386722014. ⚠️ Merchant uploads each accessory's video in the theme editor. Spec: `docs/superpowers/specs/2026-06-12-accessory-pdp-design.md`. **Known follow-up (deferred, agreed):** accessory pages still show lash-only sections (comparison "vs strip lashes", `pdp-suit` eye shapes, `pdp-howto` 3-step lash application, `pdp-editorial` lash quote, the "1 pair of … magnetic lashes" line) — trim/replace when ready.
+
 **Photography**
 - [ ] **Real product photography for Cleanser + Thermo Curler** — carried over from earlier sessions. Currently using lifestyle stand-ins.
 - [ ] **Reshoot Afterhours on-eye photo** — current `[1]` image looks too natural for a "Heavy makeup, drama 5" hero. Card hover undersells the product. Non-blocking.
