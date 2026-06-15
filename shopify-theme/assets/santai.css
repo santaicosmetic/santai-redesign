@@ -943,20 +943,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 /* ==========================================================================
    PDP — See it in action (single showcase video)
    ========================================================================== */
-.pdp-wide { padding-block: var(--space-7); }
-@media (min-width: 1024px) { .pdp-wide { padding-block: var(--space-9); } }
-.pdp-wide__video {
+.pdp-videos { padding-block: var(--space-7); }
+@media (min-width: 1024px) { .pdp-videos { padding-block: var(--space-9); } }
+.pdp-videos__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-7); max-width: 420px; margin: 0 auto; }
+@media (min-width: 720px) {
+  .pdp-videos__grid--two { grid-template-columns: 1fr 1fr; max-width: 880px; gap: var(--space-5); align-items: start; }
+}
+.pdp-videos__video {
   position: relative;
-  aspect-ratio: 16/9;
+  aspect-ratio: 9/16;
   background: var(--bg-card);
   overflow: hidden;
-  max-width: 880px;
-  margin: 0 auto;
+  margin-top: var(--space-4);
 }
-.pdp-wide__video > video,
-.pdp-wide__video > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.pdp-wide__placeholder { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--fg-muted); font-size: 14px; padding: var(--space-4); }
-.pdp-wide__caption { text-align: center; margin-top: var(--space-4); color: var(--fg-muted); font-size: 13px; }
+.pdp-videos__video > video,
+.pdp-videos__video > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pdp-videos__placeholder { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--fg-muted); font-size: 14px; padding: var(--space-4); }
+.pdp-videos__caption { text-align: center; margin-top: var(--space-3); color: var(--fg-muted); font-size: 13px; }
 
 .pdp-howto__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
 @media (min-width: 720px) { .pdp-howto__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }

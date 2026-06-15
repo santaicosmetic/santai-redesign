@@ -1,0 +1,90 @@
+{%- liquid
+  assign tut = section.settings.tutorial_video
+  assign tut_poster = section.settings.tutorial_poster
+  assign rv = product.metafields.santai.real_video.value
+  assign has_real = false
+  if rv != blank and rv.sources != blank
+    assign has_real = true
+  endif
+  assign show_real = false
+  if has_real or request.design_mode
+    assign show_real = true
+  endif
+-%}
+<section class="pdp-videos container">
+  <div class="pdp-videos__grid{% if show_real %} pdp-videos__grid--two{% endif %}">
+
+    <div class="pdp-videos__col">
+      <div class="section__head section__head--center">
+        <div class="section__head-text">
+          <div class="eyebrow">{{ section.settings.tut_eyebrow }}</div>
+          <h2 class="display-m">{{ section.settings.tut_heading_pre }}<span class="display-italic">{{ section.settings.tut_heading_italic }}</span></h2>
+        </div>
+      </div>
+      <div class="pdp-videos__video">
+        {%- if tut != blank -%}
+          <video
+            src="{{ tut.sources[1].url | default: tut.sources[0].url }}"
+            {% if tut_poster != blank %}poster="{{ tut_poster | image_url: width: 1200 }}"{% endif %}
+            playsinline
+            controls
+            preload="metadata"
+          ></video>
+        {%- elsif tut_poster != blank -%}
+          <img src="{{ tut_poster | image_url: width: 1200 }}" alt="" loading="lazy">
+        {%- else -%}
+          <div class="pdp-videos__placeholder" aria-hidden="true">Add a tutorial video in the theme editor</div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.tut_caption != blank -%}
+        <p class="pdp-videos__caption">{{ section.settings.tut_caption }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if show_real -%}
+    <div class="pdp-videos__col">
+      <div class="section__head section__head--center">
+        <div class="section__head-text">
+          <div class="eyebrow">{{ section.settings.real_eyebrow }}</div>
+          <h2 class="display-m">{{ section.settings.real_heading_pre }}<span class="display-italic">{{ section.settings.real_heading_italic }}</span></h2>
+        </div>
+      </div>
+      <div class="pdp-videos__video">
+        {%- if has_real -%}
+          <video playsinline controls preload="metadata">
+            {%- for s in rv.sources -%}<source src="{{ s.url }}" type="{{ s.mime_type }}">{%- endfor -%}
+          </video>
+        {%- else -%}
+          <div class="pdp-videos__placeholder" aria-hidden="true">Add this product's real-footage video under Products → this product → Metafields → "Real footage video".</div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.real_caption != blank -%}
+        <p class="pdp-videos__caption">{{ section.settings.real_caption }}</p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Videos",
+  "settings": [
+    { "type": "header", "content": "Tutorial (left) — shared across all products" },
+    { "type": "text",         "id": "tut_eyebrow",        "label": "Tutorial eyebrow",        "default": "How to apply" },
+    { "type": "text",         "id": "tut_heading_pre",    "label": "Tutorial heading start",  "default": "Easier than " },
+    { "type": "text",         "id": "tut_heading_italic", "label": "Tutorial heading italic", "default": "mascara." },
+    { "type": "video",        "id": "tutorial_video",     "label": "Tutorial video" },
+    { "type": "image_picker", "id": "tutorial_poster",    "label": "Tutorial poster image" },
+    { "type": "text",         "id": "tut_caption",        "label": "Tutorial caption",        "default": "Three seconds. No glue, no mirror gymnastics." },
+    { "type": "header", "content": "Real footage (right) — per product" },
+    { "type": "paragraph", "content": "The right video is set per product under Products → [product] → Metafields → \"Real footage video\" (santai.real_video). On the live site the right column only appears for products that have one." },
+    { "type": "text", "id": "real_eyebrow",        "label": "Real footage eyebrow",        "default": "Real footage" },
+    { "type": "text", "id": "real_heading_pre",    "label": "Real footage heading start",  "default": "See it on a real " },
+    { "type": "text", "id": "real_heading_italic", "label": "Real footage heading italic", "default": "eye." },
+    { "type": "text", "id": "real_caption",        "label": "Real footage caption",        "default": "Filmed on real customers. Nothing retouched." }
+  ],
+  "presets": [{ "name": "PDP — Videos" }]
+}
+{% endschema %}

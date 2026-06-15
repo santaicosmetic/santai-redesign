@@ -26,22 +26,17 @@
       },
       "block_order": ["r1", "r2", "r3", "r4", "r5"]
     },
-    "tutorial": {
-      "type": "pdp-tutorial",
+    "videos": {
+      "type": "pdp-videos",
       "settings": {
-        "eyebrow": "How to apply",
-        "heading_pre": "Easier than ",
-        "heading_italic": "mascara.",
-        "caption": "Three seconds. No glue, no mirror gymnastics."
-      }
-    },
-    "real_footage": {
-      "type": "pdp-real-footage",
-      "settings": {
-        "eyebrow": "Real footage",
-        "heading_pre": "See it on a real ",
-        "heading_italic": "eye.",
-        "caption": "Filmed on real customers. Nothing retouched."
+        "tut_eyebrow": "How to apply",
+        "tut_heading_pre": "Easier than ",
+        "tut_heading_italic": "mascara.",
+        "tut_caption": "Three seconds. No glue, no mirror gymnastics.",
+        "real_eyebrow": "Real footage",
+        "real_heading_pre": "See it on a real ",
+        "real_heading_italic": "eye.",
+        "real_caption": "Filmed on real customers. Nothing retouched."
       }
     },
     "howto": {
@@ -109,5 +104,5 @@
       }
     }
   },
-  "order": ["main", "comparison", "tutorial", "howto", "suit", "real_footage", "ugc", "reviews", "editorial"]
+  "order": ["main", "comparison", "videos", "howto", "suit", "ugc", "reviews", "editorial"]
 }
