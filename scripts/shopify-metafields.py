@@ -26,7 +26,7 @@ DEFINITIONS = [
     {'key': 'short_id',    'name': 'Short ID',        'type': 'single_line_text_field',        'desc': 'Internal short slug used by theme.js (e.g. inbox, pitch, curler).'},
     {'key': 'tagline',     'name': 'Tagline',         'type': 'single_line_text_field',        'desc': 'Short editorial pitch line shown on cards + PDP.'},
     {'key': 'category',    'name': 'Category',        'type': 'single_line_text_field',        'desc': 'Either "lash" or "accessory".'},
-    {'key': 'real_video',  'name': 'Real footage video (mp4 URL)', 'type': 'url',              'desc': "Per-product real wear-test video. Upload the mp4 under Settings -> Files, paste its URL here. Shown in the 'See it on a real eye' PDP section; the section hides when empty."},
+    {'key': 'real_video',  'name': 'Real footage video',           'type': 'file_reference',   'desc': "Per-product real wear-test video. Pick/upload a video file directly here. Shown in the 'See it on a real eye' PDP column; the column only appears for products that have one.", 'validations': [{'name': 'file_type_options', 'value': '["Video"]'}]},
     # Lash-only
     {'key': 'group',       'name': 'Makeup group',    'type': 'single_line_text_field',        'desc': 'Natural / Light makeup / Heavy makeup.'},
     {'key': 'eye_buckets', 'name': 'Eye-shape fit',   'type': 'list.single_line_text_field',   'desc': 'List of: monolid, double-lid, inner-double-lid.'},
@@ -49,11 +49,14 @@ mutation($def: MetafieldDefinitionInput!) {
 
 print('--- Creating metafield definitions ---')
 for d in DEFINITIONS:
-    res = gql(CREATE_DEF, {'def': {
+    def_input = {
         'namespace': 'santai', 'key': d['key'], 'name': d['name'],
         'description': d['desc'], 'type': d['type'], 'ownerType': 'PRODUCT',
         'pin': True,
-    }})
+    }
+    if d.get('validations'):
+        def_input['validations'] = d['validations']
+    res = gql(CREATE_DEF, {'def': def_input})
     errs = res['metafieldDefinitionCreate']['userErrors']
     if errs and any(e['code'] == 'TAKEN' for e in errs):
         print(f'  {d["key"]:14}  exists already (skipped)')
