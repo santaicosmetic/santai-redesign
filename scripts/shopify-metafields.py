@@ -26,6 +26,7 @@ DEFINITIONS = [
     {'key': 'short_id',    'name': 'Short ID',        'type': 'single_line_text_field',        'desc': 'Internal short slug used by theme.js (e.g. inbox, pitch, curler).'},
     {'key': 'tagline',     'name': 'Tagline',         'type': 'single_line_text_field',        'desc': 'Short editorial pitch line shown on cards + PDP.'},
     {'key': 'category',    'name': 'Category',        'type': 'single_line_text_field',        'desc': 'Either "lash" or "accessory".'},
+    {'key': 'real_video',  'name': 'Real footage video (mp4 URL)', 'type': 'url',              'desc': "Per-product real wear-test video. Upload the mp4 under Settings -> Files, paste its URL here. Shown in the 'See it on a real eye' PDP section; the section hides when empty."},
     # Lash-only
     {'key': 'group',       'name': 'Makeup group',    'type': 'single_line_text_field',        'desc': 'Natural / Light makeup / Heavy makeup.'},
     {'key': 'eye_buckets', 'name': 'Eye-shape fit',   'type': 'list.single_line_text_field',   'desc': 'List of: monolid, double-lid, inner-double-lid.'},
