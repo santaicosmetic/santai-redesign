@@ -1,7 +1,35 @@
 # Design — Two landscape PDP videos: Tutorial + per-product Real footage
 
 Date: 2026-06-12
-Status: Approved approach (Shopify theme only; merchant uploads videos)
+Status: Superseded by v2 revision below (Shopify theme only; merchant uploads videos)
+
+## ⟳ Revision (2026-06-12, v2) — combined, portrait, side-by-side, direct upload
+
+User changed the requirements after seeing the first build:
+
+1. **Both videos portrait (9:16)**, not landscape 16:9.
+2. **Both together, side by side** — so the two separate sections are **merged into
+   one section** `sections/pdp-videos.liquid` with two portrait columns
+   (desktop ≥720px: side by side; mobile: stacked). Left = Tutorial, Right = Real
+   footage.
+3. **Direct upload for both.** Tutorial stays a section-setting video (theme
+   editor). Real footage stays **per-product** (decision "A") but switches from a
+   URL metafield to a **`file_reference` (Video) metafield** so the merchant picks
+   /uploads a video file directly under the product's Metafields (no URL pasting).
+4. **Adaptive grid:** if a product has no real-footage video, the storefront shows
+   only the centered Tutorial column; the theme editor (`request.design_mode`)
+   always shows both columns with placeholders.
+
+Everything below this block describes the original v1 (two separate landscape
+sections, URL metafield) and is kept for history. The implementation plan
+`docs/superpowers/plans/2026-06-12-pdp-landscape-videos.md` is updated to v2.
+
+Metafield change: `santai.real_video` is redefined from `url` → `file_reference`
+restricted to Video (the old empty `url` definition is deleted and recreated; no
+product had a value yet, so this is lossless).
+
+---
+
 
 ## Goal
 
