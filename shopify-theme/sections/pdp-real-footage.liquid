@@ -1,0 +1,44 @@
+{%- liquid
+  assign rv = product.metafields.santai.real_video
+-%}
+{%- if rv != blank or request.design_mode -%}
+<section class="pdp-wide pdp-real-footage container">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+
+  <div class="pdp-wide__video">
+    {%- if rv != blank -%}
+      <video
+        src="{{ rv }}"
+        playsinline
+        controls
+        preload="metadata"
+      ></video>
+    {%- else -%}
+      <div class="pdp-wide__placeholder" aria-hidden="true">Add this product's real-footage URL under Products → this product → Metafields → "Real footage video" (santai.real_video).</div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.caption != blank -%}
+    <p class="pdp-wide__caption">{{ section.settings.caption }}</p>
+  {%- endif -%}
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PDP — Real footage",
+  "settings": [
+    { "type": "paragraph", "content": "The video is set per product under Products → [product] → Metafields → \"Real footage video\" (santai.real_video). This section hides automatically on the live site when that field is empty." },
+    { "type": "text", "id": "eyebrow",        "label": "Eyebrow",        "default": "Real footage" },
+    { "type": "text", "id": "heading_pre",    "label": "Heading start",  "default": "See it on a real " },
+    { "type": "text", "id": "heading_italic", "label": "Heading italic", "default": "eye." },
+    { "type": "text", "id": "caption",        "label": "Caption below",  "default": "Filmed on real customers. Nothing retouched." }
+  ],
+  "presets": [{ "name": "PDP — Real footage" }]
+}
+{% endschema %}
