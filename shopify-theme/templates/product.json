@@ -26,13 +26,22 @@
       },
       "block_order": ["r1", "r2", "r3", "r4", "r5"]
     },
-    "action": {
-      "type": "pdp-action",
+    "tutorial": {
+      "type": "pdp-tutorial",
       "settings": {
-        "eyebrow": "See it in action",
-        "heading_pre": "Watch how it ",
-        "heading_italic": "works.",
-        "caption": "60-second demo · how it goes on"
+        "eyebrow": "How to apply",
+        "heading_pre": "Easier than ",
+        "heading_italic": "mascara.",
+        "caption": "Three seconds. No glue, no mirror gymnastics."
+      }
+    },
+    "real_footage": {
+      "type": "pdp-real-footage",
+      "settings": {
+        "eyebrow": "Real footage",
+        "heading_pre": "See it on a real ",
+        "heading_italic": "eye.",
+        "caption": "Filmed on real customers. Nothing retouched."
       }
     },
     "howto": {
@@ -100,5 +109,5 @@
       }
     }
   },
-  "order": ["main", "comparison", "action", "howto", "suit", "ugc", "reviews", "editorial"]
+  "order": ["main", "comparison", "tutorial", "howto", "suit", "real_footage", "ugc", "reviews", "editorial"]
 }
