@@ -1,0 +1,48 @@
+<section class="pdp-wide pdp-tutorial container">
+  <div class="section__head section__head--center">
+    <div class="section__head-text">
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="display-l">{{ section.settings.heading_pre }}<span class="display-italic">{{ section.settings.heading_italic }}</span></h2>
+    </div>
+  </div>
+
+  {%- liquid
+    assign vid = section.settings.video
+    assign poster = section.settings.poster
+  -%}
+
+  <div class="pdp-wide__video">
+    {%- if vid != blank -%}
+      <video
+        src="{{ vid.sources[1].url | default: vid.sources[0].url }}"
+        {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}
+        playsinline
+        controls
+        preload="metadata"
+      ></video>
+    {%- elsif poster != blank -%}
+      <img src="{{ poster | image_url: width: 1600 }}" alt="" loading="lazy">
+    {%- else -%}
+      <div class="pdp-wide__placeholder" aria-hidden="true">Add a tutorial video in the theme editor</div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.caption != blank -%}
+    <p class="pdp-wide__caption">{{ section.settings.caption }}</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "PDP — Tutorial",
+  "settings": [
+    { "type": "text",         "id": "eyebrow",        "label": "Eyebrow",        "default": "How to apply" },
+    { "type": "text",         "id": "heading_pre",    "label": "Heading start",  "default": "Easier than " },
+    { "type": "text",         "id": "heading_italic", "label": "Heading italic", "default": "mascara." },
+    { "type": "video",        "id": "video",          "label": "Tutorial video (mp4)" },
+    { "type": "image_picker", "id": "poster",         "label": "Poster image" },
+    { "type": "text",         "id": "caption",        "label": "Caption below",  "default": "Three seconds. No glue, no mirror gymnastics." }
+  ],
+  "presets": [{ "name": "PDP — Tutorial" }]
+}
+{% endschema %}
