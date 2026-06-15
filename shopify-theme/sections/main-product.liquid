@@ -47,8 +47,12 @@
         {%- if mf.group.value -%}{{ mf.group.value }}{%- elsif is_accessory -%}Accessory · {{ mf.use_case.value | default: 'Lash care' }}{%- else -%}{{ product.product_type | default: 'Magnetic lashes' }}{%- endif -%}
       </div>
       <h1 class="display-l pdp-hero__h">
-        {%- assign title_parts = product.title | split: ' ' -%}
-        <span class="display-italic">{{ title_parts.first }}.</span>
+        {%- if is_accessory -%}
+          {%- assign disp_name = product.title | split: ':' | first -%}
+        {%- else -%}
+          {%- assign disp_name = product.title | split: ' ' | first -%}
+        {%- endif -%}
+        <span class="display-italic">{{ disp_name }}.</span>
       </h1>
       <div class="pdp-hero__sku mono">{{ variant.sku | default: 'SKU' }}</div>
 
