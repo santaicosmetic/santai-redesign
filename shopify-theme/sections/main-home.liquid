@@ -236,22 +236,34 @@
   </div>
   <div class="collection-grid collection-grid--3">
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#natural">
-      <div class="collection-tile__image">
-        <span class="lash-glyph" style="width:38%;height:1.5px"></span>
+      <div class="collection-tile__image{% if section.settings.makeup_image_natural != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.makeup_image_natural != blank -%}
+          {{ section.settings.makeup_image_natural | image_url: width: 800 | image_tag: alt: 'Natural', loading: 'lazy' }}
+        {%- else -%}
+          <span class="lash-glyph" style="width:38%;height:1.5px"></span>
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Natural</div>
       <div class="collection-tile__cta">Shop now →</div>
     </a>
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#light-makeup">
-      <div class="collection-tile__image">
-        <span class="lash-glyph" style="width:50%;height:2.5px"></span>
+      <div class="collection-tile__image{% if section.settings.makeup_image_light != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.makeup_image_light != blank -%}
+          {{ section.settings.makeup_image_light | image_url: width: 800 | image_tag: alt: 'Light makeup', loading: 'lazy' }}
+        {%- else -%}
+          <span class="lash-glyph" style="width:50%;height:2.5px"></span>
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Light makeup</div>
       <div class="collection-tile__cta">Shop now →</div>
     </a>
     <a class="collection-tile" href="{{ routes.root_url }}collections/by-makeup#heavy-makeup">
-      <div class="collection-tile__image">
-        <span class="lash-glyph" style="width:62%;height:4px"></span>
+      <div class="collection-tile__image{% if section.settings.makeup_image_heavy != blank %} collection-tile__image--photo{% endif %}">
+        {%- if section.settings.makeup_image_heavy != blank -%}
+          {{ section.settings.makeup_image_heavy | image_url: width: 800 | image_tag: alt: 'Heavy makeup', loading: 'lazy' }}
+        {%- else -%}
+          <span class="lash-glyph" style="width:62%;height:4px"></span>
+        {%- endif -%}
       </div>
       <div class="collection-tile__label">Heavy makeup</div>
       <div class="collection-tile__cta">Shop now →</div>
@@ -283,7 +295,12 @@
     { "type": "paragraph", "content": "Upload your own photo to replace the default illustration for each eye shape. Leave empty to keep the illustration. Photos are cropped to a 4:5 tile." },
     { "type": "image_picker", "id": "eye_image_monolid", "label": "Monolid image" },
     { "type": "image_picker", "id": "eye_image_double_lid", "label": "Double lid image" },
-    { "type": "image_picker", "id": "eye_image_inner_double_lid", "label": "Inner double lid image" }
+    { "type": "image_picker", "id": "eye_image_inner_double_lid", "label": "Inner double lid image" },
+    { "type": "header", "content": "Shop by makeup — tile images" },
+    { "type": "paragraph", "content": "Upload your own photo for each makeup level. Leave empty to keep the default line mark. Photos are cropped to a 4:5 tile." },
+    { "type": "image_picker", "id": "makeup_image_natural", "label": "Natural image" },
+    { "type": "image_picker", "id": "makeup_image_light", "label": "Light makeup image" },
+    { "type": "image_picker", "id": "makeup_image_heavy", "label": "Heavy makeup image" }
   ]
 }
 {% endschema %}
