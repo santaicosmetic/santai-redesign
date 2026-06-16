@@ -11,7 +11,11 @@
 
     <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="1 of 3">
       <div class="hero__image" aria-hidden="true">
-        <img class="hero__photo" src="{{ 'hero-1-applying.jpg' | asset_url }}" alt="" loading="eager">
+        {%- if section.settings.hero_image_1 != blank -%}
+          <img class="hero__photo" src="{{ section.settings.hero_image_1 | image_url: width: 2000 }}" alt="" loading="eager">
+        {%- else -%}
+          <img class="hero__photo" src="{{ 'hero-1-applying.jpg' | asset_url }}" alt="" loading="eager">
+        {%- endif -%}
         <div class="hero__scrim"></div>
       </div>
       <div class="hero__copy">
@@ -27,7 +31,11 @@
 
     <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="2 of 3">
       <div class="hero__image" aria-hidden="true">
-        <img class="hero__photo" src="{{ 'hero-2-side-angle.jpg' | asset_url }}" alt="" loading="lazy">
+        {%- if section.settings.hero_image_2 != blank -%}
+          <img class="hero__photo" src="{{ section.settings.hero_image_2 | image_url: width: 2000 }}" alt="" loading="lazy">
+        {%- else -%}
+          <img class="hero__photo" src="{{ 'hero-2-side-angle.jpg' | asset_url }}" alt="" loading="lazy">
+        {%- endif -%}
         <div class="hero__scrim"></div>
       </div>
       <div class="hero__copy">
@@ -43,7 +51,11 @@
 
     <article class="hero-slider__slide hero" aria-roledescription="slide" aria-label="3 of 3">
       <div class="hero__image" aria-hidden="true">
-        <img class="hero__photo" src="{{ 'hero-3-model.png' | asset_url }}" alt="" loading="lazy">
+        {%- if section.settings.hero_image_3 != blank -%}
+          <img class="hero__photo" src="{{ section.settings.hero_image_3 | image_url: width: 2000 }}" alt="" loading="lazy">
+        {%- else -%}
+          <img class="hero__photo" src="{{ 'hero-3-model.png' | asset_url }}" alt="" loading="lazy">
+        {%- endif -%}
         <div class="hero__scrim"></div>
       </div>
       <div class="hero__copy">
@@ -262,6 +274,11 @@
 {
   "name": "Home (main)",
   "settings": [
+    { "type": "header", "content": "Cover / hero images" },
+    { "type": "paragraph", "content": "The homepage cover rotates through 3 slides. Upload your own photo for each. Leave empty to keep the current image. Photos fill the slide (cropped to cover)." },
+    { "type": "image_picker", "id": "hero_image_1", "label": "Cover slide 1 — \"Lashes in a snap.\"" },
+    { "type": "image_picker", "id": "hero_image_2", "label": "Cover slide 2 — \"Quietly bestselling.\"" },
+    { "type": "image_picker", "id": "hero_image_3", "label": "Cover slide 3 — \"Beyond the lash.\"" },
     { "type": "header", "content": "Shop by eye shape — tile images" },
     { "type": "paragraph", "content": "Upload your own photo to replace the default illustration for each eye shape. Leave empty to keep the illustration. Photos are cropped to a 4:5 tile." },
     { "type": "image_picker", "id": "eye_image_monolid", "label": "Monolid image" },
