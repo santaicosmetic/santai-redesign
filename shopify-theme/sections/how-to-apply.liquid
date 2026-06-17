@@ -1,0 +1,140 @@
+<main class="howto">
+
+  <section class="howto-hero">
+    {%- liquid
+      assign hv = section.settings.hero_video
+      assign hp = section.settings.hero_poster
+    -%}
+    {%- if hv != blank -%}
+      <video class="howto-hero__photo" {% if hp != blank %}poster="{{ hp | image_url: width: 1600 }}"{% endif %} autoplay muted loop playsinline preload="metadata">
+        {%- for s in hv.sources -%}<source src="{{ s.url }}" type="{{ s.mime_type }}">{%- endfor -%}
+      </video>
+    {%- elsif hp != blank -%}
+      <img class="howto-hero__photo" src="{{ hp | image_url: width: 1600 }}" alt="" loading="eager">
+    {%- endif -%}
+    <div class="howto-hero__copy container">
+      <div class="eyebrow" style="color:var(--bg);opacity:.85">{{ section.settings.hero_eyebrow }}</div>
+      <h1 class="display-xl howto-hero__h">{{ section.settings.hero_heading_pre }}<span class="display-italic">{{ section.settings.hero_heading_italic }}</span></h1>
+      <p class="howto-hero__sub">{{ section.settings.hero_sub }}</p>
+    </div>
+  </section>
+
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'step' -%}
+      <section class="howto-step{% cycle 'howto-cycle': '', ' howto-step--alt' %}" {{ block.shopify_attributes }}>
+        <div class="howto-step__media">
+          {%- liquid
+            assign bv = block.settings.video
+            assign bp = block.settings.poster
+          -%}
+          {%- if bv != blank -%}
+            <video class="howto-step__video" {% if bp != blank %}poster="{{ bp | image_url: width: 1000 }}"{% endif %} autoplay muted loop playsinline preload="metadata">
+              {%- for s in bv.sources -%}<source src="{{ s.url }}" type="{{ s.mime_type }}">{%- endfor -%}
+            </video>
+          {%- elsif bp != blank -%}
+            <img src="{{ bp | image_url: width: 1000 }}" alt="" loading="lazy">
+          {%- else -%}
+            <div class="howto-step__placeholder" style="color:var(--fg-muted);font-size:14px;text-align:center;padding:24px">Upload a video for this step in the theme editor</div>
+          {%- endif -%}
+        </div>
+        <div class="howto-step__copy container">
+          <div class="display-l howto-step__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+          <h2 class="display-m howto-step__t">{{ block.settings.title }}</h2>
+          <p class="howto-step__d">{{ block.settings.description }}</p>
+        </div>
+      </section>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <section class="section container">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">Common mistakes</div>
+        <h2 class="display-l">Honest <span class="display-italic">fixes.</span></h2>
+      </div>
+    </div>
+    <div class="howto-mistakes">
+      <article class="howto-mistake">
+        <div class="eyebrow howto-mistake__lbl">Mistake</div>
+        <p class="howto-mistake__m">Strip lifting at the corner.</p>
+        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
+        <p class="howto-mistake__f display-italic">You placed it too low. Lift, raise 1mm, the magnets re-seat.</p>
+      </article>
+      <article class="howto-mistake">
+        <div class="eyebrow howto-mistake__lbl">Mistake</div>
+        <p class="howto-mistake__m">Looks too dramatic in daylight.</p>
+        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
+        <p class="howto-mistake__f display-italic">Try Inbox or Minutes — same band, lighter fibre.</p>
+      </article>
+      <article class="howto-mistake">
+        <div class="eyebrow howto-mistake__lbl">Mistake</div>
+        <p class="howto-mistake__m">Gap between band and lash line.</p>
+        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
+        <p class="howto-mistake__f display-italic">Apply your fixer first, fully dry, then the lash.</p>
+      </article>
+      <article class="howto-mistake">
+        <div class="eyebrow howto-mistake__lbl">Mistake</div>
+        <p class="howto-mistake__m">Hard to remove.</p>
+        <div class="eyebrow howto-mistake__lbl howto-mistake__lbl--fix">Fix</div>
+        <p class="howto-mistake__f display-italic">Slide a fingertip along the band. They lift off in one piece.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section container howto-checklist">
+    <div class="section__head">
+      <div class="section__head-text">
+        <div class="eyebrow">First-timer checklist</div>
+        <h2 class="display-l">Five minutes. <span class="display-italic">A mirror at eye level.</span></h2>
+      </div>
+    </div>
+    <ul class="howto-list">
+      <li><span class="howto-list__n mono">01</span><span>Take five minutes — the first time only. After that, thirty seconds.</span></li>
+      <li><span class="howto-list__n mono">02</span><span>Mirror at eye level. Looking down hides the lash line.</span></li>
+      <li><span class="howto-list__n mono">03</span><span>Apply your fixer first. Let it turn tacky before the lash.</span></li>
+      <li><span class="howto-list__n mono">04</span><span>Match the magnets — blue dot up, white dot down — then align to the lash line.</span></li>
+      <li><span class="howto-list__n mono">05</span><span>If it doesn't sit right, lift and replace. The magnets are forgiving.</span></li>
+    </ul>
+  </section>
+
+</main>
+
+{% schema %}
+{
+  "name": "How to apply",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "video",        "id": "hero_video",         "label": "Hero video" },
+    { "type": "image_picker", "id": "hero_poster",        "label": "Hero poster / fallback image" },
+    { "type": "text",         "id": "hero_eyebrow",       "label": "Hero eyebrow",       "default": "How to apply" },
+    { "type": "text",         "id": "hero_heading_pre",   "label": "Hero heading start", "default": "Easier than " },
+    { "type": "text",         "id": "hero_heading_italic","label": "Hero heading italic","default": "mascara." },
+    { "type": "text",         "id": "hero_sub",           "label": "Hero subtext",       "default": "Thirty seconds, no glue, no commitment." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "video",        "id": "video",       "label": "Step video" },
+        { "type": "image_picker", "id": "poster",      "label": "Step poster / fallback image" },
+        { "type": "text",         "id": "title",       "label": "Step title" },
+        { "type": "textarea",     "id": "description", "label": "Step description" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "How to apply",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Curl your natural lashes.",                "description": "Start with your own lashes curled — it helps the band sit flush." } },
+        { "type": "step", "settings": { "title": "Brush on the fixer.",                      "description": "A thin coat along your lash line. Let it turn tacky before the lash." } },
+        { "type": "step", "settings": { "title": "Place the lash — blue dot up, white dot down.", "description": "Match the magnets: the blue marker sits on top, the white below." } },
+        { "type": "step", "settings": { "title": "Align to your lash line and set.",         "description": "Lay it along the lash line and press gently to lock the magnets." } },
+        { "type": "step", "settings": { "title": "Peel off in one go.",                      "description": "At the end of the night, lift from the outer corner — off in one piece." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

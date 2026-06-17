@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "how-to-apply",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "title": "Curl your natural lashes.",                "description": "Start with your own lashes curled — it helps the band sit flush." } },
+        "s2": { "type": "step", "settings": { "title": "Brush on the fixer.",                      "description": "A thin coat along your lash line. Let it turn tacky before the lash." } },
+        "s3": { "type": "step", "settings": { "title": "Place the lash — blue dot up, white dot down.", "description": "Match the magnets: the blue marker sits on top, the white below." } },
+        "s4": { "type": "step", "settings": { "title": "Align to your lash line and set.",         "description": "Lay it along the lash line and press gently to lock the magnets." } },
+        "s5": { "type": "step", "settings": { "title": "Peel off in one go.",                      "description": "At the end of the night, lift from the outer corner — off in one piece." } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "s5"]
+    }
+  },
+  "order": ["main"]
+}
