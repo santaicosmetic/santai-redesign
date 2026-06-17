@@ -72,6 +72,8 @@
             "price": {{ p.price | money | json }},
             "handle": {{ p.handle | json }},
             "url": {{ p.url | json }},
+            {%- assign rvid = p.metafields.santai.real_video.value -%}
+            "real_video": {% if rvid and rvid.sources and rvid.sources.size > 0 %}{{ rvid.sources.last.url | json }}{% else %}""{% endif %},
             "variant_id": {{ p.selected_or_first_available_variant.id }}
           }
         {%- endif -%}

@@ -1402,7 +1402,9 @@
 
       var badgeClass = 'style-badge--' + GROUP_SLUG[s.group];
 
-      var html = '<img class="compare-col__photo" src="' + s.image + '" alt="' + s.name + ' lash style on eye" loading="lazy">';
+      var html = s.real_video
+        ? '<video class="compare-col__photo" src="' + s.real_video + '" autoplay muted loop playsinline></video>'
+        : '<img class="compare-col__photo" src="' + s.image + '" alt="' + s.name + ' lash style on eye" loading="lazy">';
       html += '<p class="compare-col__name">' + s.name + '</p>';
       html += '<p class="compare-col__tagline">' + s.tagline + '</p>';
       html += '<span class="style-badge ' + badgeClass + '">' + s.group + '</span>';

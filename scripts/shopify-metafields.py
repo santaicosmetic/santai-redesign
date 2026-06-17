@@ -26,7 +26,7 @@ DEFINITIONS = [
     {'key': 'short_id',    'name': 'Short ID',        'type': 'single_line_text_field',        'desc': 'Internal short slug used by theme.js (e.g. inbox, pitch, curler).'},
     {'key': 'tagline',     'name': 'Tagline',         'type': 'single_line_text_field',        'desc': 'Short editorial pitch line shown on cards + PDP.'},
     {'key': 'category',    'name': 'Category',        'type': 'single_line_text_field',        'desc': 'Either "lash" or "accessory".'},
-    {'key': 'real_video',  'name': 'Real footage video',           'type': 'file_reference',   'desc': "Per-product real wear-test video. Pick/upload a video file directly here. Shown in the 'See it on a real eye' PDP column; the column only appears for products that have one.", 'validations': [{'name': 'file_type_options', 'value': '["Video"]'}]},
+    {'key': 'real_video',  'name': 'Real footage video',           'type': 'file_reference',   'desc': "Per-product real wear-test video. Pick/upload a video file directly here. Shown in the 'See it on a real eye' PDP column AND in Compare Styles; the column only appears for products that have one.", 'validations': [{'name': 'file_type_options', 'value': '["Video"]'}]},
     # Lash-only
     {'key': 'group',       'name': 'Makeup group',    'type': 'single_line_text_field',        'desc': 'Natural / Light makeup / Heavy makeup.'},
     {'key': 'eye_buckets', 'name': 'Eye-shape fit',   'type': 'list.single_line_text_field',   'desc': 'List of: monolid, double-lid, inner-double-lid.'},
