@@ -429,10 +429,11 @@
 
     var form = popup.querySelector('[data-newsletter-form]');
     if (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        dismiss();
-        showToast('Welcome to the list. Watch your inbox.');
+      // Let the Shopify {% form 'customer' %} actually POST so the email is saved.
+      // (Previously this preventDefault'd the submit, silently dropping every signup.)
+      // Mark dismissed first so the popup doesn't reappear after the page reloads.
+      form.addEventListener('submit', function () {
+        try { localStorage.setItem('santai-newsletter-dismissed', '1'); } catch (e) {}
       });
     }
   }
@@ -673,7 +674,7 @@
         price: s.price,
         image: s.card || s.image || 'assets/images/products/lash-1-inbox.jpg',
         variant: s.group,
-        url: 'product.html?style=' + sid,
+        url: s.url || ('/products/' + (s.handle || sid)),
         text: [s.name, s.group, s.eyeType, s.tagline, s.design, sid].join(' ').toLowerCase()
       });
     }
@@ -685,7 +686,7 @@
         price: a.price,
         image: a.image,
         variant: 'Accessory',
-        url: 'product-' + aid + '.html',
+        url: a.url || ('/products/' + a.handle),
         text: [a.name, 'accessory', a.tagline].join(' ').toLowerCase()
       });
     }
@@ -768,7 +769,7 @@
         price: s.price,
         image: s.card || s.image || 'assets/images/products/lash-1-inbox.jpg',
         variant: s.group,
-        url: 'product.html?style=' + sid,
+        url: s.url || ('/products/' + (s.handle || sid)),
         text: [s.name, s.group, s.eyeType, s.tagline, s.design, sid].join(' ').toLowerCase()
       });
     }
@@ -779,7 +780,7 @@
         price: a.price,
         image: a.image,
         variant: 'Accessory',
-        url: 'product-' + aid + '.html',
+        url: a.url || ('/products/' + a.handle),
         text: [a.name, 'accessory', a.tagline].join(' ').toLowerCase()
       });
     }
@@ -807,7 +808,7 @@
     overlay.innerHTML = ''
       + '<div class="search-overlay__backdrop" data-search-overlay-close></div>'
       + '<div class="search-overlay__panel" role="dialog" aria-modal="true" aria-label="Search">'
-      +   '<form class="search-overlay__form" action="search.html" method="get" role="search">'
+      +   '<form class="search-overlay__form" action="/search" method="get" role="search">'
       +     '<svg class="search-overlay__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
       +     '<input class="search-overlay__input" type="search" name="q" placeholder="Search lashes, cleanser, monolid&hellip;" autocomplete="off" aria-label="Search query">'
       +     '<button type="button" class="search-overlay__close" data-search-overlay-close aria-label="Close search">✕</button>'
@@ -816,21 +817,21 @@
       +     '<div class="search-overlay__intro" data-search-overlay-intro>'
       +       '<div class="eyebrow">Popular searches</div>'
       +       '<div class="search-overlay__chips">'
-      +         '<a class="search-overlay__chip" href="search.html?q=monolid">Monolid</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=natural">Natural</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=heavy+makeup">Heavy makeup</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=daily">Daily</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=evening">Evening</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=curler">Curler</a>'
-      +         '<a class="search-overlay__chip" href="search.html?q=cleanser">Cleanser</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=monolid">Monolid</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=natural">Natural</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=heavy+makeup">Heavy makeup</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=daily">Daily</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=evening">Evening</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=curler">Curler</a>'
+      +         '<a class="search-overlay__chip" href="/search?q=cleanser">Cleanser</a>'
       +       '</div>'
       +     '</div>'
       +     '<div class="search-overlay__results" data-search-overlay-results></div>'
       +     '<div class="search-overlay__empty" data-search-overlay-empty style="display:none">'
       +       '<p>No matches for &ldquo;<span data-search-overlay-query></span>&rdquo;.</p>'
-      +       '<p class="search-overlay__empty-sub">Try a different word, or <a href="collection.html">browse the full collection</a>.</p>'
+      +       '<p class="search-overlay__empty-sub">Try a different word, or <a href="/collections/all">browse the full collection</a>.</p>'
       +     '</div>'
-      +     '<a class="search-overlay__see-all" data-search-overlay-see-all href="search.html" style="display:none">See all <span data-search-overlay-count>0</span> results &rarr;</a>'
+      +     '<a class="search-overlay__see-all" data-search-overlay-see-all href="/search" style="display:none">See all <span data-search-overlay-count>0</span> results &rarr;</a>'
       +   '</div>'
       + '</div>';
     document.body.appendChild(overlay);
@@ -884,7 +885,7 @@
       if (results.length > MAX_RESULTS) {
         seeAllEl.style.display = '';
         countEl.textContent = results.length;
-        seeAllEl.setAttribute('href', 'search.html?q=' + encodeURIComponent(query));
+        seeAllEl.setAttribute('href', '/search?q=' + encodeURIComponent(query));
       } else {
         seeAllEl.style.display = 'none';
       }
@@ -993,7 +994,7 @@
       var isLash = !!LASH_STYLES[id];
       var item = isLash ? LASH_STYLES[id] : ACCESSORIES[id];
       if (!item) return '';
-      var url = isLash ? ('product.html?style=' + id) : ('product-' + id + '.html');
+      var url = item.url || ('/products/' + item.handle);
       var img = item.card || item.image;
       var variant = isLash ? item.group : 'Accessory';
       return ''

@@ -259,6 +259,10 @@
     </section>
   {%- endif -%}
 
+  {%- unless is_accessory -%}
+    {% render 'compare-modal' %}
+  {%- endunless -%}
+
 </main>
 
 {% schema %}
