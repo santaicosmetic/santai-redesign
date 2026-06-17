@@ -585,6 +585,19 @@
         +   '<a class="btn btn-secondary" href="' + (s.url || '#') + '">See full details</a>'
         + '</div>'
         + '<a class="btn-ghost" href="#" data-finder-close>Not for me &mdash; show all 10</a>';
+
+      // Fill the result image (left). renderResult previously only touched the
+      // copy column, so the hero stayed a placeholder line with no product photo
+      // and no link. Show the product photo as a link to its PDP.
+      var hero = finder.querySelector('.finder-result__hero');
+      if (hero) {
+        var photo = s.card || s.image;
+        hero.innerHTML = '<span class="finder-result__hero-tag eyebrow">Your match</span>'
+          + (photo
+              ? '<a class="finder-result__photo-link" href="' + (s.url || '#') + '" aria-label="' + s.name + ' — see full details"><img class="finder-result__photo" src="' + photo + '" alt="' + s.name + '"></a>'
+              : '<span class="lash-glyph" style="width:56%;height:2px"></span>');
+      }
+
       // The injected add-to-cart button is handled by the delegated document listener.
       // Only the injected close link needs its handler re-attached:
       box.querySelectorAll('[data-finder-close]').forEach(function (b) {
