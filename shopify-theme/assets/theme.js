@@ -427,7 +427,7 @@
       if (e.key === 'Escape' && popup.classList.contains('is-open')) dismiss();
     });
 
-    var form = popup.querySelector('[data-newsletter-form]');
+    var form = popup.querySelector('[data-newsletter-form]') || popup.querySelector('form');
     if (form) {
       // Let the Shopify {% form 'customer' %} actually POST so the email is saved.
       // (Previously this preventDefault'd the submit, silently dropping every signup.)
