@@ -108,6 +108,16 @@ These are the items flagged at the end of Session 11. All require Riri's input o
 - [ ] **Favicon** — waiting on brand design.
 - [ ] **Stockists / Sustainability / Press pages** — stubbed `href="#"`. Build when content exists.
 
+**Site-wide bug-fix pass (2026-06-12) — editable images + working interactions**
+- [x] **Homepage images all editable** — `main-home.liquid` now has `image_picker` settings (with fallback) for: hero cover (3 slides), Shop-by-eye-shape tiles (3), Shop-by-makeup tiles (3). Merchant swaps any in the theme editor → "Home (main)".
+- [x] **Lash Finder result fixed** — result now shows the product photo (left) linked to its PDP; was a placeholder line with no image/link. (`theme.js renderResult` + `.finder-result__photo` CSS.)
+- [x] **Compare Styles fixed** — the modal markup was never ported to the theme, so `initCompare()` bailed at `#compareModal` and the button did nothing. Added `snippets/compare-modal.liquid`, rendered on lash PDPs (`unless is_accessory`). CSS + JS already present.
+- [x] **Search & wishlist links fixed** — JS was building prototype `product.html?style=` / `product-*.html` / `search.html` / `collection.html` URLs (404 on Shopify). Now uses the injected `s.url`/`a.url` and Shopify routes (`/search`, `/collections/all`).
+- [x] **Search results page added** — theme had NO search template, so submit/chips went nowhere. Added `templates/search.json` + `sections/main-search.liquid` (renders `search.results` as product-cards + empty state).
+- [x] **Newsletter popup actually subscribes** — handler used `preventDefault()` and silently dropped every signup; now lets the `{% form 'customer' %}` POST (marks dismissed first). NOTE: footer newsletter form not re-checked — verify it POSTs too.
+- [ ] **Cart discount-code field (drawer)** — still fake ("No discount code matches"); never calls Shopify. DECIDE: remove it (apply at checkout) vs wire to Shopify. Owner: Riri.
+- [ ] **Cart gift tiers (free Cleanser @2 / Curler @3)** — progress bar promises gifts but nothing adds them and no automatic discount is wired (misleading). DECIDE: configure a Buy-X-Get-Y automatic discount + auto-add gift lines, OR simplify the bar to free-shipping only. Owner: Riri.
+
 **Sections built but not yet exercised in theme editor by merchandiser**
 - [ ] Once the live theme is published, Riri should do a pass through the theme editor to confirm she can reorder sections, edit copy, swap images. The 5 new homepage sections + 5 new PDP sections all have presets so this should be straightforward.
 - [x] **Swappable "Shop by eye shape" tile images (Shopify theme)** — Done 2026-06-12. Three `image_picker` settings on `main-home.liquid`; each tile shows the merchant photo (object-fit: cover, 4:5) when set, else the brand SVG. Click-through links + Lash Finder / collection-page illustrations unchanged. Spec/plan: `docs/superpowers/{specs,plans}/2026-06-12-eye-shape-tile-images*`. **Deployed to draft theme #156386722014 2026-06-12.**
