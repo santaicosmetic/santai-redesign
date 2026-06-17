@@ -51,7 +51,7 @@
       </div>
       <div class="pdp-videos__video">
         {%- if has_real -%}
-          <video playsinline controls preload="metadata">
+          <video autoplay muted loop playsinline controls preload="metadata">
             {%- for s in rv.sources -%}<source src="{{ s.url }}" type="{{ s.mime_type }}">{%- endfor -%}
           </video>
         {%- else -%}

@@ -73,7 +73,8 @@
             "handle": {{ p.handle | json }},
             "url": {{ p.url | json }},
             {%- assign rvid = p.metafields.santai.real_video.value -%}
-            "real_video": {% if rvid and rvid.sources and rvid.sources.size > 0 %}{{ rvid.sources.last.url | json }}{% else %}""{% endif %},
+            {%- assign rv_mp4 = rvid.sources | where: 'format', 'mp4' -%}
+            "real_video": {% if rv_mp4 and rv_mp4.size > 0 %}{{ rv_mp4.first.url | json }}{% else %}""{% endif %},
             "variant_id": {{ p.selected_or_first_available_variant.id }}
           }
         {%- endif -%}
