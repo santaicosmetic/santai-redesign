@@ -35,11 +35,13 @@
     <p class="small" style="margin-top:8px;color:var(--fg-muted)">Start with our bestseller, <a href="{{ routes.root_url }}products/pitch-magnetic-eyelashes" style="color:var(--accent)">Pitch</a>.</p>
   </div>
 
-  <div class="cart-items" data-cart-items></div>
+  <div class="cart-drawer__scroll">
+    <div class="cart-items" data-cart-items></div>
 
-  <div class="cart-upsells" data-cart-upsells{% if cart.item_count == 0 %} style="display:none"{% endif %}>
-    <p class="cart-upsells__eyebrow">— You might also like</p>
-    <div class="cart-upsells__row" data-upsells-row></div>
+    <div class="cart-upsells" data-cart-upsells{% if cart.item_count == 0 %} style="display:none"{% endif %}>
+      <p class="cart-upsells__eyebrow">— You might also like</p>
+      <div class="cart-upsells__row" data-upsells-row></div>
+    </div>
   </div>
 
   <div class="cart-drawer__foot" data-cart-foot{% if cart.item_count == 0 %} style="display:none"{% endif %}>
