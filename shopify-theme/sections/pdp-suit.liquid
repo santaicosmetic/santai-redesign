@@ -43,6 +43,7 @@
           assign rec_image = ''
           if fits
             assign rec_url = product.url
+            assign rec_title = product.title | split: ' ' | first
             assign rec_image = product.images[1] | default: product.featured_image
           else
             for sibling in collections['all'].products limit: 50
@@ -68,9 +69,9 @@
           </div>
           <div class="pdp-suit__verdict">
             {%- if fits -%}
-              <span class="eyebrow" style="color:var(--accent)">Beautiful</span>
+              <span class="eyebrow" style="color:var(--accent)">{{ rec_title }} &middot; your match &rarr;</span>
             {%- elsif rec_title != blank -%}
-              <span class="eyebrow">Try {{ rec_title }} &rarr;</span>
+              <span class="eyebrow" style="color:var(--accent)">Try {{ rec_title }} &rarr;</span>
             {%- else -%}
               <span class="eyebrow">Not the best fit</span>
             {%- endif -%}
