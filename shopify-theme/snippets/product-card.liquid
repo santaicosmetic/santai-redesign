@@ -21,6 +21,10 @@
     {%- if product.featured_image -%}
       <img class="product-card__photo product-card__photo--primary" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy">
     {%- endif -%}
+    {%- assign hover_img = product.images[1] | default: product.featured_image -%}
+    {%- if hover_img != blank -%}
+      <img class="product-card__photo product-card__photo--hover" src="{{ hover_img | image_url: width: 600 }}" alt="{{ product.title | escape }} — on the eye" loading="lazy" aria-hidden="true">
+    {%- endif -%}
     <span class="product-card__hover-cue" aria-hidden="true">→</span>
   </div>
   <div class="product-card__title">{{ display_title }}</div>
