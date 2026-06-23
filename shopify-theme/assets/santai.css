@@ -991,8 +991,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .pdp-suit__cell { display: block; text-decoration: none; color: inherit; }
 .pdp-suit__image { aspect-ratio: 1/1; display: grid; place-items: center; }
 .pdp-suit__image svg { width: 96px; height: auto; }
-.pdp-suit__image--photo { overflow: hidden; background: var(--bg-card); }
-.pdp-suit__image--photo > img { width: 100%; height: 100%; object-fit: cover; }
+.pdp-suit__image--photo { overflow: hidden; background: var(--bg-card); aspect-ratio: 4/5; }
+.pdp-suit__image--photo > img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .pdp-suit__cell--alt .pdp-suit__verdict .eyebrow { color: var(--accent); }
 .pdp-suit__verdict { padding: 12px 0; text-align: center; }
 .pdp-suit__verdict h3 { font: 400 16px/1.2 var(--font-display); margin-top: 4px; }
