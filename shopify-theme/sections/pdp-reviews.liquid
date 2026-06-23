@@ -117,14 +117,12 @@
         </div>
 
         <div class="pdp-review-list" data-review-list>
-          {%- for r in reviews -%}
-            {% render 'review-card', r: r, show_product: false %}
-          {%- endfor -%}
-          {%- if reviews_overflow != blank -%}
-            {%- for r in reviews_overflow -%}
-              {% render 'review-card', r: r, show_product: false %}
-            {%- endfor -%}
-          {%- endif -%}
+          {%- comment -%} Reviews with photos first, so customers see them as soon as they reach the reviews. {%- endcomment -%}
+          {%- for r in reviews -%}{%- if r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: false %}{%- endif -%}{%- endfor -%}
+          {%- if reviews_overflow != blank -%}{%- for r in reviews_overflow -%}{%- if r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: false %}{%- endif -%}{%- endfor -%}{%- endif -%}
+          {%- comment -%} Then the rest, in order. {%- endcomment -%}
+          {%- for r in reviews -%}{%- unless r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: false %}{%- endunless -%}{%- endfor -%}
+          {%- if reviews_overflow != blank -%}{%- for r in reviews_overflow -%}{%- unless r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: false %}{%- endunless -%}{%- endfor -%}{%- endif -%}
         </div>
 
         <p class="pdp-reviews__empty" data-review-empty hidden>No reviews match this filter yet.</p>
