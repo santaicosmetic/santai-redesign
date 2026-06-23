@@ -990,6 +990,11 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
 .pdp-suit { background: var(--bg-soft); }
 .pdp-suit__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
 @media (min-width: 720px) { .pdp-suit__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); } }
+.collection-group-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: var(--space-6); }
+.collection-group-tab { font: 500 12px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 18px; min-height: 44px; border: 1px solid var(--line); background: var(--bg); color: var(--fg-muted); cursor: pointer; border-radius: 100px; transition: background var(--dur-fast) var(--ease-santai), color var(--dur-fast) var(--ease-santai), border-color var(--dur-fast) var(--ease-santai); }
+.collection-group-tab:hover { border-color: var(--fg); color: var(--fg); }
+.collection-group-tab.is-active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
 .pdp-suit__cell { display: block; text-decoration: none; color: inherit; }
 .pdp-suit__image { aspect-ratio: 1/1; display: grid; place-items: center; }
 .pdp-suit__image svg { width: 96px; height: auto; }

@@ -33,7 +33,7 @@
       endcase
     -%}
 
-    <section class="container collection-group" id="{{ bucket }}">
+    <section class="container collection-group" id="{{ bucket }}" data-group-label="{{ bucket_label }}">
       <div class="collection-group__head">
         <div class="collection-group__eye-icon">
           <img src="{{ bucket_svg | asset_url }}" alt="{{ bucket_label }} eye shape">

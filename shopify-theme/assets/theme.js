@@ -1256,6 +1256,50 @@
     });
   }
 
+  /* -------------------- Grouped collection pages (by eye shape / makeup) --
+     Pages render every bucket as a .collection-group section. Show one bucket
+     at a time via a tab bar; the homepage tiles link with #bucket so clicking
+     "Monolid" lands on just the monolid styles. "All" shows every group. */
+  function initCollectionGroups() {
+    var page = document.querySelector('.collection-page');
+    if (!page) return;
+    var groups = Array.prototype.slice.call(page.querySelectorAll('.collection-group[id]'));
+    if (groups.length < 2) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'collection-group-tabs container';
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Filter by category');
+    function tab(label, id) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'collection-group-tab';
+      b.textContent = label;
+      b.setAttribute('data-group-target', id);
+      return b;
+    }
+    bar.appendChild(tab('All', ''));
+    groups.forEach(function (g) { bar.appendChild(tab(g.getAttribute('data-group-label') || g.id, g.id)); });
+    groups[0].parentNode.insertBefore(bar, groups[0]);
+
+    function select(id) {
+      groups.forEach(function (g) { g.style.display = (!id || g.id === id) ? '' : 'none'; });
+      bar.querySelectorAll('.collection-group-tab').forEach(function (t) {
+        t.classList.toggle('is-active', t.getAttribute('data-group-target') === id);
+      });
+      if (id) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
+    }
+
+    bar.addEventListener('click', function (e) {
+      var t = e.target.closest('.collection-group-tab');
+      if (t) select(t.getAttribute('data-group-target'));
+    });
+
+    var hash = (location.hash || '').replace('#', '');
+    var match = groups.some(function (g) { return g.id === hash; });
+    select(match ? hash : '');
+  }
+
   /* -------------------- Hero slider (3 slides, auto-advance) ----------- */
   function initHeroSlider() {
     var slider = document.querySelector('[data-hero-slider]');
@@ -1549,6 +1593,7 @@
     initWishlist();
     initPDP();
     initCollectionTabs();
+    initCollectionGroups();
     initHeroSlider();
     initUgcSlider();
     initCompare();
