@@ -38,7 +38,7 @@
         {%- assign rating = r.rating.value | default: 5 | times: 1 -%}
         <article class="review">
           {%- if r.photos.value and r.photos.value.size > 0 -%}
-            <div class="review__photo"><img src="{{ r.photos.value.first | image_url: width: 600 }}" alt="Customer photo by {{ r.author.value | escape }}" loading="lazy"></div>
+            <div class="review__photo"><img src="{{ r.photos.references.first | image_url: width: 600 }}" alt="Customer photo by {{ r.author.value | escape }}" loading="lazy"></div>
           {%- endif -%}
           <div class="stars" aria-label="{{ rating }} stars">
             {%- for i in (1..5) -%}
