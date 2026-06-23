@@ -1644,13 +1644,16 @@
       var items = (shopifyCart && shopifyCart.items) || [];
       return items.map(function (it) {
         var info = (DATA.productMap || {})[String(it.product_id)] || {};
+        var isGift = it.properties && it.properties._gift === 'true';
         return {
           id: info.short_id || String(it.product_id),
           name: info.title || it.product_title || it.title,
           variant: it.variant_title || '',
           price: 'RM ' + (it.final_price / 100).toFixed(2).replace(/\.00$/, ''),
+          originalPrice: 'RM ' + (it.original_price / 100).toFixed(2).replace(/\.00$/, ''),
           image: it.image || '',
-          category: info.category || 'other',
+          // Auto-added free gifts carry the _gift line property — surface them as gifts.
+          category: isGift ? 'gift' : (info.category || 'other'),
           qty: it.quantity,
           // Shopify identifiers — needed for change/remove
           _key: it.key,
@@ -1660,12 +1663,50 @@
       });
     }
 
+    // Auto-add / remove the free gift accessories to match the lash count.
+    // Two Shopify automatic Buy-X-Get-Y discounts zero the gift price:
+    // 2 lashes -> free Foam Cleanser, 3 lashes -> free Thermo Curler.
+    var giftReconciling = false;
+    function reconcileShopifyGifts(shopifyCart) {
+      if (giftReconciling) return Promise.resolve();
+      var items = (shopifyCart && shopifyCart.items) || [];
+      var lashes = 0;
+      items.forEach(function (it) {
+        var info = (DATA.productMap || {})[String(it.product_id)] || {};
+        var isGift = it.properties && it.properties._gift === 'true';
+        if (info.category === 'lash' && !isGift) lashes += it.quantity;
+      });
+      var ids = DATA.idsByShortId || {};
+      var desired = [];
+      if (lashes >= 2 && ids.cleanser) desired.push(ids.cleanser);
+      if (lashes >= 3 && ids.curler) desired.push(ids.curler);
+      var inCart = items.map(function (it) { return it.variant_id; });
+      var giftLines = items.filter(function (it) { return it.properties && it.properties._gift === 'true'; });
+      var toAdd = desired.filter(function (v) { return inCart.indexOf(v) === -1; });
+      var toRemove = giftLines.filter(function (l) { return desired.indexOf(l.variant_id) === -1; });
+      if (!toAdd.length && !toRemove.length) return Promise.resolve();
+      giftReconciling = true;
+      var ops = toAdd.map(function (v) {
+        return fetch('/cart/add.js', { method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: v, quantity: 1, properties: { _gift: 'true' } }) });
+      }).concat(toRemove.map(function (l) {
+        return fetch('/cart/change.js', { method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: l.key, quantity: 0 }) });
+      }));
+      return Promise.all(ops)
+        .then(function () { giftReconciling = false; return refreshCart(); })
+        .catch(function () { giftReconciling = false; });
+    }
+
     function refreshCart() {
       return fetch('/cart.js', { credentials: 'same-origin' })
         .then(function (r) { return r.json(); })
         .then(function (shopifyCart) {
           cart = translateShopifyCart(shopifyCart);
           renderCart();
+          reconcileShopifyGifts(shopifyCart);
           return shopifyCart;
         });
     }
