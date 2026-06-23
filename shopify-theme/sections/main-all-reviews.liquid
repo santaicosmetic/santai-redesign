@@ -52,17 +52,15 @@
       </div>
 
       <div class="pdp-review-list" data-review-list>
+        {%- comment -%} Pass 1: reviews with photos, so they lead the page. {%- endcomment -%}
         {%- for p in collections['all'].products limit: 50 -%}
-          {%- if p.metafields.santai.reviews.value -%}
-            {%- for r in p.metafields.santai.reviews.value -%}
-              {% render 'review-card', r: r, show_product: true %}
-            {%- endfor -%}
-          {%- endif -%}
-          {%- if p.metafields.santai.reviews_overflow.value -%}
-            {%- for r in p.metafields.santai.reviews_overflow.value -%}
-              {% render 'review-card', r: r, show_product: true %}
-            {%- endfor -%}
-          {%- endif -%}
+          {%- if p.metafields.santai.reviews.value -%}{%- for r in p.metafields.santai.reviews.value -%}{%- if r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: true %}{%- endif -%}{%- endfor -%}{%- endif -%}
+          {%- if p.metafields.santai.reviews_overflow.value -%}{%- for r in p.metafields.santai.reviews_overflow.value -%}{%- if r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: true %}{%- endif -%}{%- endfor -%}{%- endif -%}
+        {%- endfor -%}
+        {%- comment -%} Pass 2: the rest. {%- endcomment -%}
+        {%- for p in collections['all'].products limit: 50 -%}
+          {%- if p.metafields.santai.reviews.value -%}{%- for r in p.metafields.santai.reviews.value -%}{%- unless r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: true %}{%- endunless -%}{%- endfor -%}{%- endif -%}
+          {%- if p.metafields.santai.reviews_overflow.value -%}{%- for r in p.metafields.santai.reviews_overflow.value -%}{%- unless r.photos.value and r.photos.value.size > 0 -%}{% render 'review-card', r: r, show_product: true %}{%- endunless -%}{%- endfor -%}{%- endif -%}
         {%- endfor -%}
       </div>
 
