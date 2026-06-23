@@ -101,15 +101,15 @@
     <a class="btn-ghost" href="{{ routes.root_url }}collections/all">Shop all →</a>
   </div>
   <div class="bestseller-grid">
-    {%- assign featured_handles = 'inbox-magnetic-eyelashes,pitch-magnetic-eyelashes,boardroom-magnetic-eyelashes,afterhours-magnetic-eyelashes' | split: ',' -%}
+    {%- assign featured_handles = 'boardroom-magnetic-eyelashes,inbox-magnetic-eyelashes,vip-access-magnetic-eyelashes-pre-order,memo-magnetic-eyelashes-pre-order' | split: ',' -%}
     {%- for h in featured_handles -%}
       {%- assign p = all_products[h] -%}
       {%- if p -%}
         {%- assign badge = '' -%}
-        {%- if p.handle == 'pitch-magnetic-eyelashes' -%}{%- assign badge = 'Bestseller' -%}{%- endif -%}
-        {%- if p.handle == 'inbox-magnetic-eyelashes' -%}{%- assign badge = 'First-timer pick' -%}{%- endif -%}
-        {%- if p.handle == 'boardroom-magnetic-eyelashes' -%}{%- assign badge = 'New' -%}{%- endif -%}
-        {%- if p.handle == 'afterhours-magnetic-eyelashes' -%}{%- assign badge = 'Award winner' -%}{%- endif -%}
+        {%- if p.handle == 'boardroom-magnetic-eyelashes' -%}{%- assign badge = 'Bestseller' -%}{%- endif -%}
+        {%- if p.handle == 'inbox-magnetic-eyelashes' -%}{%- assign badge = 'Light makeup favorite' -%}{%- endif -%}
+        {%- if p.handle == 'vip-access-magnetic-eyelashes-pre-order' -%}{%- assign badge = 'Heavy makeup favorite' -%}{%- endif -%}
+        {%- if p.handle == 'memo-magnetic-eyelashes-pre-order' -%}{%- assign badge = 'New' -%}{%- endif -%}
         {% render 'product-card', product: p, badge: badge %}
       {%- endif -%}
     {%- endfor -%}
