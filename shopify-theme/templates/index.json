@@ -88,7 +88,7 @@
         "full_faq_url": "/pages/faq"
       },
       "blocks": {
-        "q1": { "type": "qa", "settings": { "question": "How do I choose the right lashes?",      "answer": "<p>Take our 60-second Lash Match quiz — pick your eye shape, the look you want, and how often you'll wear them. We'll match you to one of 8 styles. If you'd rather browse, start with Inbox (first-timer friendly) or Pitch (our bestseller).</p>" } },
+        "q1": { "type": "qa", "settings": { "question": "How do I choose the right lashes?",      "answer": "<p>Take our 60-second Lash Match quiz — pick your eye shape, the look you want, and how often you'll wear them. We'll match you to one of 10 styles. If you'd rather browse, start with Inbox or our bestseller Boardroom.</p>" } },
         "q2": { "type": "qa", "settings": { "question": "Are they hard to wear for first-timers?", "answer": "<p>Genuinely easier than mascara. The first time takes about 5 minutes — after that, 30 seconds. The magnets do the alignment work; you just hold the band near your lash line and let it find its place.</p>" } },
         "q3": { "type": "qa", "settings": { "question": "Will they damage my natural lashes?",     "answer": "<p>No. Our lashes are magnet-only — no glue, no pulling, no tugging on your real lashes. Removal is a clean lift, not a pull.</p>" } },
         "q4": { "type": "qa", "settings": { "question": "How long do they last?",                   "answer": "<p>Up to 30 wears per pair when cared for properly. With our magnet-safe cleanser and flat storage, customers report 3–12 months of regular wear.</p>" } },
